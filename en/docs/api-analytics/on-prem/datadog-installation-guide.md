@@ -156,4 +156,4 @@ The published analytics events will be available in `Logs -> Search` view on the
 
 #### Step 2.4 - Import Dashboards
 
-Import the [dashboards.zip]({{base_path}}/assets/attachments/apim-elk/dashboards.zip) following the steps [here.](https://docs.datadoghq.com/dashboards/#copy-import-or-export-dashboard-json)
+Import the [dashboards.zip]({{base_path}}/assets/attachments/apim-elk/dashboards.zip){: download="dashboards.zip"} following the steps [here.](https://docs.datadoghq.com/dashboards/#copy-import-or-export-dashboard-json)

@@ -96,7 +96,7 @@ Follow the instructions below to configure Kerberos Grant using the Identity Se
     
     3. Click **Identity Server as a Key Manager Pack** under **OTHER RESOURCES**.
 
-2.  Download the [Kerberos grant.jar]({{base_path}}/assets/attachments/kerberos-grant-1.0.0.jar) file.
+2.  Download the [Kerberos grant.jar]({{base_path}}/assets/attachments/kerberos-grant-1.0.0.jar){: download="kerberos-grant-1.0.0.jar"} file.
 3.  Copy the JAR into the `<IS-KM_HOME>/repository/components/lib` directory.
 4.  To enable the **Kerberos grant**, add the following entry to the
     `deployment.toml` file in the `<IS-KM_HOME>/repository/conf/` folder.
