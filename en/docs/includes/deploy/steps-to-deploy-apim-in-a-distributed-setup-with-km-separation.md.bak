@@ -20,14 +20,14 @@ For more information, see [Production Deployment Guidelines](../../../../install
 
 Create an SSL certificate for each of the WSO2 API-M nodes and import them to the keystore and the truststore. This ensures that hostname mismatch issues in the certificates will not occur. 
 
-??? Note
+!!! Note
     The same primary keystore should be used for all API Manager instances to decrypt the registry resources. For more information, see [Configuring the Primary Keystore](../../../../install-and-setup/setup/security/configuring-keystores/configuring-keystores-in-wso2-api-manager/#configuring-the-primary-keystore).
 
 For more information, see [Creating SSL Certificates](../../../../install-and-setup/setup/security/configuring-keystores/keystore-basics/creating-new-keystores/).
 
 ### Step 5 - Configure API-M Analytics
 
-API Manager Analytics is delivered via the API Manager Analytics cloud solution. You need to configure the WSO2 Universal Gateway distribution to publish analytics data to the cloud.
+API Manager Analytics is delivered via the API Manager Analytics cloud solution. You need to configure the Universal Gateway to publish analytics data to the cloud.
 
 See the instructions on [configuring the Gateway](../../../../api-analytics/choreo-analytics/getting-started-guide/) with the cloud-based analytics solution.
 
@@ -35,9 +35,231 @@ See the instructions on [configuring the Gateway](../../../../api-analytics/chor
 
 Let's configure the API-M nodes in the deployment.
 
+#### Configure the Key Manager nodes
+
+##### Prerequisite
+
+1. Make a copy of the WSO2 API Control Plane distribution to be used as the Key Manager node.
+
+2. Create an optimized distribution for the Key Manager profile.
+
+    Run the `<KM_HOME>/bin/profileSetup.sh` script or `<KM_HOME>/bin/profileSetup.bat` script based on your operating system, with the profile flag.
+
+    === "Linux/Solaris/MacOS"
+        ``` bash
+        sh <KM_HOME>/bin/profileSetup.sh -Dprofile=key-manager
+        ```
+    
+    === "Windows"
+        ``` bash
+        <KM_HOME>/bin/profileSetup.bat -Dprofile=key-manager
+        ```   
+
+##### Configuration
+
+Follow the steps given below to configure the Key Manager nodes to communicate with the API Control Plane.
+
+1. Open the `<KM_HOME>/repository/conf/deployment.toml` file of the Key Manager node.
+
+2. Add the following configurations to the deployment.toml file.
+
+    === "API Control Plane with High Availability"
+        ```toml
+        # Event Listener configurations
+        [[event_listener]]
+        id = "token_revocation"
+        type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+        name = "org.wso2.is.notification.ApimOauthEventInterceptor"
+        order = 1
+
+        [event_listener.properties]
+        notification_endpoint = "https://[control-plane-LB-host]/internal/data/v1/notify"
+        username = "${admin.username}"
+        password = "${admin.password}"
+        'header.X-WSO2-KEY-MANAGER' = "default"
+
+        # Eventhub configurations
+        [apim.event_hub]
+        enable = true
+        username= "$ref{super_admin.username}"
+        password= "$ref{super_admin.password}"
+        service_url = "https://[control-plane-LB-host]/services/"
+        event_listening_endpoints = ["tcp://control-plane-1-host:5672", "tcp://control-plane-2-host:5672"]
+        
+        ```
+
+    === "Single API Control Plane"
+        ```toml
+        # Event Listener configurations
+        [[event_listener]]
+        id = "token_revocation"
+        type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+        name = "org.wso2.is.notification.ApimOauthEventInterceptor"
+        order = 1
+
+        [event_listener.properties]
+        notification_endpoint = "https://[control-plane-host]:${mgt.transport.https.port}/internal/data/v1/notify"
+        username = "${admin.username}"
+        password = "${admin.password}"
+        'header.X-WSO2-KEY-MANAGER' = "default"
+
+        # Eventhub configurations
+        [apim.event_hub]
+        enable = true
+        username= "$ref{super_admin.username}"
+        password= "$ref{super_admin.password}"
+        service_url = "https://control-plane-host:9443/services/"
+        event_listening_endpoints = ["tcp://control-plane-host:5672"]
+
+        ```
+
+3. If required, encrypt the Auth Keys (access tokens, client secrets, and authorization codes), see [Encrypting OAuth Keys](../../../../design/api-security/oauth2/encrypting-oauth2-tokens).
+
+4. Follow the steps given below to configure High Availability (HA) for the Key Manager nodes:
+
+    1. Create a copy of the Key Manager node that you just configured. This is the second node of the Key Manager cluster.
+
+    2. Configure a load balancer fronting the two Key Manager nodes in your deployment. For instructions, see [Configuring the Proxy Server and the Load Balancer](../../../../install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer).
+
+###### Sample configuration for the Key Manager
+
+=== "HA Cluster"
+    ```toml
+    [server]
+    hostname = "km.wso2.com"
+    server_role = "default"
+
+    [user_store]
+    type = "database_unique_id"
+
+    [super_admin]
+    username = "admin"
+    password = "admin"
+    create_admin_account = true
+
+    [database.apim_db]
+    type = "mysql"
+    hostname = "db.wso2.com"
+    name = "apimgt_db"
+    port = "3306"
+    username = "apiadmin"
+    password = "apimadmin"
+
+    [database.shared_db]
+    type = "mysql"
+    hostname = "db.wso2.com"
+    name = "shared_db"
+    port = "3306"
+    username = "apimadmin"
+    password = "apimadmin"
+
+    [keystore.tls]
+    file_name =  "wso2carbon.jks"
+    type =  "JKS"
+    password =  "wso2carbon"
+    alias =  "wso2carbon"
+    key_password =  "wso2carbon"
+
+    [truststore]
+    file_name = "client-truststore.jks"
+    type = "JKS"
+    password = "wso2carbon"
+
+    [[event_handler]]
+    name="userPostSelfRegistration"
+    subscriptions=["POST_ADD_USER"]
+
+    [[event_listener]]
+    id = "token_revocation"
+    type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+    name = "org.wso2.is.notification.ApimOauthEventInterceptor"
+    order = 1
+    [event_listener.properties]
+    notification_endpoint = "https://[control-plane-LB-host]/internal/data/v1/notify"
+    username = "${admin.username}"
+    password = "${admin.password}"
+    'header.X-WSO2-KEY-MANAGER' = "default"
+
+    # Eventhub configurations
+    [apim.event_hub]
+    enable = true
+    username= "$ref{super_admin.username}"
+    password= "$ref{super_admin.password}"
+    service_url = "https://[control-plane-LB-host]/services/"
+    event_listening_endpoints = ["tcp://control-plane-1-host:5672", "tcp://control-plane-2-host:5672"]
+
+    ```
+
+=== "Single Node"
+    ```toml
+    [server]
+    hostname = "km.wso2.com"
+    server_role = "default"
+
+    [user_store]
+    type = "database_unique_id"
+
+    [super_admin]
+    username = "admin"
+    password = "admin"
+    create_admin_account = true
+
+    [database.apim_db]
+    type = "mysql"
+    hostname = "db.wso2.com"
+    name = "apimgt_db"
+    port = "3306"
+    username = "apiadmin"
+    password = "apimadmin"
+
+    [database.shared_db]
+    type = "mysql"
+    hostname = "db.wso2.com"
+    name = "shared_db"
+    port = "3306"
+    username = "apimadmin"
+    password = "apimadmin"
+
+    [keystore.tls]
+    file_name =  "wso2carbon.jks"
+    type =  "JKS"
+    password =  "wso2carbon"
+    alias =  "wso2carbon"
+    key_password =  "wso2carbon"
+
+    [truststore]
+    file_name = "client-truststore.jks"
+    type = "JKS"
+    password = "wso2carbon"
+
+    [[event_handler]]
+    name="userPostSelfRegistration"
+    subscriptions=["POST_ADD_USER"]
+
+    [[event_listener]]
+    id = "token_revocation"
+    type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
+    name = "org.wso2.is.notification.ApimOauthEventInterceptor"
+    order = 1
+    [event_listener.properties]
+    notification_endpoint = "https://cp.wso2.com:9443/internal/data/v1/notify"
+    username = "${admin.username}"
+    password = "${admin.password}"
+    'header.X-WSO2-KEY-MANAGER' = "default"
+
+    # Eventhub configurations
+    [apim.event_hub]
+    enable = true
+    username= "$ref{super_admin.username}"
+    password= "$ref{super_admin.password}"
+    service_url = "https://control-plane-host:9443/services/"
+    event_listening_endpoints = ["tcp://control-plane-host:5672"]
+
+    ```
+
 #### Configure the Gateway nodes
 
-Configure the Gateway to communicate with the API Control Plane and the Traffic Manager nodes.
+Configure the Gateway to communicate with the API Control Plane, Traffic Manager and the Key Manager nodes.
 
 Follow the instructions given below to configure the Gateway node so that it can communicate with the API Control Plane node:
 
@@ -50,12 +272,6 @@ Follow the instructions given below to configure the Gateway node so that it can
      
     === "API Control Plane with High Availability"
         ```toml
-        # Key Manager configuration
-        [apim.key_manager]
-        service_url = "https://[control-plane-LB-host]/services/"
-        username = "$ref{super_admin.username}"
-        password = "$ref{super_admin.password}"
-
         # Event Hub configurations
         [apim.event_hub]
         enable = true
@@ -63,17 +279,10 @@ Follow the instructions given below to configure the Gateway node so that it can
         password = "$ref{super_admin.password}"
         service_url = "https://[control-plane-LB-host]/services/"
         event_listening_endpoints = ["tcp://control-plane-1-host:5672", "tcp://control-plane-2-host:5672"]
-        
         ```
 
     === "Single API Control Plane"
         ```toml
-        # Key Manager configuration
-        [apim.key_manager]
-        service_url = "https://[control-plane-host]:${mgt.transport.https.port}/services/"
-        username = "$ref{super_admin.username}"
-        password = "$ref{super_admin.password}"
-
         # Event Hub configurations
         [apim.event_hub]
         enable = true
@@ -86,37 +295,54 @@ Follow the instructions given below to configure the Gateway node so that it can
     !!! Info
         Event hub configuration is used to retrieve Gateway artifacts. Using `event_listening_endpoints`, the Gateway will create a JMS connection with the event hub that is then used to subscribe for API/Application/Subscription and Key Manager operations-related events. The `service_url` points to the internal API that resides in the event hub that is used to pull artifacts and information from the database.
 
-    * **Connecting the Gateway to the Traffic Manager node**:
+    * **Connecting the Gateway to the Key Manager node**:
       
-    === "Traffic Manager with HA"
+    === "Key Manager with HA"
         ```toml
+        # Key Manager configuration
+        [apim.key_manager]
+        service_url = "https://[key-manager-LB-host]/services/"
+        username = "$ref{super_admin.username}"
+        password = "$ref{super_admin.password}"
+
+        ```
+
+    === "Single Key Manager"
+        ```toml
+        # Key Manager configuration
+        [apim.key_manager]
+        service_url = "https://[key-manager-host]:${mgt.transport.https.port}/services/"
+        username = "$ref{super_admin.username}"
+        password = "$ref{super_admin.password}"
+        ```
+    
+    * **Connecting the Gateway to the Traffic Manager node**:
+
+    === "Traffic Manager with High Availability"
+        ```toml
+        # Traffic Manager configurations
         [apim.throttling]
-        throttle_decision_endpoints = ["tcp://traffic-manager-1-host:5672", "tcp://Traffic-Manager-2-host:5672"]
+        throttle_decision_endpoints = ["tcp://traffic-manager-1:5672", "tcp://traffic-manager-2:5672"]
 
         [[apim.throttling.url_group]]
-        traffic_manager_urls = ["tcp://traffic-manager-1-host:9611"]
-        traffic_manager_auth_urls = ["ssl://traffic-manager-1-host:9711"]
+        traffic_manager_urls=["tcp://traffic-manager-1:9611"]
+        traffic_manager_auth_urls=["ssl://traffic-manager-1:9711"]
 
         [[apim.throttling.url_group]]
-        traffic_manager_urls = ["tcp://traffic-manager-2-host:9611"]
-        traffic_manager_auth_urls = ["ssl://traffic-manager-2-host:9711"]
-
+        traffic_manager_urls=["tcp://traffic-manager-2:9611"]
+        traffic_manager_auth_urls=["ssl://traffic-manager-2:9711"]
         ```
 
     === "Single Traffic Manager"
         ```toml
+        # Traffic Manager configurations
         [apim.throttling]
-        throttle_decision_endpoints = ["tcp://traffic-manager-host:5672"]
+        throttle_decision_endpoints = ["tcp://tm.wso2.com:5672"]
 
         [[apim.throttling.url_group]]
-        traffic_manager_urls = ["tcp://traffic-manager-host:9611"]
-        traffic_manager_auth_urls = ["ssl://traffic-manager-host:9711"]
+        traffic_manager_urls=["tcp://tm.wso2.com:9611"]
+        traffic_manager_auth_urls=["ssl://tm.wso2.com:9711"]
         ```
-
-    !!! Info
-        Rate limiting configurations are used by the Gateway to connect with the Traffic Manager. The Gateway will publish Gateway invocation-related events to the TM using the `apim.throttling.url_group`. Traffic Managers will receive these events and rate limiting decisions will be published to the Gateway. To receive these rate limiting decisions, the Gateway has to create a JMS connection using `throttle_decision_endpoints` and listen.
-
-        {!includes/deploy/enable-jms-ssl-for-gw-tm.md!}
 
 3. Add the following configurations to the deployment.toml file to configure the Gateway environment. Change the `gateway_labels` property based on your Gateway environment.
 
@@ -126,13 +352,13 @@ Follow the instructions given below to configure the Gateway node so that it can
     ```
 
     !!! Info
-        Once an API is deployed/undeployed, the API Control Plane will send a deploy/undeploy event to the Gateways. Using this configuration, the Gateway will filter out its relevant deploy/undeploy events and retrieve the artifacts.
+        Once an API is deployed/undeployed, the Control Plane will send a deploy/undeploy event to the Gateways. Using this configuration, the Gateway will filter out its relevant deploy/undeploy events and retrieve the artifacts.
 
 4. Enable JSON Web Token (JWT) if required. For instructions, see [Generating JSON Web Token](../../../../deploy-and-publish/deploy-on-gateway/api-gateway/passing-enduser-attributes-to-the-backend-via-api-gateway).
 
 5. Add the public certificate of the private key (that is used for signing the tokens) to the truststore under the "gateway_certificate_alias" alias. For instructions, see [Create and import SSL certificates](../../../../install-and-setup/setup/security/configuring-keystores/keystore-basics/creating-new-keystores).
 
-    ??? Note
+    !!! Note
         This is not applicable if you use the default certificates, which are the certificates that are shipped with the product itself.
 
 6. Follow the steps given below to configure High Availability (HA) for the Universal Gateway:
@@ -141,7 +367,7 @@ Follow the instructions given below to configure the Gateway node so that it can
 
     2. Configure a load balancer fronting the two Gateway nodes in your deployment. For instructions, see [Configuring the Proxy Server and the Load Balancer](../../../../install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer).
 
-        ??? Note
+        !!! Note
             To keep custom runtime artifacts deployed in the Gateway, add the following configuration in the `<UNIVERSAL-GW_HOME>/repository/conf/deployment.toml` file of the Gateway nodes.
 
             ```toml
@@ -190,7 +416,6 @@ Follow the instructions given below to configure the Gateway node so that it can
         ```
 
 ###### Sample configuration for the Gateway
-
 === "HA Cluster"
     ```toml
     [server]
@@ -236,7 +461,7 @@ Follow the instructions given below to configure the Gateway node so that it can
 
     # key manager implementation
     [apim.key_manager]
-    service_url = "https://api.am.wso2.com/services/"
+    service_url = "https://km.am.wso2.com/services/"
 
     [apim.sync_runtime_artifacts.gateway]
     gateway_labels =["Default"]
@@ -246,7 +471,7 @@ Follow the instructions given below to configure the Gateway node so that it can
     enable = true
     username = "$ref{super_admin.username}"
     password = "$ref{super_admin.password}"
-    service_url = "https://api.am.wso2.com/services/"
+    service_url = "https://cp.am.wso2.com/services/"
     event_listening_endpoints = ["tcp://apim-cp-1:5672", "tcp://apim-cp-2:5672"]
 
     # Traffic Manager configurations
@@ -298,7 +523,7 @@ Follow the instructions given below to configure the Gateway node so that it can
 
     # Key Manager configuration
     [apim.key_manager]
-    service_url = "https://cp.wso2.com:9443/services/"
+    service_url = "https://km.wso2.com:9443/services/"
     username = "$ref{super_admin.username}"
     password = "$ref{super_admin.password}"
 
@@ -325,11 +550,32 @@ Follow the instructions given below to configure the Gateway node so that it can
 
 #### Configure the API Control Plane nodes
 
-Follow the steps given below to configure the API Control Plane nodes to communicate with the Universal Gateway.
+Follow the steps given below to configure the Control Plane nodes to communicate with the Gateway and the Key Manager.
 
 1. Open the `<ACP_HOME>/repository/conf/deployment.toml` file of the API Control Plane node.
 
 2. Add the following configurations to the deployment.toml file.
+
+    **Connecting the API Control Plane to the Key Manager node**:
+
+    === "Key Manager with High Availability"
+        ```toml
+        # Key Manager configuration
+        [apim.key_manager]
+        service_url = "https://[key-manager-LB-host]/services/"
+        username = "$ref{super_admin.username}"
+        password = "$ref{super_admin.password}"
+
+        ```
+
+    === "Single Key Manager"
+        ```toml
+        # Key Manager configuration
+        [apim.key_manager]
+        service_url = "https://[key-manager-host]:${mgt.transport.https.port}/services/"
+        username = "$ref{super_admin.username}"
+        password = "$ref{super_admin.password}"
+        ```
 
     **Connecting the API Control Plane to the Gateway node**:
 
@@ -415,42 +661,6 @@ Follow the steps given below to configure the API Control Plane nodes to communi
     !!! Info
         As there are two event hubs in a HA setup, each event hub has to publish events to both event streams. This will be done through the event streams created with `apim.event_hub.publish.url_group`. The token revocation events that are received to an event hub will be duplicated to the other event hub using `event_duplicate_url`.
 
-    **Add Event Listener Configurations**:
-
-    The below configurations are only added to the API Control Plane if you are using the Resident Key Manager (resides in the API Control Plane). If you are using WSO2 IS as Key Manager, you need to add these in the IS node. Once you add the below configurations, the Control Plane or Identity Server will listen to token revocation events and invoke the `notification_endpoint` regarding the revoked token. 
-
-    === "API Control Plane with High Availability"
-        ```toml
-        # Event Listener configurations
-        [[event_listener]]
-        id = "token_revocation"
-        type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
-        name = "org.wso2.is.notification.ApimOauthEventInterceptor"
-        order = 1
-
-        [event_listener.properties]
-        notification_endpoint = "https://[control-plane-LB-host]/internal/data/v1/notify"
-        username = "${admin.username}"
-        password = "${admin.password}"
-        'header.X-WSO2-KEY-MANAGER' = "default"
-        ```
-
-    === "Single API Control Plane"
-        ```toml
-        # Event Listener configurations
-        [[event_listener]]
-        id = "token_revocation"
-        type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
-        name = "org.wso2.is.notification.ApimOauthEventInterceptor"
-        order = 1
-
-        [event_listener.properties]
-        notification_endpoint = "https://[control-plane-host]:${mgt.transport.https.port}/internal/data/v1/notify"
-        username = "${admin.username}"
-        password = "${admin.password}"
-        'header.X-WSO2-KEY-MANAGER' = "default"
-        ```
-
 3. If required, encrypt the Auth Keys (access tokens, client secrets, and authorization codes), see [Encrypting OAuth Keys](../../../../design/api-security/oauth2/encrypting-oauth2-tokens).
 
 4. Optionally, add the following configuration to enable distributed cache invalidation within the API Control Plane nodes.
@@ -532,6 +742,12 @@ Follow the steps given below to configure the API Control Plane nodes to communi
     [transport.https.properties]
     proxyPort = 443
 
+    [apim.cors]
+    allow_origins = "*"
+    allow_methods = ["GET","PUT","POST","DELETE","PATCH","OPTIONS"]
+    allow_headers = ["authorization","Access-Control-Allow-Origin","Content-Type","SOAPAction","apikey","Internal-Key"]
+    allow_credentials = false
+
     # Event Hub configurations
     [apim.event_hub]
     enable = true
@@ -551,10 +767,9 @@ Follow the steps given below to configure the API Control Plane nodes to communi
 
     # key manager implementation
     [apim.key_manager]
-    service_url = "https://api.am.wso2.com/services/"
+    service_url = "https://[key-manager-LB-host]/services/"
     username= "$ref{super_admin.username}"
     password= "$ref{super_admin.password}"
-    type = "default"
 
     [[event_listener]]
     id = "token_revocation"
@@ -563,10 +778,11 @@ Follow the steps given below to configure the API Control Plane nodes to communi
     order = 1
 
     [event_listener.properties]
-    notification_endpoint = "https://api.am.wso2.com/internal/data/v1/notify"
+    notification_endpoint = "https://localhost:${mgt.transport.https.port}/internal/data/v1/notify"
     username = "${admin.username}"
     password = "${admin.password}"
     'header.X-WSO2-KEY-MANAGER' = "default"
+
     ```
 
 === "Single Node"
@@ -608,6 +824,15 @@ Follow the steps given below to configure the API Control Plane nodes to communi
     alias =  "wso2carbon"
     key_password =  "wso2carbon"
 
+    [apim.devportal]
+    url = "https://cp.wso2.com:9443/devportal"
+
+    # key manager implementation
+    [apim.key_manager]
+    service_url = "https://km.wso2.com:9443/services/"
+    username= "$ref{super_admin.username}"
+    password= "$ref{super_admin.password}"
+
     # Gateway configuration
     [[apim.gateway.environment]]
     name = "Default"
@@ -631,7 +856,7 @@ Follow the steps given below to configure the API Control Plane nodes to communi
     order = 1
 
     [event_listener.properties]
-    notification_endpoint = "https://cp.wso2.com:9443/internal/data/v1/notify"
+    notification_endpoint = "https://localhost:${mgt.transport.https.port}/internal/data/v1/notify"
     username = "${admin.username}"
     password = "${admin.password}"
     'header.X-WSO2-KEY-MANAGER' = "default"
@@ -648,7 +873,6 @@ Follow the steps given below to configure the API Control Plane nodes to communi
     urls = ["tcp://cp.wso2.com:9611"]
     auth_urls = ["ssl://cp.wso2.com:9711"]
     ```
-
 #### Configure the Traffic Manager Nodes
 
 Configure the Traffic Manager to communicate with the API Control Plane.
@@ -701,7 +925,7 @@ Configure the Traffic Manager to communicate with the API Control Plane.
 
     2. Configure a load balancer fronting the two Traffic Manager nodes in your deployment.
 
-        ??? Note
+        !!! Note
             In each startup of a Traffic Manager node, the rate-limiting policies are redeployed by retrieving the latest policy details from the database. This maintains the consistency between the Traffic Manager nodes. If you need to avoid redeploying certain rate-limiting policies, add the following configuration to the `<TM_HOME>/repository/conf/deployment.toml` file in the Traffic Manager node.
 
             ```toml
@@ -807,10 +1031,25 @@ Configure the Traffic Manager to communicate with the API Control Plane.
     event_listening_endpoints = ["tcp://cp.wso2.com:5672"]
 
     ```
-
 ### Step 7 - Start the API-M nodes
 
 Once you have successfully configured all the API-M nodes in the deployment, you can start the servers.
+
+-   Start the Key Manager nodes
+
+    Open a terminal, navigate to the `<KM_HOME>/bin` folder, and execute the following command:
+
+    === "Linux/Mac OS"
+        ``` java
+        cd <KM_HOME>/bin/
+        sh key-manager.sh
+        ```
+
+    === "Windows"
+        ``` java
+        cd <KM_HOME>\bin\
+        key-manager.bat --run
+        ```
 
 -   Starting the Gateway nodes
 
