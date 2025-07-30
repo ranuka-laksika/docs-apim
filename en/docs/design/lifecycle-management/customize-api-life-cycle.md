@@ -170,7 +170,7 @@ Follow the steps below to add a new state to the default life cycle.
 
         If you want to change the lifecycle image in Publisher, you can follow the steps mentioned below:
 
-        -   Search for **lifeCycleImage** in `defaultTheme.json` file resides in `<APIM-Home>/repository/deployment/server/webapps/publisher/src/main/webapp/site/public/conf` directory and uncomment it.
+        -   Search for **lifeCycleImage** in `userThemes.js` file resides in `<APIM-Home>/repository/deployment/server/webapps/publisher/site/public/conf` directory and uncomment it.
         -   Replace the path with correct path of image. For instance,
 
                 lifeCycleImage: '/publisher/site/public/images/custom-lifecycle.png,
