@@ -132,7 +132,7 @@ Follow the instructions given below to configure the Gateway node so that it can
 
 5. Add the public certificate of the private key (that is used for signing the tokens) to the truststore under the "gateway_certificate_alias" alias. For instructions, see [Create and import SSL certificates](../../../../install-and-setup/setup/security/configuring-keystores/keystore-basics/creating-new-keystores).
 
-    !!! Note
+   !!! Note
         This is not applicable if you use the default certificates, which are the certificates that are shipped with the product itself.
 
 6. Follow the steps given below to configure High Availability (HA) for the Universal Gateway:
@@ -141,8 +141,8 @@ Follow the instructions given below to configure the Gateway node so that it can
 
     2. Configure a load balancer fronting the two Gateway nodes in your deployment. For instructions, see [Configuring the Proxy Server and the Load Balancer](../../../../install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer).
 
-        !!! Note
-            To keep custom runtime artifacts deployed in the Gateway, add the following configuration in the `<UNIVERSAL-GW_HOME>/repository/conf/deployment.toml` file of the Gateway nodes.
+       !!! Note
+           To keep custom runtime artifacts deployed in the Gateway, add the following configuration in the `<UNIVERSAL-GW_HOME>/repository/conf/deployment.toml` file of the Gateway nodes.
 
             ```toml
             [apim.sync_runtime_artifacts.gateway.skip_list]
@@ -701,8 +701,8 @@ Configure the Traffic Manager to communicate with the API Control Plane.
 
     2. Configure a load balancer fronting the two Traffic Manager nodes in your deployment.
 
-        !!! Note
-            In each startup of a Traffic Manager node, the rate-limiting policies are redeployed by retrieving the latest policy details from the database. This maintains the consistency between the Traffic Manager nodes. If you need to avoid redeploying certain rate-limiting policies, add the following configuration to the `<TM_HOME>/repository/conf/deployment.toml` file in the Traffic Manager node.
+       !!! Note
+           In each startup of a Traffic Manager node, the rate-limiting policies are redeployed by retrieving the latest policy details from the database. This maintains the consistency between the Traffic Manager nodes. If you need to avoid redeploying certain rate-limiting policies, add the following configuration to the `<TM_HOME>/repository/conf/deployment.toml` file in the Traffic Manager node.
 
             ```toml
             [apim.throttling]
