@@ -201,7 +201,7 @@ Follow the instructions below to change the existing functionality of retrieving
 
         public String getDialectURI(String s) throws APIManagementException {
 
-            return "http://wso2.org/claims";
+            return "https://wso2.org/claims";
         }
     }
     ```
@@ -314,9 +314,9 @@ custom claims into JWT when invocation token in opaque mode.
 <td><pre><code>apim.jwt.claim_dialect</code></pre></td>
 <td><div class="content-wrapper">
 <p>The dialect URI under which the user's claims are be looked for. Only works with the default value of the <code>apim.jwt.claims_extractor_impl</code> element defined above.</p>
-<p>The JWT access token contains all claims that are defined in the <code>apim.jwt.claim_dialect</code> element. The default value of this element is <code>http://wso2.org/claims</code>. To get the list of a specific user's claims that need to be included in the JWT, simply uncomment this element after enabling the JWT. It will include all claims in <code>http://wso2.org/claims</code> to the JWT access token.</p>
+<p>The JWT access token contains all claims that are defined in the <code>apim.jwt.claim_dialect</code> element. The default value of this element is <code>https://wso2.org/claims</code>. To get the list of a specific user's claims that need to be included in the JWT, simply uncomment this element after enabling the JWT. It will include all claims in <code>https://wso2.org/claims</code> to the JWT access token.</p>
 </div></td>
-<td><code>http://wso2.org/claims</code></td>
+<td><code>https://wso2.org/claims</code></td>
 </tr>
 <tr class="even">
 <td><pre><code>apim.jwt.use_sha256_hash</code></pre></td>
