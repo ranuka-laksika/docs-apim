@@ -316,7 +316,7 @@
                             "name": "claim_dialect",
                             "type": "string",
                             "required": false,
-                            "default": "http://wso2.org/claims",
+                            "default": "https://wso2.org/claims",
                             "possible": "",
                             "description": "A set of claims are identified as a dialect. Different dialects represent the same piece of information with different claim URIs."
                         },
@@ -1396,7 +1396,7 @@
                             "name": "application_sharing_claim",
                             "type": "string",
                             "required": false,
-                            "default": "http://wso2.org/claims/organization",
+                            "default": "https://wso2.org/claims/organization",
                             "possible": "",
                             "description": "The user claim used to group the applications."
                         }
@@ -4924,7 +4924,7 @@
                             "name": "extensions.token_context_dialect_uri",
                             "type": "string",
                             "required": false,
-                            "default": "http://wso2.org/claims",
+                            "default": "https://wso2.org/claims",
                             "possible": "",
                             "description": "Consumer Dialect URI for Authorization Context."
                         }                                                      

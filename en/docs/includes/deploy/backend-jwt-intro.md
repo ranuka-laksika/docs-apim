@@ -5,7 +5,7 @@ This can be facilitated by the Gateway by sending the end user attributes that a
 
 ## How does it work?
 
-The backend JSON Web Token (JWT) contains the claims that are transferred between two parties, such as the end-user and the backend. A claim is an attribute of the user that is mapped to the underlying user store. A set of claims is referred to as a dialect (e.g., http://wso2.org/claims).
+The backend JSON Web Token (JWT) contains the claims that are transferred between two parties, such as the end-user and the backend. A claim is an attribute of the user that is mapped to the underlying user store. A set of claims is referred to as a dialect (e.g., https://wso2.org/claims).
 
 If you enable backend JWT generation in the Gateway, each API request will carry a digitally signed JWT, which is in the following format to the backend service.
  
@@ -27,12 +27,12 @@ The following is an example of a backend JWT:
 {
     "iss":"wso2.org/products/am",
     "exp":1345183492181,
-    "http://wso2.org/claims/subscriber":"admin",
-    "http://wso2.org/claims/applicationname":"app2",
-    "http://wso2.org/claims/apicontext":"/placeFinder",
-    "http://wso2.org/claims/version":"1.0.0",
-    "http://wso2.org/claims/tier":"Silver",
-    "http://wso2.org/claims/enduser":"sumedha"
+    "https://wso2.org/claims/subscriber":"admin",
+    "https://wso2.org/claims/applicationname":"app2",
+    "https://wso2.org/claims/apicontext":"/placeFinder",
+    "https://wso2.org/claims/version":"1.0.0",
+    "https://wso2.org/claims/tier":"Silver",
+    "https://wso2.org/claims/enduser":"sumedha"
 }
 ```
 
@@ -49,9 +49,9 @@ The above JSON Web Token (JWT) contains the following information.
 
 -   `"iss"` - The issuer of the JWT
 -   `"exp"` - The token expiration time
--   `"http://wso2.org/claims/subscriber"` - Subscriber to the API, usually the app developer
--   `" http://wso2.org/claims/applicationname"` - Application through which API invocation is done
--   `" http://wso2.org/claims/apicontext"` - Context of the API
--   `" http://wso2.org/claims/version "` - API version
--   `" http://wso2.org/claims/tier"` - Tier/price band for the subscription
--   `" http://wso2.org/claims/enduser"` - End-user of the app who's action invoked the API
+-   `"https://wso2.org/claims/subscriber"` - Subscriber to the API, usually the app developer
+-   `" https://wso2.org/claims/applicationname"` - Application through which API invocation is done
+-   `" https://wso2.org/claims/apicontext"` - Context of the API
+-   `" https://wso2.org/claims/version "` - API version
+-   `" https://wso2.org/claims/tier"` - Tier/price band for the subscription
+-   `" https://wso2.org/claims/enduser"` - End-user of the app who's action invoked the API
