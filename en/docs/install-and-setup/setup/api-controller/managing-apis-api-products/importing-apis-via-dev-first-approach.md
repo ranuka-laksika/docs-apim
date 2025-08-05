@@ -370,9 +370,9 @@
             endpointConfig:
                 endpoint_type: http
                 production_endpoints:
-                    url: http://prod.wso2.com
+                    url: https://prod.wso2.com
                 sandbox_endpoints:
-                    url: http://sand.wso2.com
+                    url: https://sand.wso2.com
             endpointImplementationType: ENDPOINT
             lifeCycleStatus: CREATED
             policies:

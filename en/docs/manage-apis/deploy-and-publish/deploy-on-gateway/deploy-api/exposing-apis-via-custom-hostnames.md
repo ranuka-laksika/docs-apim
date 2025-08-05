@@ -43,9 +43,9 @@ Each Gateway environment definition contains details related to a specific Gatew
     [[apim.gateway.environment.virtual_host]]
     ws_endpoint = "ws://us.wso2.com:9099"
     wss_endpoint = "wss://us.wso2.com:8099"
-    http_endpoint = "http://us.wso2.com/gateway"
+    http_endpoint = "https://us.wso2.com/gateway"
     https_endpoint = "https://us.wso2.com/gateway"
-    websub_event_receiver_http_endpoint = "http://us.wso2.com:9021"
+    websub_event_receiver_http_endpoint = "https://us.wso2.com:9021"
     websub_event_receiver_https_endpoint = "https://us.wso2.com:8021"
 
     [[apim.gateway.environment.virtual_host]]
@@ -168,9 +168,9 @@ Follow the instructions below to use the `deployment.toml` file, which is the ce
     [[apim.gateway.environment.virtual_host]]
     ws_endpoint = "ws://us.wso2.com:9099"
     wss_endpoint = "wss://us.wso2.com:8099"
-    http_endpoint = "http://us.wso2.com/gateway"
+    http_endpoint = "https://us.wso2.com/gateway"
     https_endpoint = "https://us.wso2.com/gateway"
-    websub_event_receiver_http_endpoint = "http://us.wso2.com:9021"
+    websub_event_receiver_http_endpoint = "https://us.wso2.com:9021"
     websub_event_receiver_https_endpoint = "https://us.wso2.com:8021"
    
 

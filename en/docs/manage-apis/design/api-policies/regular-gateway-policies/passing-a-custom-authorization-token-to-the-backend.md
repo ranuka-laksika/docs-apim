@@ -33,7 +33,7 @@ Here's a summary:
     | Name          | TestCustomHeader     |
     | Context       | /testcustomheader    |
     | Version       | 1.0.0                |
-    | Endpoint      | http://wso2cloud-custom-auth-header-sample-1-0-0.wso2apps.com/custom-auth-header/validate-header |
+    | Endpoint      | https://wso2cloud-custom-auth-header-sample-1-0-0.wso2apps.com/custom-auth-header/validate-header |
 
 3.  Navigate to the **API Configurations** --> **Policies** tab. Create a new policy with the information given in the table below by following the instructions in [Create a Policy]({{base_path}}/manage-apis/design/api-policies/create-policy/).
 

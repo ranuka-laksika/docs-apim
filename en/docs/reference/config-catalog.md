@@ -1764,7 +1764,7 @@ https_endpoint = "https://localhost:${https.nio.port}"</code></pre>
                                         </div>
                                     </div>
                                     <div class="param-description">
-                                        <p>HTTP endpoint e.g. http://dev.wso2.com:8280</p>
+                                        <p>HTTP endpoint e.g. https://dev.wso2.com:8280</p>
                                     </div>
                                 </div>
                             </div><div class="param">

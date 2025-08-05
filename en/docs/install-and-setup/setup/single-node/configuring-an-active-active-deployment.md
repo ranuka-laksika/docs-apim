@@ -107,7 +107,7 @@ In this case, let's use `gw.am.wso2.com` as the hostname.
     ...
     ws_endpoint = "ws://gw.am.wso2.com:9099"
     wss_endpoint = "wss://gw.am.wso2.com:8099"
-    http_endpoint = "http://gw.am.wso2.com:${http.nio.port}"
+    http_endpoint = "https://gw.am.wso2.com:${http.nio.port}"
     https_endpoint = "https://gw.am.wso2.com:${https.nio.port}"
     ```            
 

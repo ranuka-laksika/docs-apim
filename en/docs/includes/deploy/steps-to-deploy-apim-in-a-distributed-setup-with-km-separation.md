@@ -845,7 +845,7 @@ Follow the steps given below to configure the Control Plane nodes to communicate
     password= "${admin.password}"
     ws_endpoint = "ws://gw.wso2.com:9099"
     wss_endpoint = "wss://gw.wso2.com:8099"
-    http_endpoint = "http://gw.wso2.com:8280"
+    http_endpoint = "https://gw.wso2.com:8280"
     https_endpoint = "https://gw.wso2.com:8243"
 
     # Event Listener configurations

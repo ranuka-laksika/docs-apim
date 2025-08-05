@@ -317,7 +317,7 @@ show_as_token_endpoint_url = true
 service_url = "https://localhost:${mgt.transport.https.port}/services/"
 username= "${admin.username}"
 password= "${admin.password}"
-http_endpoint = "http://default.gw.wso2.com:9090"
+http_endpoint = "https://default.gw.wso2.com:9090"
 https_endpoint = "https://default.gw.wso2.com:9095"
 ``` 
 
