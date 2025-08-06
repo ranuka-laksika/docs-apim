@@ -125,5 +125,5 @@ application_sharing_claim=[custom-claim]
 
 **Example**
 ``` java
-application_sharing_claim="http://wso2.org/claims/role"
+application_sharing_claim="https://wso2.org/claims/role"
 ```

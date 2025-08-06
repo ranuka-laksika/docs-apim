@@ -100,7 +100,7 @@ WSO2 Identity Server acts as an identity service provider of systems enabled wit
 
             [![saml-configuration-in-service-provider]({{base_path}}/assets/img/setup-and-install/enable-tenant-domain-in-local-sub-identifier.png)]({{base_path}}/assets/img/setup-and-install/enable-tenant-domain-in-local-sub-identifier.png)
 
-    2.  Expand the **Claim Configuration** section. Add **http://wso2.org/claims/role** as mandatory claim.
+    2.  Expand the **Claim Configuration** section. Add **https://wso2.org/claims/role** as mandatory claim.
 
         [![]({{base_path}}/assets/img/setup-and-install/claim-configuration-in-service-provider-for-saml2-sso.png)]({{base_path}}/assets/img/setup-and-install/claim-configuration-in-service-provider-for-saml2-sso.png)
 

@@ -30,12 +30,12 @@ For more information on setting up WSO2 Identity Server 7.1.0, see [Setup WSO2 I
     ```
 
 
-2. Need to add new local claim to store organization id. For that go to  Home > Identity > Claims> Add and select `Add Local Claim` and fill the form. Use Claim URI as [http://wso2.org/claims/organizationId](http://wso2.org/claims/organizationId )
+2. Need to add new local claim to store organization id. For that go to  Home > Identity > Claims> Add and select `Add Local Claim` and fill the form. Use Claim URI as [https://wso2.org/claims/organizationId](https://wso2.org/claims/organizationId )
 
     ![Add new clam]({{base_path}}/assets/img/design/b2b/claims.png) 
 
 
-3. Need to add `org_id` and `org_name` to oidc claims and map them to [http://wso2.org/claims/organizationId](http://wso2.org/claims/organizationId ) and [http://wso2.org/claims/organization](http://wso2.org/claims/organization) local claims. For that go to  Home > Identity > Claims> Add and select `Add External Claim`
+3. Need to add `org_id` and `org_name` to oidc claims and map them to [https://wso2.org/claims/organizationId](https://wso2.org/claims/organizationId ) and [https://wso2.org/claims/organization](https://wso2.org/claims/organization) local claims. For that go to  Home > Identity > Claims> Add and select `Add External Claim`
 
     ![Add new clam]({{base_path}}/assets/img/design/b2b/add-claim-1.png) 
       

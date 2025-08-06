@@ -23,7 +23,7 @@
 5. Under **Local & Outbound Authentication Configuration** select **Federated Authentication** . Select the newly created external IDP.
     ![local-inbound-auth]({{base_path}}/assets/img/learn/extensions/saml2-sso/local-inbound-auth.png)
 
-6. Add `http://wso2.org/claims/role` as the Claim URI under **Claim Configuration.** Select the **Mandatory Claim** check box. Add `http:/wso2.org/claims/username` as the Subject Claim URI.
+6. Add `https://wso2.org/claims/role` as the Claim URI under **Claim Configuration.** Select the **Mandatory Claim** check box. Add `https://wso2.org/claims/username` as the Subject Claim URI.
     ![claim-config]({{base_path}}/assets/img/learn/extensions/saml2-sso/claim-config.png)
 
 !!! tip

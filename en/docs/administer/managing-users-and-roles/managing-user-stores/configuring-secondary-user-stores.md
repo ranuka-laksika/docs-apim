@@ -92,7 +92,7 @@ There are two approaches to configure a secondary user store. It can be configur
 
 
     !!! Note
-        If a user ID is mapped to an attribute other than uid (e.g., sAMAccountName in Active Directory), you will need to manually update the username claim (http://wso2.org/claims/username) for that specific user store via the WSO2 Management Console. To do this, navigate to **Identity** > **Claims** > **List**, and then click the http://wso2.org/claims dialect. Under the **Username** claim, select **Edit** and add a new **Add Attribute Mapping** in the **Mapped Attribute(s)*** section for the secondary user store.
+        If a user ID is mapped to an attribute other than uid (e.g., sAMAccountName in Active Directory), you will need to manually update the username claim (https://wso2.org/claims/username) for that specific user store via the WSO2 Management Console. To do this, navigate to **Identity** > **Claims** > **List**, and then click the https://wso2.org/claims dialect. Under the **Username** claim, select **Edit** and add a new **Add Attribute Mapping** in the **Mapped Attribute(s)*** section for the secondary user store.
 
         [![Secondary user store claim update]({{base_path}}/assets/img/administer/secondary-user-store-claim.png)]({{base_path}}/assets/img/administer/secondary-user-store-claim.png)
         
