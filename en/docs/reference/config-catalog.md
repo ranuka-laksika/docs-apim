@@ -782,7 +782,7 @@ password = "wso2carbon"</code></pre>
 enable = true
 encoding = "base64"
 generator_impl = "org.wso2.carbon.apimgt.keymgt.token.JWTGenerator"
-claim_dialect = "http://wso2.org/claims"
+claim_dialect = "https://wso2.org/claims"
 header = "X-JWT-Assertion"
 signing_algorithm = "SHA256withRSA"
 enable_user_claims = true
@@ -911,7 +911,7 @@ claims_extractor_impl = "org.wso2.carbon.apimgt.impl.token.DefaultClaimsRetrieve
                                             
                                         </p>
                                         <div class="param-default">
-                                            <span class="param-default-value">Default: <code>http://wso2.org/claims</code></span>
+                                            <span class="param-default-value">Default: <code>https://wso2.org/claims</code></span>
                                         </div>
                                         
                                     </div>
@@ -1215,7 +1215,7 @@ url = "https://localhost:8743/jwks/1.0"</code></pre>
                     <div class="mb-config-example">
 <pre><code class="toml">[[apim.jwt.issuer.claim_mapping]]
 remote_claim = "http://idp1.org/claims/givenname"
-local_claim = "http://wso2.org/claims/givenname"</code></pre>
+local_claim = "https://wso2.org/claims/givenname"</code></pre>
                     </div>
                 </div>
                 <div class="doc-wrapper">
@@ -3696,7 +3696,7 @@ enable_forum = true</code></pre>
                                             
                                         </p>
                                         <div class="param-default">
-                                            <span class="param-default-value">Default: <code>http://wso2.org/claims/organization</code></span>
+                                            <span class="param-default-value">Default: <code>https://wso2.org/claims/organization</code></span>
                                         </div>
                                         
                                     </div>
@@ -13070,7 +13070,7 @@ timestamp_skew = "0"
 token_generator="org.wso2.carbon.identity.oauth2.token.OauthTokenIssuerImpl"
 token_context_generator = "org.wso2.carbon.identity.oauth2.authcontext.JWTTokenGenerator"
 token_context_claim_retriever = "org.wso2.carbon.identity.oauth2.authcontext.DefaultClaimsRetriever"
-token_context_dialect_uri = "http://wso2.org/claims"
+token_context_dialect_uri = "https://wso2.org/claims"
 </code></pre>
                     </div>
                 </div>
@@ -13211,7 +13211,7 @@ token_context_dialect_uri = "http://wso2.org/claims"
                                             
                                         </p>
                                         <div class="param-default">
-                                            <span class="param-default-value">Default: <code>http://wso2.org/claims</code></span>
+                                            <span class="param-default-value">Default: <code>https://wso2.org/claims</code></span>
                                         </div>
                                         
                                     </div>
@@ -15949,8 +15949,8 @@ task_cleanup_interval_minutes = 30
                     <div class="mb-config-example">
 <pre><code class="toml">[apim.organization_based_access_control]
 enable = true
-organization_name_local_claim = "http://wso2.org/claims/organization"
-organization_id_local_claim = "http://wso2.org/claims/organizationId"</code></pre>
+organization_name_local_claim = "https://wso2.org/claims/organization"
+organization_id_local_claim = "https://wso2.org/claims/organizationId"</code></pre>
                     </div>
                 </div>
                 <div class="doc-wrapper">
@@ -15993,7 +15993,7 @@ organization_id_local_claim = "http://wso2.org/claims/organizationId"</code></pr
                                             
                                         </p>
                                         <div class="param-default">
-                                            <span class="param-default-value">Default: <code>http://wso2.org/claims/organization</code></span>
+                                            <span class="param-default-value">Default: <code>https://wso2.org/claims/organization</code></span>
                                         </div>
                                         
                                     </div>
@@ -16012,7 +16012,7 @@ organization_id_local_claim = "http://wso2.org/claims/organizationId"</code></pr
                                             
                                         </p>
                                         <div class="param-default">
-                                            <span class="param-default-value">Default: <code>http://wso2.org/claims/organizationId</code></span>
+                                            <span class="param-default-value">Default: <code>https://wso2.org/claims/organizationId</code></span>
                                         </div>
                                         
                                     </div>

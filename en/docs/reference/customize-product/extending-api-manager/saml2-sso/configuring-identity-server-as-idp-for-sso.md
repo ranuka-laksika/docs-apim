@@ -66,9 +66,9 @@ The topics below explain the configurations.
 
     1. Select `Use Local Claim Dialect` checkbox.
     2. Click on `Add Claim URI` button next to `Requested Claims:` lebel and 
-        * For **Local Claim** select `http://wso2.org/claims/groups` from the dropdown.
+        * For **Local Claim** select `https://wso2.org/claims/groups` from the dropdown.
         * Tick **Mandatory Claim** checkbox.
-    3. From the dropdown next to `Subject Claim URI:` label, select `http://wso2.org/claims/username`
+    3. From the dropdown next to `Subject Claim URI:` label, select `https://wso2.org/claims/username`
 
     [![IS SAML SSO Claim Configurations]({{base_path}}/assets/img/learn/extensions/saml2-sso/is-saml-sso-claim-configs.png)]({{base_path}}/assets/img/learn/extensions/saml2-sso/is-saml-sso-claim-configs.png)
 
@@ -126,9 +126,9 @@ Similarly, add the Identity Server as an identity provider configurations in `ht
 5.  Click and expand the **Claim Configuration** section, and click and expand **Basic Claim Configuration**.
     1. Tick `Define Custom Claim Dialect` radio box.
     2. Click `Add Claim Mapping` and add the following data.
-        * Identity Provider Claim URI: `http://wso2.org/claims/groups`
-        * Local Claim URI: `http://wso2.org/claims/roles`
-    3. In the dropdown next to the **Role Claim URI** label, select `http://wso2.org/claims/groups`
+        * Identity Provider Claim URI: `https://wso2.org/claims/groups`
+        * Local Claim URI: `https://wso2.org/claims/roles`
+    3. In the dropdown next to the **Role Claim URI** label, select `https://wso2.org/claims/groups`
 
     [![SAML SSO APIM CLAIM CONFIGURATIONS]({{base_path}}/assets/img/learn/extensions/saml2-sso/is-saml-sso-apim-claim-configs.png)]({{base_path}}/assets/img/learn/extensions/saml2-sso/is-saml-sso-apim-claim-configs.png)
 

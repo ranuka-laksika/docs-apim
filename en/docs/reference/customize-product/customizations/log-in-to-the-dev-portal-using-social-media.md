@@ -115,8 +115,8 @@ We need to acquire the identity information by configuring claims to use Authent
 
     | Identity Provider Claim URI | Local Claim URI                     |
     |-----------------------------|-------------------------------------|
-    | email                       | http://wso2.org/claims/emailaddress |
-    | name_format                 | http://wso2.org/claims/roles        |
+    | email                       | https://wso2.org/claims/emailaddress |
+    | name_format                 | https://wso2.org/claims/roles        |
 
     Select **User ID Claim URL** as **email** from dropdown.
 

@@ -77,7 +77,7 @@ A JWT claim contains meta information of an API request. It can include applicat
 !!! note
     This JWT claim is the backend JWT and not the one you use to invoke it. Also. you need to enable the Backend JWT token to get this rate limiting flow to work.
 
-The following image shows an example for configuring JWT claim condition by considering the version of the API (http://wso2.org/claims/subscribe).
+The following image shows an example for configuring JWT claim condition by considering the version of the API (https://wso2.org/claims/subscribe).
 
 [![New JWT condition regex]({{base_path}}/assets/img/learn/new-jwt-condition-regex.png)]({{base_path}}/assets/img/learn/new-jwt-condition-regex.png)
 ##### Query parameters

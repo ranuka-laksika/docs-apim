@@ -68,7 +68,7 @@ An administrative user can lock and unlock a particular user's account through t
 
 1.  Sign in to the Management Console (`https://<API-M_HOST>:<API-M_PORT>/carbon`) using admin credentials.
 
-2.  Go to **Claims &gt; List** on the **Main** tab and select the `http://wso2.org/claims` claim dialect.
+2.  Go to **Claims &gt; List** on the **Main** tab and select the `https://wso2.org/claims` claim dialect.
 
 3.  Expand the **Account Locked** claim and click **Edit**.
    
