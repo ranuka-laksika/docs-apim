@@ -67,16 +67,7 @@ Follow the instructions below to create, deploy and publish an API via the Publi
                                                  
      [![Publisher portal home page]({{base_path}}/assets/img/get_started/api-publisher-home.png)]({{base_path}}/assets/img/get_started/api-publisher-home.png)
 
-3. Next, let's create a mock REST service by navigating to [Mocky.io](https://designer.mocky.io/design). You can provide the following configuration in order to create a mock service.
-    
-    | Field                   | Value                 |
-    | ----------------------- |-----------------------|
-    | `HTTP Status`           | 200 - OK              |
-    | `Response Content Type` | application/json      |
-    | `Charset`               | UTF-8                 |
-    | `HTTP Response Body`    | `{"hello": "world"}`  |
-
-    Finally click **Generate My HTTP Response** to save and generate the mock service url.
+3. For this tutorial, we'll use JSONPlaceholder, a free online REST API that you can use to test with JSON data. JSONPlaceholder provides endpoints that return JSON responses, perfect for API testing.
 
     
 4. Select **REST API** from the home screen and then click **Start From Scratch**.
@@ -110,7 +101,7 @@ Follow the instructions below to create, deploy and publish an API via the Publi
      <tr> 
      <th>Endpoint
      </th>
-     <td><code>https://run.mocky.io/v3/e42a76f0-95f3-4759-b658-dcc2b0c8bacd</code>
+     <td><code>https://jsonplaceholder.typicode.com/posts/1</code>
      </td>
      </tr>
      </table>
@@ -169,7 +160,7 @@ Follow the instructions below to invoke the created API.
 
      [![GET resource]({{base_path}}/assets/img/get_started/try-api.png)]({{base_path}}/assets/img/get_started/try-api.png)
 
-     You should see the `{"hello" : "world"}` response from the API. 
+     You should see a JSON response with post data from the API. 
 
      [![Successful response]({{base_path}}/assets/img/get_started/try-it-success.png)]({{base_path}}/assets/img/get_started/try-it-success.png)
 

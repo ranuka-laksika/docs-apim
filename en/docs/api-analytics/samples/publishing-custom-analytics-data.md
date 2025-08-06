@@ -142,7 +142,7 @@ TRACE {org.wso2.am.analytics.publisher.client.EventHubClient} - [{ Cloud-Analyti
  {
     "apiName":"API1",
     "proxyResponseCode":200,
-    "destination":"https://run.mocky.io/v3/d14fad1d-d57b-41bc-8be3-146b6aaddfaf",
+    "destination":"https://jsonplaceholder.typicode.com/posts/2",
     "apiCreatorTenantDomain":"carbon.super",
     "platform":"Linux",
     "apiMethod":"GET",
