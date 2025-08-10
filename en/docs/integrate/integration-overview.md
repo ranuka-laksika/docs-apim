@@ -248,7 +248,7 @@ Learn about the dashboards, tools, and solutions that are available for managing
         </div>
         <!-- end card -->
         <!-- card -->
-        <div class="card" onclick="location.href='{{base_bath}}/install-and-setup/setup/api-controller/managing-integrations/managing-integrations-with-ctl';">
+        <div class="card" onclick="location.href='{{base_path}}/install-and-setup/setup/api-controller/managing-integrations/managing-integrations-with-ctl';">
             <div class="line"></div>
             <div class="card-content" >
                 <p class="title">APICTL (CLI for Integration)</p>
@@ -284,7 +284,7 @@ Learn how to set up a Micro Integrator deployment and configure the deployment a
         </div>
         <!-- end card -->
         <!-- card -->
-        <div class="card" onclick="location.href='{{base_bath}}/install-and-setup/install-and-setup-overview/#deploying_1';">
+        <div class="card" onclick="location.href='{{base_path}}/install-and-setup/install-and-setup-overview/#deploying_1';">
             <div class="line"></div>
             <div class="card-content">
                 <p class="title">Deployment</p>
@@ -322,7 +322,7 @@ Learn how to set up a Micro Integrator deployment and configure the deployment a
         </div>
         <!-- end card -->
         <!-- card -->
-        <div class="card" onclick="location.href='{{base_bath}}/install-and-setup/setup/api-controller/getting-started-with-wso2-api-controller';">
+        <div class="card" onclick="location.href='{{base_path}}/install-and-setup/setup/api-controller/getting-started-with-wso2-api-controller';">
             <div class="line"></div>
             <div class="card-content">
                 <p class="title">CICD Pipelines</p>
@@ -493,8 +493,8 @@ Learn how to implement various integration use cases, deploy them in the Micro I
                         <li><a href="{{base_path}}/integrate/examples/rest_api_examples/publishing-a-swagger-api">Publishing a Custom Swagger Document</a></li>
                         <li>Handling Special Cases
                             <ul>
-                                <li><a href="{{base_path}}/integrate/examples/routing_examples/routing_based_on_headers/">Using GET with a Message Body</a></li>
-                                <li><a href="{{base_path}}/integrate/examples/routing_examples/routing_based_on_payloads/">Using POST with Empty Message Body</a></li>
+                                <li><a href="{{base_path}}/integrate/examples/rest_api_examples/special-cases/#using-get-with-a-message-body">Using GET with a Message Body</a></li>
+                                <li><a href="{{base_path}}/integrate/examples/rest_api_examples/special-cases/#using-post-with-an-empty-body">Using POST with Empty Message Body</a></li>
                                 <li><a href="{{base_path}}/integrate/examples/rest_api_examples/special-cases/#using-post-with-query-parameters">Using POST with Query Parameters</a></li>
                             </ul>
                         </li>
