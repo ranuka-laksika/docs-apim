@@ -4915,7 +4915,7 @@ components:
           example: 1.2345678901234568E30
         tokenScopes:
           type: array
-          description: Valid comma seperated scopes for the access token
+          description: Valid comma separated scopes for the access token
           example:
             - default
             - read_api
@@ -5123,7 +5123,7 @@ components:
           example: 3600
         scopes:
           type: array
-          description: Allowed scopes (space seperated) for the access token
+          description: Allowed scopes (space separated) for the access token
           example:
             - apim:subscribe
           items:
