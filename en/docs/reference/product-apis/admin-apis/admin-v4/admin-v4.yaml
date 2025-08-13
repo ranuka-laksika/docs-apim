@@ -2067,7 +2067,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PublishStatus'
         202:
-          description: Request is sucessfully accepted for processing.
+          description: Request is successfully accepted for processing.
           content:
             application/json:
               schema:
