@@ -8,7 +8,7 @@ Follow the instructions below to use Kubernetes (K8s) and Helm resources for con
 !!! Prerequisites
     
     - Install [Git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git), [Helm](https://helm.sh/docs/intro/install/), [Dep](https://golang.github.io/dep/docs/installation.html)
-      and [Kubernetes client](https://kubernetes.io/docs/tasks/tools/install-kubectl/) in order to run the steps
+      and [Kubernetes client](https://kubernetes.io/docs/tasks/tools/install-kubectl/) to run the steps
       provided in the following quick start guide.<br><br>
     
     - An already setup [Kubernetes cluster](https://kubernetes.io/docs/setup/#learning-environment).<br><br>
