@@ -24,7 +24,7 @@ Each configuration file that is inside the `<APIM_HOME>/repository/conf` directo
 
 Let's assume that you want to change the `ServerURL` value inside the `APIKeyValidator` section of the `api-manager.xml` file.
 
-```
+```xml
 <APIKeyValidator>
 <!-- Server URL of the API key manager --><ServerURL>https://localhost:${mgt.transport.https.port}${carbon.context}services/</ServerURL>
 <!-- Admin username for API key manager. --><Username>{% raw %}${admin.username}{% endraw %}</Username>
@@ -38,7 +38,7 @@ Let's assume that you want to change the `ServerURL` value inside the `APIKeyVal
 
 Let's check the respective `.j2` file that is in the `<APIM_HOME>/repository/resources/conf/templates/repository/conf/api-manager.xml.j2` file.
 
-```
+```xml
 <APIKeyValidator>
 <!-- Server URL of the API key manager -->
 <ServerURL>{% raw %}{{apim.key_manager.service_url}}{% endraw %}</ServerURL>
@@ -60,7 +60,7 @@ Let's check the respective `.j2` file that is in the `<APIM_HOME>/repository/res
 
 You can see that the parameter for setting up the value for the `ServerURL`  in the `APIKeyValidator` is `apim.key_manager.service_url`. Therefore, the configuration for the `deployment.toml` file will be as follows:
 
-```
+```toml
 [apim.key_manager]
 {% raw %}service_url = "https://my_keymanager.com:${mgt.transport.https.port}/services/"{% endraw %}
 ```
@@ -76,7 +76,7 @@ This `default.json` file, which is in the `<APIM_HOME>/repository/resources/conf
 **Example:**
 Let’s assume that you want to enable the Gateway Token Cache. The relevant configuration can be found in the `api-manager.xml` file inside `<CacheConfigurations>`.
 
-```
+```xml
 <CacheConfigurations>
 <!-- Enable/Disable token caching at the Gateway-->
 <EnableGatewayTokenCache>{% raw %}{{apim.cache.gateway_token.enable}}{% endraw %}</EnableGatewayTokenCache>
