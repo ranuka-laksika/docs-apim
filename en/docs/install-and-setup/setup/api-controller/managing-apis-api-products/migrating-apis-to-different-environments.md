@@ -450,7 +450,7 @@ mentioned gateway environments. If the **deployment environments are not provide
     !!! note
         **Changes to the import command with the revision support for APIs**  
         
-        - From WSO2 API-M 4.0.0 onwards, you have to create a new revision in order to deploy an API in an gateway environment and 
+        - From WSO2 API-M 4.0.0 onwards, you have to create a new revision in order to deploy an API in a gateway environment and 
             **only a revision can be deployed in a gateway environment**. 
         - With the import command of the apictl, if the API project has specified the deployment environments, import 
             will first **update the working copy of the API**.
