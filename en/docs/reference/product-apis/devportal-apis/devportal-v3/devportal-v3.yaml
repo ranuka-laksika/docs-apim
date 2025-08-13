@@ -774,7 +774,7 @@ paths:
         2. **FILE type**:
            The file will be downloaded with the related content type (eg. `application/pdf`)
         3. **URL type**:
-            The client will recieve the URL of the document as the Location header with the response with - `303 See Other`
+            The client will receive the URL of the document as the Location header with the response with - `303 See Other`
 
         `X-WSO2-Tenant` header can be used to retrive the content of a document of an API that belongs to a different tenant domain. If not specified super tenant will be used. If Authorization header is present in the request, the user's tenant associated with the access token will be used.
 
@@ -4915,7 +4915,7 @@ components:
           example: 1.2345678901234568E30
         tokenScopes:
           type: array
-          description: Valid comma seperated scopes for the access token
+          description: Valid comma separated scopes for the access token
           example:
             - default
             - read_api
@@ -5123,7 +5123,7 @@ components:
           example: 3600
         scopes:
           type: array
-          description: Allowed scopes (space seperated) for the access token
+          description: Allowed scopes (space separated) for the access token
           example:
             - apim:subscribe
           items:
