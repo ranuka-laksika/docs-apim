@@ -11,6 +11,15 @@ Follow the given steps to configure an external Active Directory as the primary 
 !!! info
 
 -   Navigate to `<PRODUCT_HOME>/repository/conf` directory to open `deployment.toml` file and do user_store_properties configurations. Following is the sample read-write active directory user store configurations:
+
+!!! warning "Security Notice"
+    The following configuration uses recommended security settings for production environments:
+    
+    - **Password Hashing**: Uses `SHA-256` instead of `PLAIN_TEXT` to securely hash passwords
+    - **Secure LDAP**: Uses `ldaps://` (LDAP over SSL/TLS) for encrypted communication  
+    - **Certificate Validation**: Requires proper certificate configuration for secure connections
+    
+    **⚠️ CRITICAL**: Never use `PLAIN_TEXT` password hashing in production as it stores passwords in readable format, creating serious security vulnerabilities.
  ```toml
  [user_store.properties]
  TenantManager="org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager"
@@ -45,7 +54,7 @@ Follow the given steps to configure an external Active Directory as the primary 
  SCIMEnabled="false"
  IsBulkImportSupported="false"
  EmptyRolesAllowed="true"
- PasswordHashMethod="PLAIN_TEXT"
+ PasswordHashMethod="SHA-256"
  MultiAttributeSeparator=","
  isADLDSRole="false"
  userAccountControl="512"
@@ -145,6 +154,80 @@ Given below is a sample configuration for the external read/write user store in 
         ```
 
     -   You also need to [enable connection pooling](https://docs.wso2.com/display/ADMIN44x/Performance+Tuning#PerformanceTuning-ldaps_pooling) for LDAPS connections at the time of starting your server, which will enhance server performance.
+
+## SSL/TLS Configuration for Secure Active Directory Connection
+
+For production environments, it is **mandatory** to use secure LDAP connections. Follow these steps to properly configure SSL/TLS:
+
+### Step 1: Enable LDAPS (LDAP over SSL)
+
+1. **Configure Connection URL**: Use `ldaps://` protocol with port 636 (default LDAPS port)
+   ```toml
+   ConnectionURL="ldaps://your-ad-server.domain.com:636"
+   ```
+
+2. **Alternative: Enable StartTLS**: If using standard LDAP port 389 with StartTLS
+   ```toml
+   ConnectionURL="ldap://your-ad-server.domain.com:389"
+   StartTLSEnabled="true"
+   ```
+
+### Step 2: Certificate Management
+
+!!! warning "Certificate Security"
+    Proper certificate validation is critical to prevent man-in-the-middle attacks.
+
+#### Importing AD Certificate to WSO2 Truststore
+
+1. **Export certificate from Active Directory server**:
+   ```bash
+   # On Windows AD server
+   certlm.msc → Certificates (Local Computer) → Personal → Certificates
+   # Right-click on AD certificate → All Tasks → Export → Base-64 encoded X.509
+   ```
+
+2. **Import certificate to WSO2 client-truststore**:
+   ```bash
+   keytool -import -alias "ad-server-cert" -file ad-certificate.crt \
+           -keystore <API-M_HOME>/repository/resources/security/client-truststore.jks \
+           -storepass wso2carbon
+   ```
+
+3. **Verify certificate import**:
+   ```bash
+   keytool -list -keystore <API-M_HOME>/repository/resources/security/client-truststore.jks \
+           -storepass wso2carbon | grep "ad-server-cert"
+   ```
+
+### Step 3: Production Security Configuration
+
+```toml
+[user_store.properties]
+# Secure connection settings
+ConnectionURL="ldaps://your-ad-server.domain.com:636"
+StartTLSEnabled="false"  # Set to true only if using LDAP with StartTLS
+ConnectionPoolingEnabled="true"  # Enable for better performance
+LDAPConnectionTimeout="10000"  # 10 second timeout
+
+# Security-hardened password settings
+PasswordHashMethod="SHA-256"  # Never use PLAIN_TEXT
+AnonymousBind="false"  # Always require authentication
+```
+
+### Step 4: Testing Secure Connection
+
+1. **Test LDAPS connectivity**:
+   ```bash
+   # Using openssl to test LDAPS connection
+   openssl s_client -connect your-ad-server.domain.com:636 -showcerts
+   ```
+
+2. **Verify certificate chain**:
+   ```bash
+   # Check if certificate is properly trusted
+   echo | openssl s_client -connect your-ad-server.domain.com:636 2>/dev/null | \
+   openssl x509 -noout -subject -issuer
+   ```
 
     -   If you are configuring the primary user store and want the configuration to be available for all the tenants, follow the configuration given below to return the objectGUID claim attribute.
     ObjectGUID is a binary attribute. Add the following user store property to the `deployment.toml` file.
@@ -476,7 +559,7 @@ Default: false</td>
 Possible values:<br />
 SHA - Uses SHA digest method. SHA-1, SHA-256<br />
 MD5 - Uses MD 5 digest method.<br />
-PLAIN_TEXT - Plain text passwords.(Default)</p>
+SHA-256 - Secure hashing (Recommended for production). PLAIN_TEXT - Plain text passwords (NEVER use in production - security risk)</p>
 <p>If you just configure as SHA, It is considered as SHA-1, It is always better to configure algorithm with higher bit value as digest bit size would be increased.<br />
 <br />
 Most of the LDAP servers (such as OpenLDAP, OpenDJ, AD, ApacheDS and etc..) are supported to store password as salted hashed values (SSHA).
@@ -577,3 +660,104 @@ Default: not configured</td>
 </tr>
 </tbody>
 </table>
+
+
+## Security Best Practices for Production Deployments
+
+!!! danger "Production Security Checklist"
+    Ensure all these security measures are implemented before deploying to production:
+
+### Authentication Security
+
+- **✅ Strong Password Policy**: Configure robust password complexity requirements
+- **✅ Encrypted Password Storage**: Always use `SHA-256` or stronger hashing algorithms
+- **✅ Disable Anonymous Binding**: Set `AnonymousBind="false"`
+- **✅ Secure Service Accounts**: Use dedicated service accounts with minimal privileges
+
+### Network Security  
+
+- **✅ Encrypted Communications**: Use `ldaps://` or `StartTLS` for all LDAP communications
+- **✅ Certificate Validation**: Properly import and validate SSL certificates
+- **✅ Firewall Rules**: Restrict LDAP/LDAPS ports (389/636) to authorized systems only
+- **✅ Network Segmentation**: Place Active Directory on secure network segments
+
+### Configuration Security
+
+```toml
+# Production-hardened configuration example
+[user_store.properties]
+# Network Security
+ConnectionURL="ldaps://prod-ad-server.company.com:636"
+StartTLSEnabled="false"
+ConnectionPoolingEnabled="true"
+LDAPConnectionTimeout="10000"
+
+# Authentication Security
+AnonymousBind="false" 
+PasswordHashMethod="SHA-256"  # NEVER use PLAIN_TEXT
+ConnectionName="CN=WSO2ServiceAccount,OU=ServiceAccounts,DC=company,DC=com"
+
+# Access Control
+ReadGroups="true"
+WriteGroups="false"  # Set to false if not needed
+MaxUserNameListLength="100"
+MaxRoleNameListLength="100"
+
+# Performance & Reliability
+UserRolesCacheEnabled="true"
+ConnectionRetryDelay="120000"
+RetryAttempts="3"
+```
+
+### Monitoring & Auditing
+
+- **✅ Enable Connection Logging**: Monitor LDAP connection attempts and failures
+- **✅ Certificate Expiry Monitoring**: Set up alerts for certificate expiration
+- **✅ Failed Authentication Tracking**: Monitor and alert on authentication failures
+- **✅ Regular Security Audits**: Periodically review user store configurations
+
+### Certificate Management
+
+- **✅ Valid Certificates**: Ensure certificates are not self-signed for production
+- **✅ Certificate Chains**: Properly configure intermediate certificates
+- **✅ Expiry Management**: Implement certificate renewal processes
+- **✅ Revocation Checking**: Configure certificate revocation list (CRL) checking
+
+### Backup & Recovery
+
+- **✅ Configuration Backup**: Regular backup of `deployment.toml` and keystore files
+- **✅ Certificate Backup**: Secure backup of SSL certificates and private keys
+- **✅ Recovery Testing**: Regularly test disaster recovery procedures
+
+!!! warning "Common Security Mistakes to Avoid"
+    
+    **❌ NEVER do these in production:**
+    
+    1. Using `PasswordHashMethod="PLAIN_TEXT"` - stores passwords in readable format
+    2. Using `AnonymousBind="true"` - allows unauthorized access
+    3. Using unencrypted LDAP (`ldap://`) without StartTLS
+    4. Ignoring certificate validation errors
+    5. Using default passwords for service accounts
+    6. Exposing LDAP ports (389/636) to the internet
+    7. Using self-signed certificates without proper validation
+
+### Emergency Security Response
+
+If a security incident is detected:
+
+1. **Immediate Actions**:
+   - Disable affected user accounts
+   - Rotate service account passwords
+   - Review authentication logs
+
+2. **Investigation**:
+   - Check for unauthorized configuration changes
+   - Review LDAP access logs
+   - Validate certificate integrity
+
+3. **Recovery**:
+   - Restore from secure configuration backups
+   - Update certificates if compromised
+   - Implement additional monitoring
+
+
