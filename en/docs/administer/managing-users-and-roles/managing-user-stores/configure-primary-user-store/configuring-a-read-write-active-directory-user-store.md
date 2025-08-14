@@ -60,6 +60,54 @@ Follow the given steps to configure an external Active Directory as the primary 
  StartTLSEnabled="false"
  ConnectionRetryDelay="120000"
  ```
+
+!!! warning "Security Warning"
+    **CRITICAL SECURITY NOTICE:** The example configuration above uses `PasswordHashMethod="PLAIN_TEXT"` which stores passwords in plain text. This is a **severe security risk** that can lead to credential exposure. 
+    
+    **For production environments:**
+    - Change `PasswordHashMethod` to a secure hashing algorithm like `"SHA-256"` or `"SHA-512"`
+    - Ensure LDAPS (SSL/TLS) is properly configured
+    - Validate certificates to prevent man-in-the-middle attacks
+    
+    See [Security Considerations](#security-considerations-for-active-directory-user-store) section below for detailed security configuration.
+
+**Secure Production Configuration Example:**
+
+ ```toml
+ [user_store.properties]
+ TenantManager="org.wso2.carbon.user.core.tenant.CommonHybridLDAPTenantManager"
+ # Use LDAPS with proper port (636)
+ ConnectionURL="ldaps://your-ad-server.company.com:636"
+ # Use dedicated service account
+ ConnectionName="CN=WSO2ServiceAccount,OU=Service Accounts,DC=company,DC=com"
+ ConnectionPassword="YourSecurePassword123!"           
+ AnonymousBind="false"
+ UserSearchBase="CN=Users,DC=company,DC=com"
+ UserEntryObjectClass="user"
+ UserNameAttribute="cn"
+ UserNameSearchFilter="(&amp;(objectClass=user)(cn=?))" 
+ UserNameListFilter="(&amp;(objectClass=user)(!(sn=Service)))"
+ ReadGroups="true"
+ WriteGroups="true"
+ GroupSearchBase="CN=Users,DC=company,DC=com"
+ GroupEntryObjectClass="group"
+ GroupNameAttribute="cn"
+ GroupNameSearchFilter="(&amp;(objectClass=group)(cn=?))"
+ GroupNameListFilter="(objectcategory=group)"
+ MembershipAttribute="member"
+ MemberOfAttribute="memberOf"
+ BackLinksEnabled="true"
+ Referral="follow"
+ # Use secure password hashing - CRITICAL for production
+ PasswordHashMethod="SHA-256"
+ # Enable secure connections
+ StartTLSEnabled="true"
+ ConnectionPoolingEnabled="true"
+ LDAPConnectionTimeout="10000"
+ ConnectionRetryDelay="120000"
+ ```
+
+
  
 -   The `class` attribute for an external AD is `org.wso2.carbon.user.core.ldap.ActiveDirectoryUserStoreManager`.
 ```toml
@@ -577,3 +625,129 @@ Default: not configured</td>
 </tr>
 </tbody>
 </table>
+
+## Security Considerations for Active Directory User Store
+
+!!! danger "Critical Security Requirements"
+    Active Directory user store configurations contain sensitive authentication credentials and connection details. Improper configuration can lead to serious security vulnerabilities including credential exposure, man-in-the-middle attacks, and unauthorized access to your directory services.
+
+### Secure Password Hash Methods
+
+**NEVER use `PasswordHashMethod="PLAIN_TEXT"` in production environments.** This stores passwords in plain text, creating a critical security vulnerability.
+
+**Recommended secure configurations:**
+
+```toml
+# Recommended: Use SHA-256 for better security
+PasswordHashMethod="SHA-256"
+
+# Alternative: Use SHA-512 for maximum security
+PasswordHashMethod="SHA-512"
+
+# Legacy option: SHA-1 (not recommended for new deployments)
+PasswordHashMethod="SHA"
+```
+
+!!! note "Salted Hash Support"
+    Most LDAP servers (OpenLDAP, OpenDJ, AD, ApacheDS) support storing passwords as salted hashed values (SSHA). If your LDAP server supports this, configure it at the server level for enhanced security.
+
+### SSL/TLS Configuration
+
+Always use LDAPS (LDAP over SSL/TLS) for production deployments to encrypt data in transit.
+
+**Secure LDAPS Configuration Example:**
+
+```toml
+[user_store.properties]
+# Use LDAPS with proper port (636 for LDAPS)
+ConnectionURL="ldaps://your-ad-server.company.com:636"
+
+# Enable StartTLS if your server supports it
+StartTLSEnabled="true"
+
+# Configure connection timeouts
+LDAPConnectionTimeout="10000"
+
+# Enable connection pooling for better performance
+ConnectionPoolingEnabled="true"
+```
+
+### Certificate Validation
+
+When using LDAPS, you **must** import the Active Directory server's SSL certificate into WSO2's trust store:
+
+1. **Export the AD Server Certificate:**
+   ```bash
+   # Connect to your AD server and export the certificate
+   openssl s_client -connect your-ad-server.company.com:636 -showcerts
+   ```
+
+2. **Import Certificate to WSO2 Trust Store:**
+   ```bash
+   keytool -import -alias ad-server-cert \
+           -file ad-server-cert.crt \
+           -keystore <PRODUCT_HOME>/repository/resources/security/client-truststore.jks \
+           -storepass wso2carbon
+   ```
+
+3. **Verify Certificate Installation:**
+   ```bash
+   keytool -list -keystore <PRODUCT_HOME>/repository/resources/security/client-truststore.jks \
+           -alias ad-server-cert
+   ```
+
+### Connection Security Best Practices
+
+**Authentication Security:**
+```toml
+# Use a dedicated service account with minimal required permissions
+ConnectionName="CN=WSO2ServiceAccount,OU=Service Accounts,DC=company,DC=com"
+
+# Store connection password securely (consider using encrypted values)
+ConnectionPassword="SecureComplexPassword123!"
+
+# Never enable anonymous binding in production
+AnonymousBind="false"
+```
+
+**Network Security:**
+- Ensure firewall rules allow only necessary traffic on LDAPS port (636)
+- Use dedicated network segments for directory service communication
+- Monitor connection logs for unauthorized access attempts
+
+### Monitoring and Auditing
+
+Enable comprehensive logging to monitor user store activities:
+
+```toml
+# Enable connection retry logging
+ConnectionRetryDelay="120000"
+
+# Monitor timeout events  
+LDAPConnectionTimeout="10000"
+ReadTimeout="30000"
+```
+
+**Key metrics to monitor:**
+- Failed authentication attempts
+- Connection timeouts
+- Certificate validation failures
+- Unusual access patterns
+
+### Security Checklist
+
+Before deploying to production, verify:
+
+- [ ] `PasswordHashMethod` is set to SHA-256 or SHA-512 (NOT PLAIN_TEXT)
+- [ ] LDAPS is configured with valid SSL certificates
+- [ ] Certificates are properly imported to WSO2 trust store
+- [ ] Service account has minimal required permissions
+- [ ] Connection passwords are complex and securely stored
+- [ ] Anonymous binding is disabled
+- [ ] Network access is restricted to authorized systems only
+- [ ] Logging and monitoring are configured for security events
+- [ ] Regular security reviews and certificate updates are scheduled
+
+!!! warning "Compliance Considerations"
+    Organizations subject to security compliance requirements (PCI DSS, HIPAA, SOX, etc.) must ensure all authentication mechanisms meet relevant standards. Consult your security team before deploying Active Directory integration in regulated environments.
+
