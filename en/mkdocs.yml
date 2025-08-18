@@ -730,7 +730,7 @@ nav:
             - Create and Publish an AWS Lambda API: tutorials/create-and-publish-awslambda-api.md
             - Create and Publish an API with Sequence as a Backend: tutorials/create-and-publish-a-sequencebackend-api.md
             - Expose a SOAP Service as a REST API: tutorials/expose-a-soap-service-as-a-rest-api.md
-            - Edit an API by Modifying the API Definition: tutorials/edit-an-api-by-modifyng-the-api-definition.md
+            - Edit an API by Modifying the API Definition: tutorials/edit-an-api-by-modifying-the-api-definition.md
 
 # Extensions
 markdown_extensions:
@@ -926,7 +926,7 @@ plugins:
               'learn/tutorials/create-and-publish-awslambda-api.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/create-and-publish-awslambda-api/'
               'learn/tutorials/create-and-publish-a-sequencebackend-api.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/create-and-publish-a-sequencebackend-api/'
               'learn/tutorials/expose-a-soap-service-as-a-rest-api.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/expose-a-soap-service-as-a-rest-api/'
-              'learn/tutorials/edit-an-api-by-modifyng-the-api-definition.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/edit-an-api-by-modifyng-the-api-definition/'
+              'learn/tutorials/edit-an-api-by-modifying-the-api-definition.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/edit-an-api-by-modifying-the-api-definition/'
               'learn/tutorials/create-and-publish-websocket-api.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/streaming-api/create-and-publish-websocket-api/'
               'learn/analytics/overview-of-api-analytics.md': 'https://apim.docs.wso2.com/en/4.4.0/observe/api-manager-analytics/overview-of-api-analytics/'
               'learn/analytics/viewing-api-statistics/monitoring-dashboard.md': 'https://apim.docs.wso2.com/en/4.4.0/observe/api-manager-analytics/overview-of-api-analytics/'
@@ -1054,7 +1054,7 @@ plugins:
               'administer/product-security/identity-management-for-the-api-dev-portal.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/user-account-management/'
               'observe/api-manager-analytics/analyzing-apim-statistics-with-batch-analytics/using-geo-location-based-statistics/configuring-geolocation-based-statistics.md': 'https://apim.docs.wso2.com/en/4.4.0/observe/api-manager-analytics/overview-of-api-analytics/'
               'observe/api-manager-analytics/analyzing-apim-statistics-with-batch-analytics/using-geo-location-based-statistics/writing-a-custom-geolocation-provider.md': 'https://apim.docs.wso2.com/en/4.4.0/observe/api-manager-analytics/overview-of-api-analytics/'
-              'learn/tutorials/edit-and-consume-apis-using-swagger-tools.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/edit-an-api-by-modifyng-the-api-definition/'
+              'learn/tutorials/edit-and-consume-apis-using-swagger-tools.md': 'https://apim.docs.wso2.com/en/4.4.0/tutorials/edit-an-api-by-modifying-the-api-definition/'
               'install-and-setup/setup/security/identity-management-for-the-api-dev-portal.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/user-account-management/'
               'troubleshooting/removing-unused-tokens-from-the-database.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/setting-up-databases/managing-data-growth-and-improving-performance/'
               'develop/product-apis/restful-apis.md': 'https://apim.docs.wso2.com/en/4.4.0/reference/product-apis/overview/'
