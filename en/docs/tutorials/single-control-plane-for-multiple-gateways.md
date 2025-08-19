@@ -20,19 +20,19 @@ In WSO2 API Manager, the API gateway is a critical component responsible for han
 Here are the three main API gateways in WSO2 API Manager:
 
 - **Universal Gateway**: This is the default, core API gateway that handles all incoming API traffic, processes requests according to policies defined in the control plane (like API security, throttling), and routes requests to backend services. The universal gateway is typically deployed as a standalone gateway in a single environment or as part of a larger distributed system in multiple regions or data centers.
-- **Kubernetes Gateway**: The cloud native gateway deployment option is designed for Kubernetes environments. It integrates with cloud native platforms, such as Kubernetes clusters, and leverages containers to manage API gateway deployments.
+- **Kubernetes Gateway**: The cloud-native gateway deployment option is designed for Kubernetes environments. It integrates with cloud-native platforms, such as Kubernetes clusters, and leverages containers to manage API gateway deployments.
 - **Immutable Gateway**: The WSO2 Microgateway is a lightweight, low-latency API gateway designed specifically for microservices-based architectures. It is designed to be used in environments where APIs are deployed in containerized or serverless setups. It is typically deployed as part of a microservices architecture where each service has its own gateway, running in isolated environments or as sidecars to microservices.
 
 For details on selecting the appropriate self-managed WSO2 API Gateway, refer to the [Choosing the Right Self-Managed WSO2 API Gateway for Your Needs](https://wso2.com/library/blogs/choosing-the-right-self-managed-wso2-api-gateway-for-your-needs/). This tutorial will offer a comprehensive guide for each gateway, explaining how to utilize the API control plane (ACP) to manage APIs deployed within them.
 
 ## WSO2’s Single Control Plane for Multiple Gateways
 
-A platform engineer must be able to manage APIs from a single WSO2 API Manager control plane. These APIs should be exposed through various gateway types (Universal, Kubernetes, and Immutable). This capability will enable support for diverse deployment targets, such as VMs, containers, and cloud native environments.
+A platform engineer must be able to manage APIs from a single WSO2 API Manager control plane. These APIs should be exposed through various gateway types (Universal, Kubernetes, and Immutable). This capability will enable support for diverse deployment targets, such as VMs, containers, and cloud-native environments.
 
 This setup enables:
 
 - Centralized API publishing and governance.
-- Deployment to multiple execution environments (on-prem, cloud native, and containerized).
+- Deployment to multiple execution environments (on-prem, cloud-native, and containerized).
 - Fine-grained control over exposure of APIs based on organizational or infrastructure needs.
 - Agility and scalability through appropriate use of each gateway type.
 
