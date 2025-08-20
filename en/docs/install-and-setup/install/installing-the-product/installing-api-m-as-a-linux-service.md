@@ -6,7 +6,7 @@
 
 !!! note
 
-    **Before you begin:**
+    **Before you begin:** Hehe
 
     - See [our compatibility matrix]({{base_path}}/install-and-setup/ProductCompatibility) to check the compatible JDK versions. 
     - Set up the `JAVA_HOME` environment variable.
