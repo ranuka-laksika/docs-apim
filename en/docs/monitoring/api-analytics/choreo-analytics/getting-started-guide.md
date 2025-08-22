@@ -176,6 +176,9 @@ properties.'client.flushing.delay' = 15000
 
 Invoke APIs and open <a href="https://console.choreo.dev/insights/overview">Choreo Insights</a> to view the dashboards.
 
+
+Once you access the Choreo Insights page, make sure to select the correct analytics environment from the top-right dropdown. Select the environment name that you provided when creating the key in Step 2 (e.g., customer1-dev).
+
 For more detailed information on the Choreo Insights dashboards and their usage, go to the [View API Insights](https://wso2.com/choreo/docs/insights/view-api-insights/) page of the Choreo documentation.
 
 ## What's Next?
