@@ -21,6 +21,9 @@ APIs are evaluated based on governance policies that enforce rulesets to ensure 
 - If a policy is configured as **blocking**, API creators **cannot proceed with the action until all compliance requirements are met**. Blocking policies are only enforceable during the API Publish and Deploy stages.
 - If a policy is **non-blocking**, API actions can proceed while the **compliance check runs in the background**. The results will be displayed in the compliance dashboard once the evaluation is complete. By default, the background compliance check runs every 2 minutes if a change has been detected.
 
+!!! note "Configure Blocking Policies"
+    To configure policies as blocking or non-blocking, refer to the [Admin Guide]({{base_path}}/governance/api-governance-admin-capabilities/#create-a-new-policy) which provides step-by-step instructions on how to create and manage governance policies.
+
 !!! tip "Understand Governance Concepts"
     To understand the core concepts of governance in WSO2 API Manager, refer to the [Governance Concepts]({{base_path}}/governance/governance-concept) documentation.
 
@@ -33,7 +36,7 @@ To add labels to an API follow these steps:
 1. Log in to the **API Manager Publisher Portal**.  
 2. Select an existing API or create a new one.  
 3. Navigate to the **Design** tab and open the **Portal Configurations** section.  
-4. Click on **Basic Info** to access the API’s design configurations.  
+4. Click on **Basic Info** to access the API's design configurations.  
 5. Click the **+** icon to attach the relevant labels to the API from the list of available labels.
 
 <a href="../../assets/img/governance/label_attach.png">
