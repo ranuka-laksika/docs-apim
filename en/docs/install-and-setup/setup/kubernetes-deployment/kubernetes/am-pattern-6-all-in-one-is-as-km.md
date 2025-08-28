@@ -81,7 +81,7 @@ This section explains how to configure WSO2 Identity Server 7.x as a Key Manager
 
 !!! info
     Before you begin:
-    You need to import the public certificate of the WSO2 Identity Server 7.x to the truststore of the WSO2 API Manager, and vice-versa. For information on importing the certificates, see the [Importing certificates to the truststore](https://apim.docs.wso2.com/en/4.5.0/install-and-setup/setup/security/configuring-keystores/keystore-basics/creating-new-keystores/#step-3-importing-certificates-to-the-truststore) guide.
+    You need to import the public certificate of the WSO2 Identity Server 7.x to the truststore of the WSO2 API Manager, and vice-versa. For information on importing the certificates, see the [Importing certificates to the truststore]({{base_path}}/install-and-setup/setup/security/configuring-keystores/keystore-basics/creating-new-keystores/#step-3-importing-certificates-to-the-truststore) guide.
 
 To configure WSO2 Identity Server 7.x to work as a Key Manager with WSO2 API Manager, you need to apply the following configurations:
 
