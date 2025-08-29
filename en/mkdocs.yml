@@ -1013,6 +1013,7 @@ plugins:
               'administer/product-security/logins-and-passwords/maintaining-logins-and-passwords.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/logins-and-passwords/maintaining-logins-and-passwords/'
               'administer/product-security/logins-and-passwords/working-with-encrypted-passwords.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/logins-and-passwords/working-with-encrypted-passwords/'
               'administer/product-security/logins-and-passwords/carbon-secure-vault-implementation.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/logins-and-passwords/carbon-secure-vault-implementation/'
+              'administer/product-security/General/logins-and-passwords/admin-carbon-secure-vault-implementation.md': 'https://apim.docs.wso2.com/en/latest/install-and-setup/setup/security/logins-and-passwords/carbon-secure-vault-implementation/'
               'administer/product-security/logins-and-passwords/set-passwords-using-vars-and-sys-props.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/logins-and-passwords/set-passwords-using-vars-and-sys-props/'
               'administer/product-security/enabling-hostname-verification.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/enabling-hostname-verification/'
               'administer/product-security/enabling-java-security-manager.md': 'https://apim.docs.wso2.com/en/4.4.0/install-and-setup/setup/security/enabling-java-security-manager/'
