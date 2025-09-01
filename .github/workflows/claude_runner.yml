@@ -58,6 +58,10 @@ jobs:
           # Also set these for Claude
           echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
           echo "GITHUB_REPO=$GITHUB_REPOSITORY" >> $GITHUB_ENV
+          ECHO "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "REPO_OWNER=$REPO_OWNER" >> $GITHUB_ENV
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          echo "ORIGINAL_REPO=$ORIGINAL_REPO" >> $GITHUB_ENV
 
 
       - name: Run Claude
@@ -67,9 +71,9 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           VERSION: ${{ env.VERSION }}
-          REPO_OWNER: ${{ secrets.REPO_OWNER }}
-          REPO_NAME: ${{ secrets.REPO_NAME }}
-          ORIGINAL_REPO: ${{ secrets.ORIGINAL_REPO }}
+          REPO_OWNER: ${{ env.REPO_OWNER }}
+          REPO_NAME: ${{ env.REPO_NAME }}
+          ORIGINAL_REPO: ${{ env.ORIGINAL_REPO }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
           github_token: ${{ secrets._GITHUB_TOKEN }}
