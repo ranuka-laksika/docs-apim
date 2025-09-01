@@ -11,9 +11,6 @@ concurrency:
 jobs:
   queue-runner:
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      contents: read
     name: Process next issue in Claude queue
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +24,7 @@ jobs:
       - name: Pick next queued issue
         id: pick
         env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets._GITHUB_TOKEN }}
 
         run: |
           # Check if any issue is already in progress
@@ -55,7 +52,7 @@ jobs:
 
       - name: Update labels and trigger Claude
         env: 
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets._GITHUB_TOKEN }}
         if: steps.pick.outputs.issue_number != ''
         run: | 
           ISSUE=${{ steps.pick.outputs.issue_number }}

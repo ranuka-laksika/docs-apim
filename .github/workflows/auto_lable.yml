@@ -8,8 +8,6 @@ jobs:
   auto-label:
     runs-on: ubuntu-latest
     name: Auto-label issues for Claude processing
-    permissions:
-      issues: write
     steps:
       # Checkout repo (required if you later read files)
       - name: Checkout repository
@@ -25,7 +23,7 @@ jobs:
       - name: Classify issue via Claude API
         env:
             ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets._GITHUB_TOKEN }}
             ISSUE_NUMBER: ${{ github.event.issue.number }}
             
             ISSUE_TITLE: ${{ github.event.issue.title }}

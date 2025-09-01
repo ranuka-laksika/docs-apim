@@ -8,11 +8,6 @@ jobs:
   run-claude:
     if: contains(github.event.comment.body, '@AI-Agent')
     runs-on: ubuntu-latest
-    permissions:
-      issues: write
-      contents: write
-      pull-requests: write
-      id-token: write
 
     steps:
       # Checkout repo
@@ -64,6 +59,7 @@ jobs:
           echo "ISSUE_NUMBER=$ISSUE_NUMBER" >> $GITHUB_ENV
           echo "GITHUB_REPO=$GITHUB_REPOSITORY" >> $GITHUB_ENV
 
+
       - name: Run Claude
         id: run_claude
         uses: anthropics/claude-code-action@v1
@@ -76,7 +72,7 @@ jobs:
           ORIGINAL_REPO: ${{ secrets.ORIGINAL_REPO }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets._GITHUB_TOKEN }}
           prompt: ${{ env.SYSTEM_PROMPT }}
           trigger_phrase: "@AI-Agent"
           claude_args: |
