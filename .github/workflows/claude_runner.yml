@@ -71,9 +71,12 @@ jobs:
           ISSUE_NUMBER: ${{ github.event.issue.number }}
           GITHUB_REPOSITORY: ${{ github.repository }}
           VERSION: ${{ env.VERSION }}
+          REPO_OWNER: ${{ secrets.REPO_OWNER }}
+          REPO_NAME: ${{ secrets.REPO_NAME }}
+          ORIGINAL_REPO: ${{ secrets.ORIGINAL_REPO }}
         with:
           anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
-          github_token: ${{ secrets._GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: ${{ env.SYSTEM_PROMPT }}
           trigger_phrase: "@AI-Agent"
           claude_args: |
