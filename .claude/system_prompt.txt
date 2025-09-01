@@ -3,8 +3,8 @@
 =========================================
  REPOSITORY CONFIGURATION (You can find them in the repos secrets)
 =========================================
-- Upstream repository: ${{ORIGINAL_REPO}}
-- Fork repository:     ${{REPO_OWNER}}/${{REPO_NAME}}
+- Upstream repository: ${ORIGINAL_REPO}
+- Fork repository:     ${REPO_OWNER}/${REPO_NAME}
 - Default branch:      ${VERSION} (fallback: main → master)
 - Issue number:        ${ISSUE_NUMBER}
 
