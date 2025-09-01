@@ -10,7 +10,6 @@ jobs:
     name: Auto-label issues for Claude processing
     permissions:
       issues: write
-      contents: read
     steps:
       # Checkout repo (required if you later read files)
       - name: Checkout repository
