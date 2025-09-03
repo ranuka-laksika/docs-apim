@@ -2,14 +2,14 @@
 
 By default, the community links option is **disabled** (hidden). As a result, the sharable Developer Portal links of the APIs for Facebook, Twitter, and Reddit will not appear in the Developer Portal by default. Instead, the administrators have to enable the social media sharing option if they wish to allow API Consumers to use this feature.
 
-In addition, the GitHub and Slack channel URLs will not appear in the Developer Portal unless the administrators have defined these URLs via the Publisher.
+In addition, the GitHub and Discord channel URLs will not appear in the Developer Portal unless the administrators have defined these URLs via the Publisher.
 
 - [Enable Social Media Interaction](#enable-social-media-interaction)
   - [Enable sharing API link on social media](#enable-sharing-api-link-on-social-media)
     - [Step 1 - Enable the community links option](#step-1---enable-the-community-links-option)
     - [Step 2 - Verify the changes](#step-2---verify-the-changes)
-  - [Add GitHub and Slack channel URLs to an API](#add-github-and-slack-channel-urls-to-an-api)
-    - [Step 1 - Define your GitHub and Slack channel URLs](#step-1---define-your-github-and-slack-channel-urls)
+  - [Add GitHub and Discord channel URLs to an API](#add-github-and-discord-channel-urls-to-an-api)
+    - [Step 1 - Define your GitHub and Discord channel URLs](#step-1---define-your-github-and-discord-channel-urls)
     - [Step 2 - Verify the changes](#step-2---verify-the-changes-1)
 
 ## Enable sharing API link on social media
@@ -63,11 +63,11 @@ Follow the instructions below to enable API Consumers to be able to share the AP
     [![Community link in Developer Portal]({{base_path}}/assets/img/design/community-features/devportal-default-community-links.png)]({{base_path}}/assets/img/design/community-features/devportal-default-community-links.png)
     
 
-## Add GitHub and Slack channel URLs to an API
+## Add GitHub and Discord channel URLs to an API
 
-Follow the instructions below to enable the API related GitHub and Slack channel URLs to appear in the Developer Portal:
+Follow the instructions below to enable the API related GitHub and Discord channel URLs to appear in the Developer Portal:
 
-### Step 1 - Define your GitHub and Slack channel URLs
+### Step 1 - Define your GitHub and Discord channel URLs
 
 1.  Sign in to the Publisher.
 
@@ -81,9 +81,9 @@ Follow the instructions below to enable the API related GitHub and Slack channel
 
     [![Basic info link]({{base_path}}/assets/img/design/community-features/publisher-community-link-basic-info.png)]({{base_path}}/assets/img/design/community-features/publisher-community-link-basic-info.png)
 
-4. Provide your GitHub and Slack channel URL in the respective input fields and click **Save**
+4. Provide your GitHub and Discord channel URL in the respective input fields and click **Save**
 
-    [![GitHub and Slack channel URL]({{base_path}}/assets/img/design/community-features/publisher-slack-urls.png)]({{base_path}}/assets/img/design/community-features/publisher-slack-urls.png)
+    [![GitHub and Discord channel URL]({{base_path}}/assets/img/design/community-features/publisher-discord-urls.png)]({{base_path}}/assets/img/design/community-features/publisher-discord-urls.png)
 
 ### Step 2 - Verify the changes
 
@@ -95,8 +95,8 @@ Follow the instructions below to enable the API related GitHub and Slack channel
 
 2. Click on the API.
 
-     The API's overview page appears with the GitHub and Slack channel URLs.
+     The API's overview page appears with the GitHub and Discord channel URLs.
 
-     [![Developer Portal community links with Slack and Github]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-slack-github.png)]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-slack-github.png)
+     [![Developer Portal community links with Discord and Github]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-discord-github.png)]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-discord-github.png)
 
-     Now, API Consumers can use the GitHub and Slack channel community links to engage in community activities, explore the API source, and much more.
+     Now, API Consumers can use the GitHub and Discord channel community links to engage in community activities, explore the API source, and much more.
