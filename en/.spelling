@@ -1496,7 +1496,7 @@ allowlisted
 id_token
 API-M_HOME
 wso2-BotDetectedData
-valdators
+validators
 Am300JSON
 preconfigured
 validator
@@ -6474,7 +6474,7 @@ Informix
 4.10.JC2
 changing-to-ibm-informix
 Walkthrough
-valdators
+validators
 Am300JSON
 preconfigured
 validator
