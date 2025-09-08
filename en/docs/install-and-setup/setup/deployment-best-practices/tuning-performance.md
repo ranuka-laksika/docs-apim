@@ -148,6 +148,19 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<div class="admonition info">
+<p class="admonition-title">Transport Client Configuration Details</p>
+<p>The <code>[transport.client]</code> configuration section controls the HTTP client connection pooling behavior for outbound connections from the API Gateway to backend services and other components. These parameters are critical for performance optimization in high-load scenarios:</p>
+
+<ul>
+<li><strong>default_max_connection_per_host</strong>: Defines the maximum number of concurrent connections that can be established to a single backend host/service. Setting this to 1000 allows each backend service to handle up to 1000 simultaneous connections from the Gateway, which is suitable for high-throughput environments. If your backend services can handle more concurrent connections, you can increase this value accordingly.</li>
+
+<li><strong>max_total_connections</strong>: Sets the total maximum number of connections in the connection pool across all backend hosts. With a value of 30000, the Gateway can maintain up to 30,000 concurrent connections to all backend services combined. This parameter should be tuned based on the total number of backend services and expected load. Monitor connection pool utilization to ensure this value is appropriate for your deployment.</li>
+</ul>
+
+<p><strong>Performance Impact</strong>: Proper tuning of these parameters helps prevent connection exhaustion under high load, reduces connection establishment overhead through connection reuse, and ensures optimal resource utilization. If values are too low, requests may be queued or fail due to connection limits. If too high, excessive memory consumption may occur.</p>
+</div>
 </td>
 </tr>
 <tr class="odd">
