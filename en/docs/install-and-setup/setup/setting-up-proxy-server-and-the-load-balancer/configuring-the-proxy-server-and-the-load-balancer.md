@@ -68,7 +68,7 @@ Carry out the following steps to configure the load balancer to front multiple 
     <tr class="odd">
     <td>Single all-in-one deployment</td>
     <td>N/A</td>
-    <td>[NGINX Community](http://nginx.org/)</td>
+    <td>[NGINX Community](https://nginx.org/)</td>
     <td>This deployment does not need Sticky Sessions (Session Affinity).</td>
     </tr>
     <tr class="even">
@@ -81,12 +81,12 @@ Carry out the following steps to configure the load balancer to front multiple 
     <tr class="odd">
     <td rowspan="3">Distributed deployment</td>
     <td>HA for Traffic Manager</td>
-    <td>[NGINX Community version](http://nginx.org/)</td>
+    <td>[NGINX Community version](https://nginx.org/)</td>
     <td>The Traffic Manager node does not need Sticky Sessions.</td>
     </tr>
     <tr class="even">
     <td>HA for Gateway</td>
-    <td>[NGINX Community version](http://nginx.org/)</td>
+    <td>[NGINX Community version](https://nginx.org/)</td>
     <td>The Gateway node does not need Sticky Sessions.</td>
     </tr>
     <tr class="odd">

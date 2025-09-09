@@ -91,42 +91,42 @@ Once the product server is started, you can start the JConsole tool as follows:
 
      **Overview**
 
-     See the Oracle documentation on [using JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
+     See the Oracle documentation on [using JConsole](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
 
      [![Overview]({{base_path}}/assets/img/administer/overview.png)]({{base_path}}/assets/img/administer/overview.png)
 
 
      **Memory**
 
-     See the Oracle documentation on [using JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
+     See the Oracle documentation on [using JConsole](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
 
      [![Memory]({{base_path}}/assets/img/administer/memory.png)]({{base_path}}/assets/img/administer/memory.png)
    
 
      **Threads**
 
-     See the Oracle documentation on [using JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
+     See the Oracle documentation on [using JConsole](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
 
      [![Threads]({{base_path}}/assets/img/administer/threads.png)]({{base_path}}/assets/img/administer/threads.png)
     
 
      **Classes**
 
-     See the Oracle documentation on [using JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
+     See the Oracle documentation on [using JConsole](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
 
      [![Classes]({{base_path}}/assets/img/administer/classes.png)]({{base_path}}/assets/img/administer/classes.png)
     
     
      **VM**
 
-     See the Oracle documentation on [using JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
+     See the Oracle documentation on [using JConsole](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
 
      [![VM]({{base_path}}/assets/img/administer/vmsummary.png)]({{base_path}}/assets/img/administer/vmsummary.png)
 
 
      **MBeans**
 
-     See the Oracle documentation on [using JConsole](http://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
+     See the Oracle documentation on [using JConsole](https://docs.oracle.com/javase/7/docs/technotes/guides/management/jconsole.html) for more information on these tabs.
 
      [![MBeans]({{base_path}}/assets/img/administer/mbeans.png)]({{base_path}}/assets/img/administer/mbeans.png)
 
@@ -198,7 +198,7 @@ If you have [JMX enabled for a datasource connected to the product](#enabling-jm
 
 [![Datasource mbean]({{base_path}}/assets/img/administer/datasource-mbean.png)]({{base_path}}/assets/img/administer/datasource-mbean.png)
 
-**Example:** If you have JMX enabled for the default Carbon datasource in the `master-datasources.xml.` file, the [JDBC connection pool parameters](http://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) that are configured for the Carbon datasource will be listed as attributes as shown below. See the [performance tuning guide]({{base_path}}/install-and-setup/setup/deployment-best-practices/tuning-performance) for instructions on how these parameters are configured for a datasource.
+**Example:** If you have JMX enabled for the default Carbon datasource in the `master-datasources.xml.` file, the [JDBC connection pool parameters](https://tomcat.apache.org/tomcat-7.0-doc/jdbc-pool.html) that are configured for the Carbon datasource will be listed as attributes as shown below. See the [performance tuning guide]({{base_path}}/install-and-setup/setup/deployment-best-practices/tuning-performance) for instructions on how these parameters are configured for a datasource.
 
 [![Attributes mbeans]({{base_path}}/assets/img/administer/attributes-mbeans.png)]({{base_path}}/assets/img/administer/attributes-mbeans.png)
 

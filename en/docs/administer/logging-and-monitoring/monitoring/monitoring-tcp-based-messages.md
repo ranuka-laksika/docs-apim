@@ -1,6 +1,6 @@
 # Monitoring TCP-based Messages
 
-Users can view and monitor the messages passed along a TCP-based conversation using the TCPMon utility. Therefore, this is a convenient tool, particularly useful for debugging when you develop Web services. TCPMon is an Apache project that is distributed under the [Apache 2.0 License](http://www.apache.org/licenses/LICENSE-2.0.html).
+Users can view and monitor the messages passed along a TCP-based conversation using the TCPMon utility. Therefore, this is a convenient tool, particularly useful for debugging when you develop Web services. TCPMon is an Apache project that is distributed under the [Apache 2.0 License](https://www.apache.org/licenses/LICENSE-2.0.html).
 
 TCPMon is not dependent on any third-party libraries. Its user interface is based on a swing UI and works on almost all platforms that support Java.
 
