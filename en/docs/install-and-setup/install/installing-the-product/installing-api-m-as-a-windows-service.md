@@ -170,6 +170,14 @@ The configuration file used for wrapping Java Applications by YAJSW is `wrapper.
 
 Extract WSO2 API Manager that you want to run as a Windows service, and then set the Windows environment variable `carbon_home` to the extracted product directory location.
 
+!!! important
+    **Important Environment Variable Requirements:**
+    
+    - The environment variables `carbon_home` and `java_home` **must be in lowercase** for YAJSW to work properly.
+    - Use `carbon_home` (not `CARBON_HOME`)
+    - Use `java_home` (not `JAVA_HOME`)
+    - If you have existing uppercase environment variables, you may need to create the lowercase versions as well.
+
 ### Running the product in console mode
 
 You will now verify that YAJSW is configured correctly for running the WSO2 API Manager as a Windows service.
@@ -235,3 +243,55 @@ uninstallService.bat
 The console will display a message confirming that the WSO2CARBON service was removed.
 
 ![]({{base_path}}/assets/attachments/28717183/29364291.png)
+
+## Troubleshooting
+
+If you encounter issues while installing or running WSO2 API Manager as a Windows service, refer to the following common problems and solutions:
+
+### Common Installation Issues
+
+#### Issue: Service fails to install with limited elevation
+**Problem:** Running the install command fails due to limited administrative privileges on Windows 11 or other Windows versions.
+
+**Solution:**
+1. Ensure you are running the command prompt as Administrator
+2. Right-click on Command Prompt and select "Run as administrator"
+3. Navigate to the `<YAJSW_HOME>/bat/` directory and run `installService.bat`
+4. If you still have permission issues, check your User Account Control (UAC) settings
+
+#### Issue: "Error 2: The system cannot find the file specified"
+**Problem:** YAJSW cannot find Java executable or required DLL files.
+
+**Solution:**
+1. Verify that `JAVA_HOME` is set correctly in your system environment variables
+2. Ensure the `java_home` (lowercase) environment variable is also set
+3. Update the `wrapper.conf` file to use the complete Java path:
+   ```bash
+   wrapper.java.command = ${JAVA_HOME}/bin/java
+   ```
+
+#### Issue: Environment variable case sensitivity
+**Problem:** Service fails to start due to incorrect environment variable casing.
+
+**Solution:**
+1. Verify that both `carbon_home` and `java_home` are set in **lowercase**
+2. Check Windows Environment Variables (System Properties > Advanced > Environment Variables)
+3. Create the lowercase versions if they don't exist:
+   - `carbon_home` = path to your WSO2 API Manager installation
+   - `java_home` = path to your Java installation
+
+#### Issue: Service starts but Management Console is not accessible
+**Problem:** Service appears to start successfully, but you cannot access the Management Console at https://localhost:9443/carbon.
+
+**Solution:**
+1. Check the wrapper log file at `<YAJSW_HOME>/log/wrapper.log` for errors
+2. Verify that ports 9443 and 8280 are not blocked by Windows Firewall
+3. Check the Carbon logs in `<CARBON_HOME>/repository/logs/` for any startup errors
+4. Ensure the `wrapper.conf` file includes all necessary classpath entries
+
+### Getting Additional Help
+
+For more detailed troubleshooting:
+- Check the YAJSW documentation at [YAJSW official documentation](http://yajsw.sourceforge.net/)
+- Review WSO2 API Manager logs in `<CARBON_HOME>/repository/logs/`
+- Consult the WSO2 community forums for specific error messages
