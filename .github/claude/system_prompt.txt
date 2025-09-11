@@ -31,7 +31,7 @@
 
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
-   - If no version is mentioned → default to ${LATEST_VERSION}.  
+   - If no version is mentioned → set branch to ${LATEST_VERSION}.  
    - After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0), and also include the repository's default branch (e.g., `main` or `master`).  
    - If the issue is present in other versions as well as int the default branch → fix them as well, creating **separate PRs for each version and the default branch**.
 
