@@ -4339,8 +4339,12 @@ components:
           description: |
             Type of the access token generated for this application.
 
+            **Accepted values:** OAUTH, JWT
+
             **OAUTH:** A UUID based access token
             **JWT:** A self-contained, signed JWT based access token which is issued by default.
+            
+            **Note:** "DEFAULT" is not a supported value. If not specified, JWT is used as the default token type.
           example: JWT
           default: JWT
           enum:
