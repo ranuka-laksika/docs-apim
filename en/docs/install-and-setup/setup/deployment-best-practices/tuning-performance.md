@@ -148,6 +148,18 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><strong>Functional Area: Backend Service Communication & Connection Pooling</strong></p>
+
+<p>These configurations control the HTTP client connection pool that the API Gateway uses for outbound communication to backend services and APIs. They are critical for managing how the Gateway establishes and reuses connections when routing client requests to your backend endpoints.</p>
+
+<ul>
+<li><strong>default_max_connection_per_host:</strong> Sets the maximum number of concurrent HTTP connections that can be established to a single backend host/service. This prevents any one backend service from consuming all available connections and ensures fair distribution across multiple backend services. A value of 1000 allows up to 1000 simultaneous connections to each unique backend host.</li>
+
+<li><strong>max_total_connections:</strong> Defines the total connection pool size across all backend hosts combined. This is the global limit for all outbound HTTP connections from the Gateway. With 30,000 total connections available, the Gateway can handle high-concurrency scenarios where multiple backend services need to be accessed simultaneously.</li>
+</ul>
+
+<p><strong>Performance Impact:</strong> These settings directly affect the Gateway's ability to handle concurrent API requests efficiently. Insufficient connection limits can cause request queueing, increased response times, or connection timeouts during high load periods. Proper tuning ensures optimal throughput for backend communication.</p>
 </td>
 </tr>
 <tr class="odd">
