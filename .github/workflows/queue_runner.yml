@@ -20,18 +20,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y gh jq 
 
-      - name: Pick next queued issue
+      - name: Pick all queued issues
         id: pick
         env: 
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
         run: | 
-          # Get oldest open issue with AI-Agent/Queued label
           ISSUES=$(gh issue list --label "AI-Agent/Queued" --state open --json number --jq '.[].number')
           if [ -z "$ISSUES" ]; then
             echo "issue_numbers=" >> $GITHUB_OUTPUT
             exit 0
           fi
-          echo "issue_numbers=$ISSUES" >> $GITHUB_OUTPUT
+          echo "issue_numbers=$(echo $ISSUES | tr ' ' ',')" >> $GITHUB_OUTPUT
 
       - name: Exit if no queued issues
         if: steps.pick.outputs.issue_numbers == ''
@@ -42,7 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
         if: steps.pick.outputs.issue_numbers != ''
         run: |
-          for ISSUE in ${{ steps.pick.outputs.issue_numbers }}; do
+          for ISSUE in $(echo "${{ steps.pick.outputs.issue_numbers }}" | tr ',' ' '); do
             echo "Processing issue #$ISSUE"
             gh issue edit $ISSUE --remove-label "AI-Agent/Queued"
             gh issue edit $ISSUE --add-label "AI-Agent/In-Progress"
