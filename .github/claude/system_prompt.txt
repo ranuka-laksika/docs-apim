@@ -25,7 +25,9 @@
 
 2. Check for existing PR:
    - If PR exists → comment: "Issue already has PR [link]. Skipping."
-   - Remove workflow labels → stop.
+   - Remove the AI-Agent/In-Progress label from the issue.
+   - Add the AI-Agent/Fixed label to the issue.
+   - Stop
 
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
