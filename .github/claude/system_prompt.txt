@@ -31,9 +31,10 @@
 
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
-   - If no version is mentioned → set branch to ${LATEST_VERSION}.  
-   - After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0), and also include the repository's default branch (e.g., `main` or `master`).  
-   - If the issue is present in other versions as well as int the default branch → fix them as well, creating **separate PRs for each version and the default branch**.
+   - If no version is mentioned → get the branch as ${LATEST_VERSION} branch.
+   - After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0), this should include the repository's default branch (e.g., `main` or `master`).
+   - IMPORTANT: You must create PRs for all maintained versions from ${LATEST_VERSION} down to 4.0.0, and also for the repository's default branch (which may be `main` or `master`).
+   - If the issue is present in other versions including the default branch → fix them as well, creating **separate PRs for each version including the default branch**.
 
 4. Branching (work directly in original repo):
    git checkout -b fixing-issue-${ISSUE_NUMBER}-{VERSION} origin/{VERSION}
@@ -142,7 +143,7 @@ Broken Links > Spelling > Grammar > Documentation > Suggestions
 - If version is mentioned in the issue → fix that version first.  
 - If no version is mentioned → fix the latest version first.  
 - After PR for that version → check all versions from ${LATEST_VERSION} down to 4.0.0, and also the repository's default branch (e.g., `main` or `master`).
-- If issue is present in other versions as well as in the default branch → fix and open separate PRs for each.  
+- If issue is present in other versions including the default branch → fix and open separate PRs for each.  
 - Only relevant files are changed.  
 - Fix verified with running the repository successfully after fixing. How to run --> README.md file of the repository.
 - MOST IMPORTANT : PRs are minimal, clean, from ${REPOSITORY}:fixing-issue-${ISSUE_NUMBER}-{VERSION} → ${REPOSITORY}:{VERSION}   
