@@ -148,6 +148,10 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+<p><strong>Transport Client Connection Pool Parameters:</strong></p>
+<p><strong>default_max_connection_per_host:</strong> Specifies the maximum number of HTTP connections that can be established to a single backend endpoint (host:port combination). This parameter controls the connection pool size for outbound calls from the Gateway to individual backend services. With the default value of 1000, each backend service can have up to 1000 concurrent connections from the Gateway. This setting is crucial for high-throughput scenarios where the Gateway needs to handle multiple simultaneous requests to the same backend service.</p>
+<p><strong>max_total_connections:</strong> Defines the total maximum number of HTTP connections that can be maintained in the global connection pool across all backend endpoints. This parameter acts as a global limit for all outbound connections from the Gateway. With the default value of 30000, the Gateway can maintain up to 30000 concurrent connections to all backend services combined. This setting prevents resource exhaustion and ensures the Gateway doesn't exceed the system's connection handling capacity.</p>
+<p>These parameters are essential for optimizing the Gateway's connection management when handling high-volume API traffic and multiple backend services concurrently.</p>
 </td>
 </tr>
 <tr class="odd">
