@@ -32,7 +32,7 @@
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
    - If no version is mentioned → get the branch as ${LATEST_VERSION} branch.
-   - After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0, this should include the repository's default branch (e.g., `main` or `master`)).
+   - After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0 including repository's default branch (e.g., `main` or `master`)).
    - IMPORTANT: If the issue exists in other versions including default branch → Fix them , create **separate PRs for each version including the default branch(`main` or `master`)
 
 
@@ -142,7 +142,7 @@ Broken Links > Spelling > Grammar > Documentation > Suggestions
 =========================================
 - If version is mentioned in the issue → fix that version first.  
 - If no version is mentioned → fix the LATEST_VERSION first.  
-- After PR for that version → check all versions from ${LATEST_VERSION} down to 4.0.0, and also the repository's default branch (e.g., `main` or `master`).
+- After PR for that version → check all versions from ${LATEST_VERSION} down to 4.0.0 including repository's default branch (e.g., `main` or `master`).
 - If issue is present in other versions including the default branch → fix and open separate PRs for each.  
 - Only relevant files are changed.  
 - Fix verified with running the repository successfully after fixing. How to run --> README.md file of the repository.
