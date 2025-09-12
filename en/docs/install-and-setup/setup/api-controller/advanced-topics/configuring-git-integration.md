@@ -83,13 +83,13 @@ The structure of the file is as per below:
 Unlike the other configuration files inside `.wso2apictl`, `vcs_config.yaml` maintains a state for each repository. So it is mandatory to persist it during each `apictl vcs` command execution during each build cycle. In some container-based build systems, it might be difficult to keep this file persisted and make it available for each build cycle as it is required to enable volume mounts etc. It is also not advisable to persist/share the full `.wso2apictl` folder as it might include credentials. In such cases, an alternative approach would be to externalize the `vcs_config.yaml` into a different location where volume mounts or some persistence mechanism can be enabled for  `vcs_config.yaml` only.
 
 ```bash
-apictl set --vcs-config-path <full-path-to-store-vcs_config.yaml>
+apictl set --vcs-config-path <full-path-to-vcs_config.yaml>
 ```
 
 !!! example
     ```bash
-    $ apictl set --vcs-config-path /home/wso2/api-manager/gitconfigs
-    VCS config file path is set to : /home/wso2/api-manager/gitconfigs
+    $ apictl set --vcs-config-path /home/wso2/api-manager/gitconfigs/vcs_config.yaml
+    VCS config file path is set to : /home/wso2/api-manager/gitconfigs/vcs_config.yaml
     ```
 
 By setting the above, `apictl vcs deploy` command will create the `vcs_config.yaml` if it is not available in the specified path and reuse it for the succeeding commands.
