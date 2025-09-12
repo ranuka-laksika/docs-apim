@@ -38,8 +38,8 @@ jobs:
             CRITICAL RULES:
             - Read the issue title and body VERY carefully
             - For suggestions/improvements: Look for specific references, links, or documentation sources provided
-            - AI Agent will verify any provided references and cross-check against official project documentation
-            - AI Agent will implement solutions with high accuracy based on verified references
+            - Verify any provided references and cross-check against official project documentation
+            - Implement solutions with high accuracy based on verified references
             - If suggestions include invalid references or contradict existing documentation, they will be labeled as AI-Agent/Cannot-Fix
             - If the issue is requesting to add completely new documentation sections without clear basis, return 'none'
             - If the issue is about functionality, code changes, or feature requests, return 'none'
@@ -76,4 +76,3 @@ jobs:
                 else
                 echo "No valid category returned. Not adding label."
                 fi
-                
