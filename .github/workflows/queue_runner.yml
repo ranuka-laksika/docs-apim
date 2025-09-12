@@ -26,13 +26,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
 
         run: |
-          # Check if any issue is already in progress
-          IN_PROGRESS=$(gh issue list --label "AI-Agent/In-Progress" --state open --json number | jq 'length')
-          if [ "$IN_PROGRESS" -gt 0 ]; then
-            echo "issue_in_progress=true" >> $GITHUB_OUTPUT
-            exit 0
-          fi
-
           # Get oldest open issue with AI-Agent/Queued label
           ISSUE_JSON=$(gh issue list --label "AI-Agent/Queued" --state open --json number,createdAt --limit 100 \
             | jq '[.[]] | sort_by(.createdAt) | .[0]')
