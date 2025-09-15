@@ -148,6 +148,12 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+<p><strong>Functional Areas and Configuration Details:</strong></p>
+<ul>
+<li><p><strong>default_max_connection_per_host:</strong> This parameter defines the maximum number of concurrent HTTP connections that can be established to a single backend host/server from the Gateway. This is crucial for load balancing and preventing connection exhaustion to any specific backend endpoint. When the Gateway needs to route API requests to backend services, this setting ensures that no single backend server gets overwhelmed with too many simultaneous connections from the Gateway, thus maintaining optimal performance and preventing backend server overload.</p></li>
+<li><p><strong>max_total_connections:</strong> This parameter sets the total maximum number of concurrent HTTP connections that the Gateway can maintain across all backend hosts combined. This acts as a global connection pool limit for all outbound HTTP connections from the Gateway to various backend services. It ensures that the Gateway itself doesn't exhaust system resources by creating unlimited connections, while also providing sufficient connection capacity to handle high-throughput API traffic effectively. This setting is particularly important in high-load scenarios where multiple APIs are accessing different backend services simultaneously.</p></li>
+</ul>
+<p>These transport client configurations are essential for optimizing the Gateway's connection management when communicating with backend services, ensuring both performance and resource efficiency in production deployments.</p>
 </td>
 </tr>
 <tr class="odd">
