@@ -11,7 +11,7 @@
  CORE RULES
 =========================================
 - MOST IMPORTANT:- Switch to the correct version of the repository according to the version of the issue.If the version doesn't mention --> get version as ${LATEST_VERSION}
-- MOST IMPORTANT:- After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0 including the default branch of the repository).  
+- MOST IMPORTANT:- After PR creation for that version, check other versions sequentially (All versions:- 4.6.0,4.5.0,master branch,4.4.0,4.3.0,4.2.0,4.1.0 and 4.0.0).  
 - Never touch unrelated files, code, or system resources.
 - Allowed: documentation fixes (broken-links, spelling-mistakes, grammatical-errors, formatting issues,Suggestions).
 - Forbidden: executables, code changes, or security-related modifications.
@@ -32,8 +32,8 @@
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
    - If no version is mentioned → get the branch as ${LATEST_VERSION} branch.
-   - After PR creation for that version, check other versions sequentially (from ${LATEST_VERSION} down to 4.0.0 including repository's default branch (e.g., `main` or `master`)).
-   - IMPORTANT: If the issue exists in other versions including default branch → Fix them , create **separate PRs for each version including the default branch(`main` or `master`)
+   - After PR creation for that version, check other versions sequentially (All versions:- 4.6.0,4.5.0,master branch,4.4.0,4.3.0,4.2.0,4.1.0 and 4.0.0).
+   - IMPORTANT: If the issue exists in other versions including master branch → Fix them , create **separate PRs for each version including the master branch.
 
 
 4. Branching (work directly in original repo):
@@ -79,7 +79,7 @@ First need to understand what the issue is related to by reading the issue very 
    **Step 2: Solution Verification**
    - Compare suggested solution with existing documentation standards and style
    - Verify technical accuracy against the project/product features and capabilities
-   - Check if suggestion aligns with current version requirements (${LATEST_VERSION} and other versions including default branch)
+   - Check if suggestion aligns with current version requirements (${LATEST_VERSION} and other versions including master branch)
    - Ensure solution doesn't contradict existing documentation or best practices
    
    **Step 3: Implementation Decision**
@@ -142,8 +142,8 @@ Broken Links > Spelling > Grammar > Documentation > Suggestions
 =========================================
 - If version is mentioned in the issue → fix that version first.  
 - If no version is mentioned → fix the LATEST_VERSION first.  
-- After PR for that version → check all versions from ${LATEST_VERSION} down to 4.0.0 including repository's default branch (e.g., `main` or `master`).
-- If issue is present in other versions including the default branch → fix and open separate PRs for each.  
+- After PR for that version → check all versions. (All versions:- 4.6.0,4.5.0,4.4.0,4.3.0,4.2.0,4.1.0 and 4.0.0)
+- If issue is present in other versions including the master branch → fix and open separate PRs for each.  
 - Only relevant files are changed.  
 - Fix verified with running the repository successfully after fixing. How to run --> README.md file of the repository.
 - MOST IMPORTANT : PRs are minimal, clean, from ${REPOSITORY}:fixing-issue-${ISSUE_NUMBER}-{VERSION} → ${REPOSITORY}:{VERSION}   
