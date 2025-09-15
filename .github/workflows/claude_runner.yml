@@ -8,14 +8,12 @@ on:
   workflow_dispatch: {}
 
 jobs:
-  run-claude:
-    if: contains(github.event.comment.body, '@wso2-engineering-bot')
+  get_issue_and_assign:
     runs-on: ubuntu-latest
-
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
     steps:
       - name: Get the Oldest Issue with AI-Agent/Queued label
         id: get_oldest_queued
-        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
         env:
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
         run: |
@@ -27,8 +25,9 @@ jobs:
           fi
           ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r .number)
           echo "oldest_issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+          
       - name: Update labels and trigger Claude
-        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && (steps.get_oldest_queued.outputs.oldest_issue_number != '')
+        if: steps.get_oldest_queued.outputs.oldest_issue_number != ''
         env: 
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
         run: | 
@@ -40,7 +39,10 @@ jobs:
 
           # Add trigger comment for Claude
           gh issue comment $ISSUE --body "@wso2-engineering-bot create a PR for this issue following repo conventions"
-
+  run_claude:
+    runs-on: ubuntu-latest
+    if: contains(github.event.comment.body, '@wso2-engineering-bot')
+    steps:
       - name: Checkout original repository
         uses: actions/checkout@v4
         with:
