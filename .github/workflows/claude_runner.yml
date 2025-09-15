@@ -7,6 +7,10 @@ on:
     - cron: "0 * * * *" 
   workflow_dispatch: {}
 
+concurrency:
+  group: doc-fixing-ai-agent
+  cancel-in-progress: false
+
 jobs:
   get_issue_and_assign:
     runs-on: ubuntu-latest
