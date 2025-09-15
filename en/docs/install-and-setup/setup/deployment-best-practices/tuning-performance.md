@@ -148,6 +148,20 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><b>Functional Area and Parameter Descriptions:</b></p>
+<p>The <code>[transport.client]</code> configuration section manages outbound HTTP connections from the API Gateway to backend services. This configuration is crucial for handling high-concurrency scenarios and optimizing connection pooling performance.</p>
+
+<ul>
+<li><p><b>default_max_connection_per_host:</b> Defines the maximum number of concurrent connections that can be established per individual backend host/endpoint. When the Gateway routes API requests to backend services, this parameter controls how many simultaneous connections can be maintained to each specific backend server. A higher value allows more concurrent requests to the same backend service, improving throughput for popular APIs but may consume more resources.</p></li>
+
+<li><p><b>max_total_connections:</b> Sets the total connection pool size across all backend hosts. This is the overall limit for all outbound connections from the Gateway, regardless of the destination. It acts as a global cap to prevent resource exhaustion. When this limit is reached, new connection requests will be queued until existing connections are released.</p></li>
+</ul>
+
+<div class="admonition tip">
+    <p class="admonition-title">Tip</p>
+    <p>For high-traffic environments with many concurrent API calls, you may need to increase these values. Monitor your backend service capacity and network resources when tuning these parameters. The relationship between these two parameters should be: <code>max_total_connections</code> ≥ <code>default_max_connection_per_host</code> × number of backend hosts.</p>
+</div>
 </td>
 </tr>
 <tr class="odd">
