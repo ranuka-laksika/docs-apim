@@ -3,6 +3,9 @@ name: Claude Code • Auto PR on Comment
 on:
   issue_comment:
     types: [created]
+  schedule:
+    - cron: "0 * * * *" 
+  workflow_dispatch: {}
 
 jobs:
   run-claude:
@@ -10,6 +13,34 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Get the Oldest Issue with AI-Agent/Queued label
+        id: get_oldest_queued
+        if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
+        run: |
+          ISSUE_JSON=$(gh issue list --label "AI-Agent/Queued" --state open --json number,createdAt --limit 100 \
+            | jq '[.[]] | sort_by(.createdAt) | .[0]')
+          if [ "$ISSUE_JSON" = "null" ] || [ -z "$ISSUE_JSON" ]; then
+            echo "oldest_issue_number=" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          ISSUE_NUMBER=$(echo "$ISSUE_JSON" | jq -r .number)
+          echo "oldest_issue_number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+      - name: Update labels and trigger Claude
+        if: (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') && (steps.get_oldest_queued.outputs.oldest_issue_number != '')
+        env: 
+          GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
+        run: | 
+          ISSUE=${{ steps.get_oldest_queued.outputs.oldest_issue_number }}
+
+          # Remove AI-Agent/Queued, add AI-Agent/In-Progress
+          gh issue edit $ISSUE --remove-label "AI-Agent/Queued"
+          gh issue edit $ISSUE --add-label "AI-Agent/In-Progress"
+
+          # Add trigger comment for Claude
+          gh issue comment $ISSUE --body "@wso2-engineering-bot create a PR for this issue following repo conventions"
+
       - name: Checkout original repository
         uses: actions/checkout@v4
         with:
@@ -99,4 +130,3 @@ jobs:
 
           # Add trigger comment for Claude
           gh issue comment $ISSUE --body "@wso2-engineering-bot create a PR for this issue following repo conventions"
-
