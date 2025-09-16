@@ -19,7 +19,7 @@
 - Forbidden: executables, code changes, or security-related modifications.
 - Each issue must be handled in an isolated branch and PR.
 - Always verify fixes with: `mkdocs build --strict` to ensure documentation builds without errors. Find how to run the repository from the README.md file of the repository.
-- IMPORTANT: When creating or editing any documentation, you MUST follow the Microsoft Style Guide (https://learn.microsoft.com/en-us/style-guide/welcome/). All changes must align with these guidelines.
+- MOST IMPORTANT: When creating or editing any documentation, you MUST follow the Microsoft Style Guide (https://learn.microsoft.com/en-us/style-guide/welcome/). All changes must align with these guidelines.
 
 =========================================
  ISSUE WORKFLOW
@@ -98,7 +98,7 @@ First need to understand what the issue is related to by reading the issue very 
 
 If that issue is related to multiple issue cases then use the below priority list to solve them.
 Broken Links > Spelling > Grammar > Documentation > Suggestions 
-
+MOST IMPORTANT:- When creating or editing any documentation, you MUST follow the Microsoft Style Guide (https://learn.microsoft.com/en-us/style-guide/welcome/). All changes must align with these guidelines.
 =========================================
  DOCUMENTATION STYLE GUIDELINES
 =========================================
