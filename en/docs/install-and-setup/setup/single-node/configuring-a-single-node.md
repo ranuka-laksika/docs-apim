@@ -22,7 +22,7 @@ To create an all purpose keystore or multiple keystores for authentication and p
 
 In order to access the WSO2 API-M Portals and Gateway in both WSO2 API-M instances, you need to front the system with a load balancer. You can use any load balancer that is available to your system.
 
-Follow the steps in [Configuring the Proxy Server and the Load Balancer]({{base_path}}/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer) to configure the load balancer/reverse proxy which is fronting the API-M instance in the demiliterized zone (DMZ).
+Follow the steps in [Configuring the Proxy Server and the Load Balancer]({{base_path}}/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer) to configure the load balancer/reverse proxy which is fronting the API-M instance in the demilitarized zone (DMZ).
 
 ??? tip
     For example, if you are using the hostname `api.am.wso2.com` is used to access all portals (publisher, store, admin, and carbon) and `gw.am.wso2.com` is used to invoke APIs, the `deployment.toml` in `<API-M_HOME>/repository/conf` directory, should have the following reverse proxy configurations.
@@ -98,7 +98,7 @@ In this case, let's use `api.am.wso2.com` as the hostname:
 
 API Manager Analytics is delivered via the API Manager Analytics cloud solution. You need to configure the API Manager Gateway to publish analytics data into the cloud.
 
-See the instructions on [configuring the API Gateway]({{base_path}}/api-analytics/gateways/configure-synapse-gateway) with the cloud-based analytics solution.
+See the instructions on [configuring the API Gateway]({{base_path}}/monitoring/api-analytics/choreo-analytics/getting-started-guide/#step-3-configure-the-gateway) with the cloud-based analytics solution.
 
 ## Step 7 - Configure Production Hardening
 
