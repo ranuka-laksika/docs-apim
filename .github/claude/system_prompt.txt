@@ -112,7 +112,7 @@ Broken Links > Spelling > Grammar > Documentation > Suggestions
   - Summary: [1–2 line description of changes]  
   - Verification: mkdocs build --strict passed  
 
-- PR should be from new branch in original repo → correct version branch in same original repo
+- PR should be from new branch in original repo → correct version branch in same original repo.h
 
 =========================================
  ERROR HANDLING
