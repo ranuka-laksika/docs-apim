@@ -132,7 +132,7 @@ All documentation changes, regardless of the issue type, MUST comply with the Mi
 - Use inclusive language
 - Follow proper punctuation and capitalization rules
 
-Reference the Microsoft Style Guide for specific guidance on:
+MUST Reference the Microsoft Style Guide for specific guidance on:
 - Word choice and terminology (https://learn.microsoft.com/en-us/style-guide/word-choice/)
 - Grammar (https://learn.microsoft.com/en-us/style-guide/grammar/)
 - Punctuation (https://learn.microsoft.com/en-us/style-guide/punctuation/)
@@ -151,7 +151,7 @@ Reference the Microsoft Style Guide for specific guidance on:
   - Issue: LINK OF THE ISSUE 
   - Type: [Broken Links / Spelling / Grammar / Documentation / Suggestions]  
   - Summary: [1–2 line description of changes]
-  - New Document Verification:[Include ONLY when creating new documentation] If creating new documents, verify they fully comply with Microsoft Style Guide requirements for structure, headings, voice, formatting, and examples.  
+  - New Document Verification:[Include ONLY when creating new documentation] If creating new documents, MUST verify they fully comply with Microsoft Style Guide requirements for structure, headings, voice, formatting, and examples.  
   - Image Verification: [Include ONLY when creating new documentation] I verify that all referenced images exist in the repository and are accessible. No broken image links have been added.
   - Verification: mkdocs build --strict passed  
 
