@@ -3,6 +3,7 @@ name: Claude Code • Auto PR on Comment
 on:
   issue_comment:
     types: [created]
+  
   schedule:
     - cron: "0 * * * *" 
   workflow_dispatch: {}
@@ -72,6 +73,56 @@ jobs:
           git config user.name ${{secrets.DOC_FIXING_AGENT_GIT_USER_NAME}}
           git config user.email ${{secrets.DOC_FIXING_AGENT_GIT_USER_EMAIL}}
 
+      - name: Pre-process issue links
+        id: process_links
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
+        run: |
+          # Get issue details
+          ISSUE_NUMBER="${{ github.event.issue.number }}"
+          ISSUE_BODY=$(gh issue view $ISSUE_NUMBER --json body -q .body)
+          
+          echo "Analyzing links in issue #$ISSUE_NUMBER..."
+          
+          # Extract URLs from the issue body
+          URLS=$(echo "$ISSUE_BODY" | grep -o 'https\?://[^[:space:]"'"'"'<>()]*' || echo "")
+          
+          if [ -z "$URLS" ]; then
+            echo "No URLs found in the issue."
+            echo "has_links=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+          
+          echo "Found URLs in the issue. Checking them..."
+          echo "has_links=true" >> $GITHUB_OUTPUT
+          
+          # Create a file with link status information
+          echo "LINK_STATUS_REPORT<<EOF" >> $GITHUB_ENV
+          echo "Link verification results for issue #$ISSUE_NUMBER:" >> $GITHUB_ENV
+          
+          # Check each URL with a proper user agent and handling of redirects
+          echo "$URLS" | while read -r URL; do
+            if [ -n "$URL" ]; then
+              echo "Checking: $URL"
+              # Use curl with user-agent, follow redirects and only get headers
+              HTTP_CODE=$(curl -s -L -o /dev/null -w "%{http_code}" -A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36" "$URL")
+              
+              if [ "$HTTP_CODE" = "200" ]; then
+                STATUS="✅ Working"
+              elif [ "$HTTP_CODE" = "403" ]; then
+                STATUS="⚠️ Authentication required (403) - May be valid but requires login"
+              elif [ "$HTTP_CODE" = "404" ]; then
+                STATUS="❌ Not found (404)"
+              else
+                STATUS="⚠️ Returned HTTP $HTTP_CODE - May require special handling"
+              fi
+              
+              echo "- $URL: $STATUS" >> $GITHUB_ENV
+            fi
+          done
+          
+          echo "EOF" >> $GITHUB_ENV
+
       - name: Prepare system prompt with environment variables
         id: prepare_prompt
         run: |
@@ -87,6 +138,21 @@ jobs:
           
           # Process the system prompt with variable substitution
           SYSTEM_PROMPT=$(envsubst < ${{github.workspace}}/.github/claude/system_prompt.txt)
+          
+          # Add link validation results if any links were found
+          if [ "${{ steps.process_links.outputs.has_links }}" = "true" ]; then
+            echo "Adding link verification information to the prompt..."
+            SYSTEM_PROMPT="${SYSTEM_PROMPT}
+
+=========================================
+ LINK VERIFICATION REPORT
+=========================================
+The following links were found in the issue and pre-verified. DO NOT mark these links as broken solely based on your own testing if they are marked as working or authentication-required below:
+
+$LINK_STATUS_REPORT
+
+Important: For links marked 'Authentication required' or with other HTTP codes, these may be perfectly valid links that just need special access. Consider these as potentially working links that you can't verify directly."
+          fi
           
           # Save to GitHub env
           echo "SYSTEM_PROMPT<<EOF" >> $GITHUB_ENV
