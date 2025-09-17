@@ -100,9 +100,18 @@ First need to understand what the issue is related to by reading the issue very 
    - If adding or modifying image references:
      - First verify the image exists in the repository
      - Check if the image is accessible and properly displays in the documentation
-     - If needed images don't exist in the current version branch but exist in another version branch, copy those images to the correct directory in the current version branch
+     - If needed images don't exist in the current version branch but exist in another version branch:
+       1. Identify which branch contains the image (check branches in this order: master, 4.6.0, 4.5.0, 4.4.0, 4.3.0, 4.2.0, 4.1.0, 4.0.0)
+       2. Remember your current branch: `CURRENT_BRANCH=$(git branch --show-current)`
+       3. Fetch the branch with the image: `git fetch origin {BRANCH_WITH_IMAGE}`
+       4. Save the target directory path for the image (same relative path in your branch)
+       5. Checkout the branch with the image: `git checkout origin/{BRANCH_WITH_IMAGE} -- {IMAGE_PATH}`
+       6. This will stage the image file; verify with `git status`
+       7. Create any necessary directories: `mkdir -p $(dirname {TARGET_IMAGE_PATH})`
+       8. If the directories already exist, you can continue
+       9. Commit the image along with your documentation changes
      - Only add references to images that are confirmed to exist
-     - If needed images don't exist, note this in PR comments but don't add broken image links
+     - If needed images don't exist in any branch, note this in PR comments but don't add broken image links
      - Use relative paths to reference images following repository conventions
 
 If that issue is related to multiple issue cases then use the below priority list to solve them.
