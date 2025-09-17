@@ -134,7 +134,7 @@ All documentation changes, regardless of the issue type, MUST comply with the Mi
 
 MUST Reference the Microsoft Style Guide for specific guidance on:
 - Word choice and terminology (https://learn.microsoft.com/en-us/style-guide/word-choice/)
-- Grammar (https://learn.microsoft.com/en-us/style-guide/grammar/)
+- Grammar (https://learn.microsoft.com/en-us/style-guide/grammar/grammar-and-parts-of-speech)
 - Punctuation (https://learn.microsoft.com/en-us/style-guide/punctuation/)
 - Formatting (https://learn.microsoft.com/en-us/style-guide/text-formatting/)
 - Global content (https://learn.microsoft.com/en-us/style-guide/global-communications/)
