@@ -28,10 +28,13 @@
 1. Navigate to issue: https://github.com/${REPOSITORY}/issues/${ISSUE_NUMBER}.
 
 2. Check for existing PR:
-   - If PR exists → comment: "Issue already has PR [link]. Skipping."
-   - Remove the AI-Agent/In-Progress label from the issue.
-   - Add the AI-Agent/Fixed label to the issue.
-   - Stop
+   - If an OPEN PR exists → comment: "Issue already has an open PR [link]. Skipping."
+   - If only CLOSED PRs exist → proceed normally (do not skip)
+     - If the closed PRs were created by 'wso2-enginering-bot' → use a new unique branch name with timestamp (fixing-issue-${ISSUE_NUMBER}-{VERSION}-$(date +%s))
+     - This prevents conflicts with previous branches used by the agent
+   - Remove the AI-Agent/In-Progress label from the issue only if skipping.
+   - Add the AI-Agent/Fixed label to the issue only if skipping.
+   - Stop only if skipping due to an open PR.
 
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
@@ -41,7 +44,15 @@
 
 
 4. Branching (work directly in original repo):
-   git checkout -b fixing-issue-${ISSUE_NUMBER}-{VERSION} origin/{VERSION}
+   # For first version (detected or latest)
+   # If closed PRs by 'wso2-engineering-bot' exist for this issue, use timestamp in branch name
+   if [[ $(gh pr list --search "is:closed author:${{secrets.DOC_FIXING_AGENT_GIT_USER_NAME}} fixing-issue-${ISSUE_NUMBER}" --json number | jq '. | length') -gt 0 ]]; then
+     TIMESTAMP=$(date +%s)
+     BRANCH_NAME="fixing-issue-${ISSUE_NUMBER}-{VERSION}-${TIMESTAMP}"
+   else
+     BRANCH_NAME="fixing-issue-${ISSUE_NUMBER}-{VERSION}"
+   fi
+   git checkout -b ${BRANCH_NAME} origin/{VERSION}
 
 5. Apply ONLY the fix described in the issue.
 
@@ -50,10 +61,10 @@
 7. Commit & push (push directly to original repo):
    git add .
    git commit -m "Fix: [short description]"
-   git push -u origin fixing-issue-${ISSUE_NUMBER}-{VERSION}
+   git push -u origin ${BRANCH_NAME}
 
 8. Create PR within original repository:
-   - Source: ${REPOSITORY}:fixing-issue-${ISSUE_NUMBER}-{VERSION}
+   - Source: ${REPOSITORY}:${BRANCH_NAME}
    - Target: ${REPOSITORY}:{VERSION}
    - Create PR from new branch → version branch (same repository)
 
@@ -148,7 +159,7 @@ IMPORTANT SCOPE LIMITATION:
 =========================================
  PR CREATION
 =========================================
-- Branch name: fixing-issue-ISSUE_NUMBER-VERSION
+- Branch name: ${BRANCH_NAME} (automatically set with timestamp if needed)
 - PR title:    Fix: [short description][VERSION]
 - Commit msg:  Fix: [short description] (no issue number)
 - PR body template:
@@ -200,7 +211,7 @@ IMPORTANT SCOPE LIMITATION:
 - If issue is present in other versions including the master branch → fix and open separate PRs for each.  
 - Only relevant files are changed.  
 - Fix verified with running the repository successfully after fixing. How to run --> README.md file of the repository.
-- MOST IMPORTANT : PRs are minimal, clean, from ${REPOSITORY}:fixing-issue-${ISSUE_NUMBER}-{VERSION} → ${REPOSITORY}:{VERSION}   
+- MOST IMPORTANT : PRs are minimal, clean, from ${REPOSITORY}:${BRANCH_NAME} → ${REPOSITORY}:{VERSION}   
 - Workflow label(AI-Agent/In-Progress) cleared only after ALL PRs have been created.  
 - For issues that cannot be resolved, add the label AI-Agent/Cannot-Fix and provide the reason in a comment on the issue.
 - Add 'AI-Agent/Fixed' label to the issue ONLY after creating PRs for ALL applicable versions.
