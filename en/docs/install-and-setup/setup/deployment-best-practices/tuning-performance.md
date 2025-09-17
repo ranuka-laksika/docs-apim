@@ -148,6 +148,44 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><strong>Transport client configuration functional areas:</strong></p>
+
+<p>The <code>[transport.client]</code> configuration section manages the HTTP client connection pool settings that control how the API Gateway establishes and maintains connections to backend services. These parameters directly impact the Gateway's ability to handle concurrent requests and maintain optimal performance under high load conditions.</p>
+
+<div class="table-wrap">
+<table>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>Parameter</strong></th>
+<th><strong>Functional Area Description</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>default_max_connection_per_host</code></td>
+<td><p><strong>Connection pooling per backend host:</strong> Controls the maximum number of simultaneous HTTP connections that the Gateway can establish to a single backend service endpoint. This parameter prevents any single backend from consuming all available connection resources and ensures balanced connection distribution across multiple backend services.</p>
+<p><strong>Performance impact:</strong> Higher values enable more concurrent requests to the same backend service, improving throughput for APIs that frequently call the same endpoint. However, excessively high values may overwhelm the backend service or consume excessive memory.</p>
+<p><strong>Recommended tuning:</strong> Set based on the backend service's capacity to handle concurrent connections. Monitor backend response times and error rates when adjusting this value.</p></td>
+</tr>
+<tr class="even">
+<td><code>max_total_connections</code></td>
+<td><p><strong>Global connection pool management:</strong> Defines the total maximum number of HTTP connections that the Gateway can maintain simultaneously across all backend services. This acts as a global limit that prevents the Gateway from exhausting system resources through excessive connection creation.</p>
+<p><strong>Performance impact:</strong> This parameter directly affects the Gateway's overall capacity to serve concurrent API requests. When this limit is reached, new requests must wait for existing connections to be released, potentially causing delays or timeouts.</p>
+<p><strong>Recommended tuning:</strong> Calculate based on your expected concurrent load: (number of concurrent users) × (average requests per user) × (average connection hold time). Consider system memory constraints and network interface limits when setting this value.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>These connection pool settings work in conjunction with the PassThrough transport configurations and should be tuned based on your specific deployment's load patterns, backend service characteristics, and system resources. Monitor connection pool metrics and backend response times to optimize these values for your environment.</p>
+</div>
 </td>
 </tr>
 <tr class="odd">
