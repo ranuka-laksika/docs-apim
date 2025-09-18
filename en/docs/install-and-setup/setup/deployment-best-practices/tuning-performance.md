@@ -148,6 +148,20 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><strong>Transport Client Configuration Parameters</strong></p>
+<p>The <code>[transport.client]</code> section configures the HTTP client connection pool used by the Universal Gateway for outbound connections to backend services. These settings are crucial for optimizing the Gateway's ability to handle concurrent requests to backend APIs.</p>
+
+<ul>
+<li><p><strong>default_max_connection_per_host:</strong> Defines the maximum number of concurrent connections that the Gateway can maintain to a single backend host. When the Gateway needs to make multiple simultaneous calls to the same backend service, this parameter prevents connection exhaustion and ensures efficient resource utilization. The default value of 1000 allows for high concurrency to individual backend services. Increase this value if you have high-load scenarios with many concurrent requests to the same backend endpoint.</p></li>
+
+<li><p><strong>max_total_connections:</strong> Sets the total number of connections available in the connection pool across all backend hosts. This parameter controls the overall connection capacity of the Gateway's HTTP client. The default value of 30000 provides a large pool suitable for enterprise deployments handling multiple backend services simultaneously. This should be tuned based on the total number of backend services and expected concurrent load.</p></li>
+</ul>
+
+<div class="admonition info">
+    <p class="admonition-title">Performance Impact</p>
+    <p>These connection pool settings directly affect the Gateway's throughput and latency when communicating with backend services. Inadequate values may lead to connection timeouts, while excessively high values may consume unnecessary system resources. Monitor connection pool utilization and adjust these values based on your specific deployment requirements and backend service characteristics.</p>
+</div>
 </td>
 </tr>
 <tr class="odd">
