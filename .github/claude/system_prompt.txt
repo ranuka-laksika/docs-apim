@@ -209,7 +209,6 @@ SCOPE LIMITATION FOR EXISTING DOCUMENTS:
   - For ANY external resource (blogs, documentation, forums, GitHub repos, etc.):
     * Try multiple verification approaches and user-agent settings
     * Check if the content is accessible through alternative means
-    * Consider temporary network/regional access issues before marking as invalid
   - Only mark links as invalid if they are:
     * Completely unreachable after multiple attempts from different contexts
     * Containing irrelevant content with no connection to the topic
