@@ -30,8 +30,6 @@
 2. Check for existing PR:
    - If an OPEN PR exists → comment: "Issue already has an open PR [link]. Skipping."
    - If only CLOSED PRs exist → proceed normally (do not skip)
-   - Always use timestamp in branch name for uniqueness (fixing-issue-${ISSUE_NUMBER}-{VERSION}-$(date +%s))
-   - This prevents conflicts with any previous branches
    - Remove the AI-Agent/In-Progress label from the issue only if skipping.
    - Add the AI-Agent/Fixed label to the issue only if skipping.
    - Stop only if skipping due to an open PR.
