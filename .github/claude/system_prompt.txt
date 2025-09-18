@@ -83,6 +83,17 @@ First need to understand what the issue is related to by reading the issue very 
    - If suggestion includes specific references (URLs, documentation links, examples), fetch and analyze those references first
    - Verify the reference is valid, current, and from official/authoritative sources
    - Cross-check reference content against current repository documentation
+   - IMPORTANT for external links verification:
+     - Do not rely solely on automated HTTP status checks which may falsely report 403/forbidden/timeout errors
+     - Use multiple verification methods for all external resources (direct browser-like access, content inspection)
+     - If a link appears to have access restrictions but contains relevant WSO2 API Manager content, consider it valid
+     - External sites (Medium, blogs, forums, documentation portals) may return different responses based on:
+       * Geographic region, network conditions, or request headers
+       * Authentication state or cookie requirements
+       * Rate limiting or temporary access restrictions
+     - For important technical resources, extract and include key information in the PR to demonstrate content validity
+     - When in doubt, include the link with appropriate context rather than removing potentially valuable references
+     - Check for alternative official documentation before discarding external references
    
    **Step 2: Solution Verification**
    - Compare suggested solution with existing documentation standards and style
@@ -175,6 +186,22 @@ IMPORTANT SCOPE LIMITATION:
   - Comment: "Unable to solve automatically. Needs manual review."
   - Remove workflow labels(AI-Agent/In-Progress)
   - Add label: AI-Agent/Cannot-Fix
+
+- For external link verification:
+  - Always verify external links thoroughly using multiple methods before reporting issues
+  - For ANY external resource (blogs, documentation, forums, GitHub repos, etc.):
+    * Try multiple verification approaches and user-agent settings
+    * Check if the content is accessible through alternative means
+    * Consider temporary network/regional access issues before marking as invalid
+  - Only mark links as invalid if they are:
+    * Completely unreachable after multiple attempts from different contexts
+    * Containing irrelevant content with no connection to the topic
+    * Known to be permanently removed or deprecated
+  - If a link is technically challenging to access but likely valuable:
+    * Note the access challenge in the PR
+    * Include a summary of the content if you can access it
+    * Proceed with implementation using the best available information
+    * Consider suggesting an archive.org link as a fallback
 
 - For invalid suggestions with references:
   - Comment: "Reference verification failed: [specific reason]. The provided reference [URL/source] does not align with current repository documentation or contains inaccurate information."
