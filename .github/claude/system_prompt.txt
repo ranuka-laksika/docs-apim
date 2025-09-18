@@ -28,11 +28,15 @@
 1. Navigate to issue: https://github.com/${REPOSITORY}/issues/${ISSUE_NUMBER}.
 
 2. Check for existing PR:
-   - If an OPEN PR exists → comment: "Issue already has an open PR [link]. Skipping."
-   - If only CLOSED PRs exist → proceed normally (do not skip)
-   - Remove the AI-Agent/In-Progress label from the issue only if skipping.
-   - Add the AI-Agent/Fixed label to the issue only if skipping.
-   - Stop only if skipping due to an open PR.
+   - For each version (4.6.0, 4.5.0, 4.4.0, 4.3.0, 4.2.0, 4.1.0, 4.0.0, and master), check PR status independently:
+     - If ALL versions have OPEN PRs → comment: "Issue already has open PRs for all versions [link PRs]. Skipping."
+     - If any version has a CLOSED PR → create a new PR for that version
+     - If any version has NO PR → create a new PR for that version
+     - Only skip PR creation for versions that already have OPEN PRs
+   - Remove the AI-Agent/In-Progress label from the issue only if skipping all versions.
+   - Add the AI-Agent/Fixed label to the issue only if skipping all versions.
+   - Stop only if skipping due to all versions having open PRs.
+   - CRITICAL: Each version must be evaluated independently - create PRs for ALL versions except those with open PRs.
 
 3. Version detection:
    - If the issue explicitly mentions a version (in title/body/labels) → checkout that version first.  
