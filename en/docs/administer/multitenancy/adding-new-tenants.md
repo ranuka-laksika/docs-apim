@@ -31,8 +31,8 @@ You can add a new tenant in the management console and then view it by following
 
 Other tenant management operations such as activating, deactivating, and updating, which are not available in the management console UI, can be done through one of the following admin services:
 
--`TenantMgtAdminService`
--`RemoteTenantManagerService`
+- `TenantMgtAdminService`
+- `RemoteTenantManagerService`
 
 You can invoke these operations using a SOAP client like SOAP UI as follows:
 
@@ -54,21 +54,21 @@ You can invoke these operations using a SOAP client like SOAP UI as follows:
     !!! tip
         Get the list of available admin services
 
-    If you want to discover the admin services that are exposed by your product:
+        If you want to discover the admin services that are exposed by your product:
 
-    1.  Execute the following command:
+        1.  Execute the following command:
 
-        **In Linux**
+            **In Linux**
 
-        ``` java
-                sh api-manager.sh -DosgiConsole
-        ```
+            ``` java
+                    sh api-manager.sh -DosgiConsole
+            ```
 
-        **In Windows**
+            **In Windows**
 
-        ``` java
-                    api-manager.bat -DosgiConsole
-        ```
+            ``` java
+                        api-manager.bat -DosgiConsole
+            ```
 
     2.  When the server is started, hit the enter/return key several times to get the OSGI shell in the console.
     3.  In the OSGI shell, enter the following: `listAdminServices`
