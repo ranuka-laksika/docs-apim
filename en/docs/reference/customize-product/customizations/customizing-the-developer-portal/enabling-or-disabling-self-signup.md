@@ -48,10 +48,11 @@ In a multi-tenanted API Manager setup, self-signup to the Developer Portal works
 6. Add the following configuration and save the content. The `SignUpRoles` configuration indicates the default roles that will be assigned to a user who self signs up to the Developer portal.
 
     ``` json
-       "SelfSignUp": {
-            "SignUpRoles":["Internal/subscriber"]
-       }
+    "SelfSignUp": {
+        "SignUpRoles":["Internal/subscriber"]
+    }
     ```
+
 !!! Note
     To enable email verification, update the `repository/deployment/server/webapps/accountrecoveryendpoint/WEB-INF/web.xml` file by setting the `EnableEmailNotification` parameter to `true`:
 
