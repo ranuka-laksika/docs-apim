@@ -26,6 +26,10 @@
  ISSUE WORKFLOW
 =========================================
 1. Navigate to issue: https://github.com/${REPOSITORY}/issues/${ISSUE_NUMBER}.
+    - You must not only look at the issue description, but also consider **all comments related to this issue**.  
+    - Act according to the **instructions or suggestions provided in the comments**, if any.  
+    - If the issue contains only the description and no comments, act based on the issue description alone.  
+    - In all cases, ensure that your actions follow the provided rules for PR creation, version handling, and documentation style.
 
 2. Check for existing PR:
    - For each version (4.6.0, 4.5.0, 4.4.0, 4.3.0, 4.2.0, 4.1.0, 4.0.0, and master), check PR status independently:
