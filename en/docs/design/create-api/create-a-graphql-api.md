@@ -32,7 +32,7 @@ Follow the instructions below to design a GraphQL API.
 
      [![Import a graphQL schema by adding a file]({{base_path}}/assets/img/learn/import-graphql-schema.png)]({{base_path}}/assets/img/learn/import-graphql-schema.png)
 
-     Let's use the [StarWarsAPI schema definition]({{base_path}}/assets/attachments/learn/schema_graphql.graphql) to create the schema file. 
+     Let's use the [StarWarsAPI schema definition](/en/4.0.0/assets/attachments/learn/schema_graphql.graphql) to create the schema file. 
    
 
       <div class="admonition note">
