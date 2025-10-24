@@ -86,10 +86,9 @@ To set up the API Manager component, see the following topics.
 </tr>
 <tr>
     <th>
-        <a>Setting up Proxy Server and the Load Balancer</a>
-    </th>
+        <a>Setting up Proxy Server and the Load Balancer
     <td>
-        A load balancer or reverse proxy is required to map external traffic with ports and URLs that the API Manager component uses internally. This section covers the following topics relating to the proxy server and the load balancer.
+        A load balancer or reverse proxy is required to map external traffic with ports and URLs that the APi Manager component uses internally. This section covers the following topics relating to the proxy server and the load balancer.
         <ul>
             <li>
                 <a href="{{base_path}}/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer">Configuring the Proxy Server and the Load Balancer</a>
@@ -195,20 +194,18 @@ To set up the API Manager component, see the following topics.
     </th>
     <td>
         Explains how to configure SSO (Single Sign On) for the API Manager component with an external identity provider. The topics covered are as follows.
-        <ul>
-            <li>
+        <li>
             <a href="{{base_path}}/install-and-setup/setup/sso/configuring-identity-server-as-external-idp-using-oidc">Configuring Identity Server As External IDP with OIDC</a>
         </li>
-            <li>
+        <li>
             <a href="{{base_path}}/install-and-setup/setup/sso/configuring-identity-server-as-external-idp-using-saml">Configuring Identity Server As External IDP with SAML</a>
         </li>
-            <li>
+        <li>
             <a href="{{base_path}}/install-and-setup/setup/sso/okta-as-an-external-idp-using-oidc">Using OKTA As An External IDP With OIDC</a>
         </li>
-            <li>
+        <li>
             <a href="{{base_path}}/install-and-setup/setup/sso/okta-as-an-external-idp-using-saml">Using OKTA As An External IDP With SAML</a>
         </li>                                   
-        </ul>
     </td>
 </tr>   
 <tr>
@@ -217,7 +214,6 @@ To set up the API Manager component, see the following topics.
     </th>
     <td>
         Covers some advance configurations including how to change the transport used by the API Manager component from the default PassThrough transport to a different transport, how to configure caching, and how to change the user interfaces of the API Manager component.
-        <ul>
         <li>
             <a href="{{base_path}}/install-and-setup/setup/advance-configurations/changing-the-default-transport">Changing the Default Transport</a>
         </li>
@@ -227,7 +223,6 @@ To set up the API Manager component, see the following topics.
         <li>
             <a href="{{base_path}}/install-and-setup/setup/advance-configurations/customizing-the-management-console">Customizing the Management Console</a>
         </li>                   
-        </ul>
     </td>
 </tr>
 </table>
@@ -368,7 +363,6 @@ See the topics given below to manage APIs, API products, Apps, etc. in the API-M
             <li>
                 <a href="{{base_path}}/install-and-setup/setup/api-controller/advanced-topics/formatting-the-output-of-get-command">Formatting the outputs of get commands</a>
             </li>                        
-        </ul>
         </td>
     </tr>
 </table>
