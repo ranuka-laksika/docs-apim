@@ -148,6 +148,29 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><strong>Transport Client Configuration Details:</strong></p>
+
+<p>These transport client configurations are critical for managing HTTP connection pooling behavior when the API Gateway communicates with backend services and other internal components.</p>
+
+<ul>
+<li><p><strong>default_max_connection_per_host (Default: 1000):</strong> This parameter controls the maximum number of concurrent HTTP connections that the Gateway can establish to a single host (backend endpoint). This is particularly important when multiple API requests are routed to the same backend service simultaneously. A higher value allows more concurrent requests to the same backend, improving throughput but consuming more system resources. Consider the backend service's capacity when setting this value.</p></li>
+
+<li><p><strong>max_total_connections (Default: 30000):</strong> This parameter defines the total maximum number of HTTP connections that the Gateway's connection pool can maintain across all backend hosts combined. This global limit prevents resource exhaustion while allowing the Gateway to handle high concurrent loads distributed across multiple backend services. The value should be set based on your system's memory capacity and the total expected concurrent traffic.</p></li>
+</ul>
+
+<p><strong>Functional Area Impact:</strong></p>
+<ul>
+<li><strong>Performance:</strong> These settings directly impact the Gateway's ability to handle concurrent API requests efficiently</li>
+<li><strong>Resource Management:</strong> Higher values provide better performance but consume more memory and file descriptors</li>
+<li><strong>Backend Integration:</strong> Proper tuning ensures optimal utilization of backend service capacity without overwhelming them</li>
+<li><strong>Scalability:</strong> These parameters should be adjusted based on the expected API traffic volume and backend service characteristics</li>
+</ul>
+
+<div class="admonition note">
+     <p class="admonition-title">Note</p>
+     <p>When configuring these values, ensure that your operating system's file descriptor limits (ulimit -n) and backend services can handle the increased connection load. Monitor system resources and backend performance after making changes.</p>
+</div>
 </td>
 </tr>
 <tr class="odd">
