@@ -1,0 +1,32 @@
+name: Spell Check & Fix PR for version-4.6.0
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # Runs weekly, can be adjusted as needed
+  workflow_dispatch:
+
+jobs:
+  spellcheck-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout version-4.6.0 branch
+        uses: actions/checkout@v3
+        with:
+          ref: version-4.6.0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+
+      - name: Install github-spellcheck-cli
+        run: npm install --global github-spellcheck-cli
+
+      - name: Run spellcheck and create PR for fixes in .md and .yml files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          github-spellcheck --token $GITHUB_TOKEN \
+            --branch fix/spelling-4.6.0 \
+            --base version-4.6.0 \
+            --files '**/*.md' '**/*.yml'
