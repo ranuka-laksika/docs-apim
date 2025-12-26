@@ -31,8 +31,8 @@ You can add a new tenant in the management console and then view it by following
 
 Other tenant management operations such as activating, deactivating, and updating, which are not available in the management console UI, can be done through one of the following admin services:
 
--`TenantMgtAdminService`
--`RemoteTenantManagerService`
+- `TenantMgtAdminService`
+- `RemoteTenantManagerService`
 
 You can invoke these operations using a SOAP client like SOAP UI as follows:
 
@@ -84,10 +84,10 @@ You can invoke these operations using a SOAP client like SOAP UI as follows:
 
     ![]({{base_path}}/assets/attachments/126562777/126562782.png)
     !!! warning
-            Before invoking an operation:
+        Before invoking an operation:
 
-            -   Be sure to set the admin user's credentials for authorization in the SOAP UI.
-            -   Note that it is **not recommended** to delete tenants.
+        - Be sure to set the admin user's credentials for authorization in the SOAP UI.
+        - Note that it is **not recommended** to delete tenants.
 
 
 4.  Click on the operation to open the request view. For example, to activate a tenant use the `activateTenant` operation.
