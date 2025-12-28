@@ -2,10 +2,10 @@
 
 By default, the community links option is **disabled** (hidden). As a result, the sharable Developer Portal links of the APIs for Facebook, Twitter, and Reddit will not appear in the Developer Portal by default. Instead, the administrators have to enable the social media sharing option if they wish to allow API Consumers to use this feature.
 
-In addition, the GitHub and Slack channel URLs will not appear in the Developer Portal unless the administrators have defined these URLs via the Publisher.
+In addition, the GitHub and Discord channel URLs will not appear in the Developer Portal unless the administrators have defined these URLs via the Publisher.
 
 - [Enable sharing API links on social media](#enable-sharing-api-links-on-social-media)
-- [Add GitHub and Slack channel URLs to an API](#add-github-and-slack-channel-urls-to-an-api)
+- [Add GitHub and Discord channel URLs to an API](#add-github-and-discord-channel-urls-to-an-api)
 
 ## Enable sharing API link on social media
 
@@ -58,11 +58,11 @@ Follow the instructions below to enable API Consumers to be able to share the AP
     [![Community link in Developer Portal]({{base_path}}/assets/img/design/community-features/devportal-default-community-links.png)]({{base_path}}/assets/img/design/community-features/devportal-default-community-links.png)
     
 
-## Add GitHub and Slack channel URLs to an API
+## Add GitHub and Discord channel URLs to an API
 
-Follow the instructions below to enable the API related GitHub and Slack channel URLs to appear in the Developer Portal:
+Follow the instructions below to enable the API related GitHub and Discord channel URLs to appear in the Developer Portal:
 
-### Step 1 - Define your GitHub and Slack channel URLs
+### Step 1 - Define your GitHub and Discord channel URLs
 
 1.  Sign in to the Publisher.
 
