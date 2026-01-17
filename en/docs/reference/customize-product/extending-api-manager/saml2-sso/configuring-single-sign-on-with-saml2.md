@@ -10,6 +10,7 @@ This section covers the following topics.
 
 -   [Configuring Identity Server as IDP for SSO]({{base_path}}/develop/extending-api-manager/saml2-sso/configuring-identity-server-as-idp-for-sso)
 -   [Configuring External IDP through Identity Server for SSO]({{base_path}}/develop/extending-api-manager/saml2-sso/configuring-external-idp-through-identity-server-for-sso)
+-   [Configure Azure AD federated authentication for Publisher and Developer Portal]({{base_path}}/reference/customize-product/extending-api-manager/saml2-sso/configuring-azure-ad-federated-authentication)
 
 !!! info
     The **Single Sign-On with OpenID Connect** feature is enabled by default in the API Manager.  
