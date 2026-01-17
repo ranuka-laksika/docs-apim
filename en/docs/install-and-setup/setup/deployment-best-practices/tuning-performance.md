@@ -148,6 +148,32 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<div class="admonition note">
+     <p class="admonition-title">Note</p>
+     <p>
+     The <code>[transport.client]</code> section configures the HTTP client connection pool settings for outbound connections from the API Gateway to backend services. This configuration is critical for high-throughput scenarios where the Gateway needs to maintain multiple simultaneous connections to backend APIs.
+     </p>
+</div>
+
+<p><strong>Configuration Details:</strong></p>
+
+<ul>
+<li><p><code>default_max_connection_per_host</code>: Defines the maximum number of concurrent connections that the Gateway can establish to a single backend host. With the recommended value of 1000, the Gateway can maintain up to 1000 simultaneous connections to each individual backend service. This parameter prevents overwhelming any single backend service while allowing sufficient parallelism for high-traffic scenarios.</p></li>
+<li><p><code>max_total_connections</code>: Sets the absolute maximum number of concurrent connections in the entire connection pool across all backend hosts. The recommended value of 30000 provides capacity for connecting to multiple backend services simultaneously. This global limit ensures that the Gateway doesn't exhaust system resources while supporting high concurrency across all backend integrations.</p></li>
+</ul>
+
+<div class="admonition tip">
+     <p class="admonition-title">Tip</p>
+     <p>
+     These values should be tuned based on your specific deployment requirements:
+     </p>
+     <ul>
+     <li>For deployments with fewer backend services but high traffic per service, you may increase <code>default_max_connection_per_host</code></li>
+     <li>For deployments with many backend services, ensure <code>max_total_connections</code> is sufficient to handle the aggregate connection requirements</li>
+     <li>Monitor connection pool metrics to identify if these limits are being reached and adjust accordingly</li>
+     </ul>
+</div>
 </td>
 </tr>
 <tr class="odd">
