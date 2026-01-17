@@ -148,6 +148,29 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><strong>Functional Area: HTTP Client Connection Pool Management</strong></p>
+<p>These transport.client configurations control the HTTP client connection pool used by the API Manager Gateway for outbound communications to backend services. The connection pool management is critical for optimizing performance and resource utilization when the Gateway processes high volumes of API requests.</p>
+
+<div class="admonition note">
+     <p class="admonition-title">Connection Pool Functionality</p>
+     <p>
+     The Gateway maintains persistent HTTP connections to backend services through connection pooling. This avoids the overhead of establishing new connections for each API request, significantly improving response times and throughput under high load conditions.
+     </p>
+</div>
+
+<p><strong>Parameter Explanations:</strong></p>
+<ul>
+<li><p><strong>default_max_connection_per_host:</strong> Defines the maximum number of concurrent HTTP connections that can be maintained per backend host/endpoint. With the default value of 1000, each unique backend service can have up to 1000 simultaneous connections from the Gateway. This parameter directly impacts the Gateway's ability to handle concurrent requests to the same backend service.</p></li>
+<li><p><strong>max_total_connections:</strong> Sets the overall limit for the total number of HTTP connections in the connection pool across all backend hosts. The default value of 30000 means the Gateway can maintain up to 30,000 total concurrent connections to all backend services combined. This parameter prevents resource exhaustion and controls the overall connection pool size.</p></li>
+</ul>
+
+<div class="admonition tip">
+     <p class="admonition-title">Performance Impact</p>
+     <p>
+     Properly configuring these values is essential for high-concurrency scenarios. Under-provisioning can lead to connection timeouts and reduced throughput, while over-provisioning may exhaust system resources. Monitor your system's connection usage and adjust these values based on your specific backend capacity and expected load patterns.
+     </p>
+</div>
 </td>
 </tr>
 <tr class="odd">
