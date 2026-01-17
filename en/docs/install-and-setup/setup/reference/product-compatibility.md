@@ -14,7 +14,7 @@ As WSO2 API Manager is a Java application, you can generally run it on most oper
 |--------------------|--------------|
 |Windows             | 2016         |
 |Windows Server      | 2019
-|Ubuntu              | 18.04, 20.04 |
+|Ubuntu              | 22.04 |
 |Red Hat Enterprise Linux   | 7.0, 8.7, 9.3   |
 |CentOS              | 7.4, 7.5     |
 |Rocky Linux   | 9.3   |
@@ -85,7 +85,7 @@ The **Micro Integrator** runtime is tested with the following operating systems:
 |**Operating System**|**Versions**|
 |--------------------|------------|
 |Windows             | 2019       |
-|Ubuntu              |18.04       |
+|Ubuntu              | 22.04 |
 |Red Hat Enterprise Linux |7.4, 8.2  |
 |CentOS              |      7.5   |
 |MacOS               | 10.15      |
@@ -124,7 +124,7 @@ The **Streaming Integrator** runtime is tested with the following operating syst
 |**Operating System**|**Versions**|
 |--------------------|-----------|
 |Windows             | 7<br/>10  |
-|Ubuntu              |16.04<br/>17.04<br/>18.04|
+|Ubuntu              | 22.04 |
 |MacOS High Sierra   | |
 
 #### Tested JDKs
