@@ -515,6 +515,7 @@ nav:
               - Manage Users: administer/managing-users-and-roles/managing-users.md
               - Manage Role Permissions: administer/managing-users-and-roles/managing-permissions.md
               - Manage Users for Admin Portal: administer/managing-users-and-roles/managing-users-for-admin-portal.md
+              - Configure Azure AD Federated Authentication: administer/managing-users-and-roles/configure-azure-ad-federated-authentication.md
         - Manage User Stores:
             - Introduction to User Stores: administer/managing-users-and-roles/managing-user-stores/introduction-to-userstores.md
             - Configure Secondary User Stores: administer/managing-users-and-roles/managing-user-stores/configuring-secondary-user-stores.md
