@@ -86,9 +86,9 @@ To set up the API Manager component, see the following topics.
 </tr>
 <tr>
     <th>
-        <a>Setting up Proxy Server and the Load Balancer
+        <a>Setting up Proxy Server and the Load Balancer</a>
     <td>
-        A load balancer or reverse proxy is required to map external traffic with ports and URLs that the APi Manager component uses internally. This section covers the following topics relating to the proxy server and the load balancer.
+        A load balancer or reverse proxy is required to map external traffic with ports and URLs that the API Manager component uses internally. This section covers the following topics relating to the proxy server and the load balancer.
         <ul>
             <li>
                 <a href="{{base_path}}/install-and-setup/setup/setting-up-proxy-server-and-the-load-balancer/configuring-the-proxy-server-and-the-load-balancer">Configuring the Proxy Server and the Load Balancer</a>
@@ -140,7 +140,7 @@ To set up the API Manager component, see the following topics.
                         <a href="{{base_path}}/install-and-setup/setup/security/configuring-keystores/keystore-basics/renewing-a-ca-signed-certificate-in-a-keystore">Renewing a CA Signed Certificate</a>
                     </li>
                     <li>
-                        <a href="{{base_path}}/install-and-setup/setup/security/configuring-keystores/keystore-basics/about-asymetric-cryptography">About Asymetric Cryptography</a>
+                        <a href="{{base_path}}/install-and-setup/setup/security/configuring-keystores/keystore-basics/about-asymetric-cryptography">About Asymmetric Cryptography</a>
                     </li>
             <li>
                 <a href="{{base_path}}/install-and-setup/setup/security/enabling-hostname-verification">Enabling HostName Verification</a>
@@ -253,7 +253,7 @@ To deploy the API Manager runtime, see the topics given below.
             <a href="{{base_path}}/install-and-setup/setup/distributed-deployment/understanding-the-distributed-deployment-of-wso2-api-m">Distributed Deployment</a>
         </th>
         <td>
-            This describes the distributed deployment patterns where you can deploy the sub-components of the API Manager component in a distributed manner in order to handle a high volume of requests in an efficient manner.
+            This describes the distributed deployment patterns where you can deploy the sub-components of the API Manager component in a distributed manner to handle a high volume of requests in an efficient manner.
         </td>
     </tr>
     <tr>
@@ -395,7 +395,7 @@ To upgrade to the current API Manager component from a previous version refer [U
             <a href="{{base_path}}/install-and-setup/setup/reference/default-product-ports">Default Product Ports</a>
         </th>
         <td>
-            Explains the defauly ports used by the API Manager component.
+            Explains the default ports used by the API Manager component.
         </td>
     </tr>
     <tr>
