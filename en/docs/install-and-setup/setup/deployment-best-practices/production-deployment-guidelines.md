@@ -128,7 +128,7 @@ Given below is a checklist that will guide you to set up your production environ
          <td>High availability</td>
          <td>
             <p>Configure your deployment with high availability. Refer the <a href="{{base_path}}/install-and-setup/setup/deployment-overview">recommended deployment patterns</a> and select an option that fits your requirements.</p>
-            <p>In the cloud native deployment, high availability should be achieved via the container orchestration system (Kubernetes).</p>
+            <p>In the cloud-native deployment, high availability should be achieved via the container orchestration system (Kubernetes).</p>
          </td>
       </tr>
       <tr class="even">
