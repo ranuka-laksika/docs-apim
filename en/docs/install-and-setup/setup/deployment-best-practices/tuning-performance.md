@@ -148,6 +148,8 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+<p><b>default_max_connection_per_host:</b> This parameter defines the maximum number of HTTP connections that the API Gateway can maintain concurrently to a single backend host/endpoint. When multiple API calls are made to the same backend service simultaneously, the Gateway will reuse existing connections up to this limit. If more connections are needed to the same host, requests will queue until connections become available. This setting helps prevent overwhelming individual backend services while maintaining good throughput for APIs that target the same endpoint.</p>
+<p><b>max_total_connections:</b> This parameter sets the total maximum number of HTTP connections that the API Gateway can maintain simultaneously across all backend services. This is a global limit that applies to all outbound connections from the Gateway to various backend endpoints combined. When this limit is reached, new API requests will wait for existing connections to be released. This setting is crucial for controlling the Gateway's overall resource consumption and ensuring system stability under high load conditions.</p>
 </td>
 </tr>
 <tr class="odd">
