@@ -31,8 +31,8 @@ You can add a new tenant in the management console and then view it by following
 
 Other tenant management operations such as activating, deactivating, and updating, which are not available in the management console UI, can be done through one of the following admin services:
 
--`TenantMgtAdminService`
--`RemoteTenantManagerService`
+- `TenantMgtAdminService`
+- `RemoteTenantManagerService`
 
 You can invoke these operations using a SOAP client like SOAP UI as follows:
 
