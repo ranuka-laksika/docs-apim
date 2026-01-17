@@ -3,6 +3,31 @@
 An OpenAPI definition is a format that describes REST APIs. 
 
 Follow the instructions below to create a REST API using an OpenAPI definition for an existing API.
+## OpenAPI/Swagger Version Compatibility
+
+WSO2 API Manager supports both OpenAPI 3.0 and Swagger 2.0 specifications for API creation. Understanding the differences between these versions is essential for successful API integration:
+
+### Supported Specification Versions
+
+| Specification | Version | Support Level | Example URL |
+|---------------|---------|---------------|-------------|
+| **OpenAPI** | 3.0+ | **Recommended** | `https://petstore3.swagger.io/api/v3/openapi.json` |
+| **Swagger** | 2.0 | Supported (Legacy) | `https://petstore.swagger.io/v2/swagger.json` |
+
+### Key Version Differences
+
+- **OpenAPI 3.0**: Modern specification with improved schema definition, better security handling, and enhanced documentation capabilities
+- **Swagger 2.0**: Legacy specification, still widely supported but with some limitations compared to OpenAPI 3.0
+
+### Version Selection Guidelines
+
+- **Use OpenAPI 3.0** for new API development projects
+- **Use Swagger 2.0** when migrating existing legacy APIs or when required by external systems
+- Both versions follow the same general creation workflow in WSO2 API Manager
+
+!!! tip "Migration Recommendation"
+    If you're currently using Swagger 2.0, consider migrating to OpenAPI 3.0 for access to enhanced features and better tooling support.
+
 
 ## Create an API using the basic flow
 
