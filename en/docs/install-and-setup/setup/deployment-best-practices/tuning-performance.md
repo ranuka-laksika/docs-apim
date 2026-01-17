@@ -148,6 +148,24 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+!!! info "Transport Client Configuration Parameters"
+    
+    These transport client configuration parameters are critical for optimizing the HTTP client connections used by the Gateway when making outbound requests to backend services:
+
+    **`default_max_connection_per_host`**: This parameter defines the maximum number of concurrent HTTP connections that the Gateway can maintain to each specific backend host (IP address and port combination). With the recommended value of 1000, each backend service can handle up to 1000 simultaneous connections from the Gateway. This parameter directly impacts:
+    
+    - **Connection pooling efficiency**: Higher values allow better connection reuse and reduced connection establishment overhead
+    - **Backend service load distribution**: Prevents connection bottlenecks to individual backend services
+    - **API response times**: Adequate connections per host reduce queuing delays for concurrent requests to the same backend
+    
+    **`max_total_connections`**: This parameter sets the global limit for the total number of HTTP connections that the Gateway's HTTP client can maintain across all backend hosts combined. The recommended value of 30000 allows the Gateway to handle high-throughput scenarios with multiple backend services. This parameter affects:
+    
+    - **Overall system scalability**: Higher values support more concurrent API calls across all backend services
+    - **Memory and resource utilization**: Each connection consumes system resources, so this limit prevents resource exhaustion
+    - **Global connection management**: Ensures fair connection distribution across all backend services under high load
+    
+    **Functional Impact**: These parameters work together to optimize the Gateway's outbound connection management. For instance, if you have 30 different backend services, with `max_total_connections = 30000` and `default_max_connection_per_host = 1000`, you can theoretically support 1000 concurrent connections to each service while staying within the global limit. Proper tuning of these values based on your deployment's backend service count, expected load, and system resources is essential for optimal performance.
 </td>
 </tr>
 <tr class="odd">
