@@ -128,7 +128,7 @@ When registering a third-party Identity Provider as a Key Manager in the Admin P
     * Invoke the API with the exchanged token
 
     !!! note
-        When configuring an external Key Manager with only the token exchange invocation method, ensure that the Token Exchange grant type is enabled in the Resident Key Manager.
+        When configuring an external Key Manager with only the token exchange invocation method, ensure that the **Token Exchange grant type is enabled** in the Resident Key Manager for the token exchange process to work correctly.
 
 1. Sign in to the Admin Portal using the following URL: `https://<hostname>:9443/admin`
 
