@@ -15,7 +15,7 @@ The following topics provide more information on these transports:
 
 ### HTTP PassThrough Transport
 
-HTTP PassThrough Transport is the default, non-blocking HTTP transport implementation based on HTTP Core NIO and is specially designed for streaming messages. It is similar to the old message relay transport, but it does not take the content type into consideration and simply streams all the messages that it receives. It also has a simpler and cleaner model for forwarding messages back and forth. The two classes that implement the receiver and sender APIs are `org.apache.synapse.transport.passthru.PassThroughHttpListener` and `org.apache.synapse.transport.passthru.PassThroughHttpSender`, respectively. The PassThrough Transport does not require the binary relay builder and expanding formatter.
+HTTP PassThrough Transport is the default, non-blocking HTTP transport implementation based on HTTP Core NIO and is specially designed for streaming messages. It is similar to the old message relay transport, but does not take the content type into consideration and simply streams all messages received. It also has a simpler and cleaner model for forwarding messages back and forth. The two classes that implement the receiver and sender APIs are `org.apache.synapse.transport.passthru.PassThroughHttpListener` and `org.apache.synapse.transport.passthru.PassThroughHttpSender`, respectively. The PassThrough Transport does not require the binary relay builder and expanding formatter.
 
 ### Transport Receiver Parameters
 
