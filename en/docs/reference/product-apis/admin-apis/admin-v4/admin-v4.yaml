@@ -2067,7 +2067,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PublishStatus'
         202:
-          description: Request is sucessfully accepted for processing.
+          description: Request is successfully accepted for processing.
           content:
             application/json:
               schema:
@@ -4378,12 +4378,12 @@ components:
           properties:
             dataAmount:
               type: integer
-              description: Amount of data allowed to be transfered
+              description: Amount of data allowed to be transferred
               format: int64
               example: 1000
             dataUnit:
               type: string
-              description: Unit of data allowed to be transfered. Allowed values are
+              description: Unit of data allowed to be transferred. Allowed values are
                 "KB", "MB" and "GB"
               example: KB
     RequestCountLimit:
