@@ -69,7 +69,7 @@ info:
     of this document and scope for each resource is given in **authorizations** section of resource documentation.
     Following is the format of the request if you are using the password grant type.
     ```
-    curl -k -d "grant_type=password&username=<admin_username>&password=<admin_passowrd>&scope=<scopes seperated by space>"
+    curl -k -d "grant_type=password&username=<admin_username>&password=<admin_passowrd>&scope=<scopes separated by space>"
     \ -H "Authorization: Basic base64(cliet_id:client_secret)"
     \ https://<host>:<server_port>/oauth2/token
     ```
@@ -323,7 +323,7 @@ paths:
         - Application Policy (Individual)
       summary: Update an Application Throttling policy
       description: |
-        Updates an existing application level throttling policy. Upon a succesfull update, you will receive the updated application policy as the response.
+        Updates an existing application level throttling policy. Upon a successfull update, you will receive the updated application policy as the response.
       parameters:
         - $ref: '#/components/parameters/policyId'
         - $ref: '#/components/parameters/Content-Type'
@@ -2067,7 +2067,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/PublishStatus'
         202:
-          description: Request is sucessfully accepted for processing.
+          description: Request is successfully accepted for processing.
           content:
             application/json:
               schema:
