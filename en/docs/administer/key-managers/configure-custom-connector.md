@@ -120,7 +120,7 @@ When registering a third-party Identity Provider as a Key Manager in the Admin P
 - **Exchange tokens**: These tokens are issued by the Identity Provider and are exchanged with WSO2 API Manager. These are then used when authentication happens.
 
 ??? note "Click here for more details on the Token Exchange API invocation method"
-    The authentication process is based on OAuth 2.0 Token Exchange Grant Type. This is used to exchange an external Identity Provider’s token for the Resident Key Manager's token available in WSO2 API Manager. 
+    The authentication process is based on OAuth 2.0 Token Exchange Grant Type. This is used to exchange an external Identity Provider's token for the Resident Key Manager's token available in WSO2 API Manager. 
 
     With this approach, a user should be able to:
 
@@ -128,6 +128,9 @@ When registering a third-party Identity Provider as a Key Manager in the Admin P
     * Generate keys by selecting the Token Exchange grant type.
     * Get an API Manager token by invoking the token endpoint of API Manager with the required parameters (i.e., the token obtained from the external Identity Provider)
     * Invoke the API with the exchanged token
+
+    !!! note
+        When configuring an external Key Manager with only the token exchange invocation method, ensure that the **Token Exchange grant type is enabled** in the Resident Key Manager for the token exchange process to work correctly.
 
 
 1. Sign in to the Admin Portal using the following URL: `https://<hostname>:9443/admin`
