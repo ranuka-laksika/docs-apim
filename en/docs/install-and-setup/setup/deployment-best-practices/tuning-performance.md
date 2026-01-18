@@ -148,6 +148,58 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<p><strong>Functional Area and Parameter Details:</strong></p>
+
+<p>The <code>[transport.client]</code> configuration section controls the HTTP client connection pool settings for the API Gateway's outbound connections to backend services. This configuration is crucial for managing the connection resources and optimizing the performance of API invocations.</p>
+
+<div class="table-wrap">
+<table>
+<colgroup>
+<col width="30%" />
+<col width="70%" />
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><code>default_max_connection_per_host</code></td>
+<td><p><strong>Functional Area:</strong> Controls the maximum number of concurrent HTTP connections that can be maintained to a single backend host/endpoint.</p>
+<p><strong>Impact:</strong> Limits connection pooling per backend service to prevent connection exhaustion on the target server. Higher values allow more concurrent requests to the same backend but may overload the target service.</p>
+<p><strong>Default Value:</strong> 1000 connections per host</p>
+<p><strong>Use Case:</strong> Increase this value when you have high-throughput APIs calling the same backend service and the backend can handle more concurrent connections.</p></td>
+</tr>
+<tr class="even">
+<td><code>max_total_connections</code></td>
+<td><p><strong>Functional Area:</strong> Defines the total maximum number of concurrent HTTP connections that can be maintained across all backend services combined.</p>
+<p><strong>Impact:</strong> Sets the global connection pool limit for all outbound API calls from the Gateway. This prevents the Gateway from exhausting system resources by creating unlimited connections.</p>
+<p><strong>Default Value:</strong> 30000 total connections</p>
+<p><strong>Use Case:</strong> Increase this value in high-concurrency environments with many different backend services or when experiencing connection pool exhaustion errors.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="admonition info">
+    <p class="admonition-title">Performance Considerations</p>
+    <p>These connection pool settings directly affect:</p>
+    <ul>
+    <li><strong>Throughput:</strong> Higher limits allow more concurrent backend calls, improving overall API throughput</li>
+    <li><strong>Latency:</strong> Proper connection pooling reduces connection establishment overhead</li>
+    <li><strong>Resource Usage:</strong> More connections consume more memory and file descriptors</li>
+    <li><strong>Backend Protection:</strong> Per-host limits protect backend services from connection flooding</li>
+    </ul>
+</div>
+
+<div class="admonition warning">
+    <p class="admonition-title">Tuning Guidelines</p>
+    <p>When adjusting these values:</p>
+    <ul>
+    <li>Ensure your operating system's file descriptor limits (<code>ulimit -n</code>) can accommodate the total connections</li>
+    <li>Monitor backend service capacity to avoid overwhelming target systems</li>
+    <li>Consider network infrastructure limits between Gateway and backend services</li>
+    <li>Test thoroughly under expected load conditions before applying to production</li>
+    </ul>
+</div>
+
 </td>
 </tr>
 <tr class="odd">
