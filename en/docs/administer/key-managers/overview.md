@@ -57,3 +57,5 @@ When the permission type for the role-based restriction is set to DENY, users wi
 - [Configure PingFederate as a Key Manager]({{base_path}}/administer/key-managers/configure-pingfederate-connector/)
 
 - [Configure ForgeRock as a Key Manager]({{base_path}}/administer/key-managers/configure-forgerock-connector/)
+
+- [Configure Asgardeo as a Key Manager]({{base_path}}/administer/key-managers/configure-asgardeo-connector/)
