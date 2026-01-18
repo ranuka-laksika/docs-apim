@@ -5,7 +5,7 @@ The Developer Portal provides community features that help API Consumers collabo
 - [Rate an API](#rate-an-API)
 - [Comment and reply to an API](#comment-and-reply-to-an-api)
 - [Share API link on social media](#share-api-link-on-social-media)
-- [Access GitHub and Slack URLs](#access-github-and-slack-urls)
+- [Access GitHub and Discord URLs](#access-github-and-discord-urls)
 
 ## Rate an API
 
@@ -88,10 +88,10 @@ Let's see how to add a comment and how to reply to a comment:
     
      The Developer Portal link of the respective API appears so that you can use it to create a post in order to share and publicize the API with a wider audience.
 
-## Access GitHub and Slack URLs
+## Access GitHub and Discord URLs
 
 !!! note
-    The GitHub and Slack URLs will appear in the Developer Portal only if the [API Publisher has defined these URLs for the API.]({{base_path}}/manage-apis/design/api-collaborations/enable-social-media-interaction/#add-github-and-slack-channel-urls-to-an-api)
+    The GitHub and Discord URLs will appear in the Developer Portal only if the [API Publisher has defined these URLs for the API.]({{base_path}}/manage-apis/design/api-collaborations/enable-social-media-interaction/#add-github-and-discord-channel-urls-to-an-api)
 
 1. Sign in to the Developer Portal.
 
@@ -101,15 +101,15 @@ Let's see how to add a comment and how to reply to a comment:
 
 2. Click on the API.
 
-     The API's overview page appears with the GitHub and Slack channel URLs.
+     The API's overview page appears with the GitHub and Discord channel URLs.
 
-     [![Developer Portal community links with Slack and Github]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-slack-github.png)]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-slack-github.png)
+     [![Developer Portal community links with Discord and Github]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-discord-github.png)]({{base_path}}/assets/img/design/community-features/devportal-community-links-with-discord-github.png)
 
 
 3. Optionally, click on the **GitHub URL**.
 
      You get redirected to the predefined GitHub URL, which will generally link to the corresponding API source code.
 
-4. Optionally, click on the **Slack URL**.
+4. Optionally, click on the **Discord URL**.
 
-     You get redirected to the predefined Slack URL, which will allow you to get in touch with the subject matter experts with regard to the API via the corresponding Slack channel.
+     You get redirected to the predefined Discord URL, which will allow you to get in touch with the subject matter experts with regard to the API via the corresponding Discord channel.
