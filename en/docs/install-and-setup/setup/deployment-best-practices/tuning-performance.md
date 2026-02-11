@@ -148,6 +148,27 @@ max_total_connections = 30000
 </code>
 </pre>
 </div>
+
+<div class="admonition info">
+     <p class="admonition-title">Transport Client Configuration</p>
+     <p>
+     The <code>[transport.client]</code> configuration section controls the HTTP client connection pooling behavior used by the API Gateway for outbound communication to backend services and APIs. This functional area is critical for managing concurrent connections and ensuring optimal performance under high load scenarios.</p>
+
+</div>
+<p><strong>Configuration Parameter Details:</strong></p>
+<ul>
+<li><p><strong>default_max_connection_per_host:</strong> Defines the maximum number of concurrent HTTP connections that the Gateway can maintain to a single backend host/endpoint. When this limit is reached, additional requests to the same host will queue until existing connections are released. This setting prevents overwhelming individual backend services while allowing reasonable concurrency.</p></li>
+<li><p><strong>max_total_connections:</strong> Specifies the total maximum number of HTTP connections that can be maintained across all backend hosts simultaneously. This is the global connection pool limit that applies to the entire Gateway instance. It should be sized based on the expected total concurrent load across all APIs and backend services.</p></li>
+</ul>
+
+<p><strong>Functional Impact:</strong></p>
+<p>These settings directly affect the Gateway's ability to handle concurrent API requests efficiently. Proper tuning ensures that:</p>
+<ul>
+<li>Backend services are not overwhelmed with too many simultaneous connections</li>
+<li>The Gateway can maintain sufficient throughput under high load</li>
+<li>Connection resources are optimally utilized across different backend endpoints</li>
+<li>Request latency is minimized by avoiding connection pool exhaustion</li>
+</ul>
 </td>
 </tr>
 <tr class="odd">
