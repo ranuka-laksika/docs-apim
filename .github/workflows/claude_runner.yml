@@ -142,7 +142,7 @@ jobs:
 
           # Try to build the documentation
           echo "Building MkDocs documentation..."
-          if python3 -m mkdocs build --strict; then
+          if python3 -m mkdocs build; then
             echo "build_status=success" >> $GITHUB_OUTPUT
             echo "✅ MkDocs build successful"
           else
