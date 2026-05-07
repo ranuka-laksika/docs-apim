@@ -292,6 +292,16 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component:
       <td>Mandatory</td>
       </tr>
       <tr class="odd">
+      <td>Enable Admin as Owner</td>
+      <td>When enabled, the admin user (configured in the Username field) becomes the owner of created OAuth applications. Enable this if application owner users are not created in the Identity Server side.</td>
+      <td>Optional</td>
+      </tr>
+      <tr class="even">
+      <td>Enable Application Scopes</td>
+      <td>This enables application-level scopes for OAuth applications. When enabled, scopes can be configured at the application level and granted during token requests in the client credentials grant type.</td>
+      <td>Optional</td>
+      </tr>
+      <tr class="odd">
       <td><b>Token Validation Method</b></td>
       <td>The method used to validate the JWT signature.</td>
       <td>Optional</td>
