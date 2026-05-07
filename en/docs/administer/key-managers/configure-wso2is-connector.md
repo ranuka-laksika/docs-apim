@@ -330,6 +330,31 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component:
       </tbody>
       </table>
 
+## Additional OAuth application configurations
+
+When configuring WSO2 Identity Server as a Key Manager, you may need to enable the following OAuth application configurations in the Admin Portal based on your deployment requirements:
+
+### Enable admin user as the owner of created OAuth applications
+
+This configuration needs to be enabled if the application owner users are not created in the Identity Server. When enabled, the admin user becomes the owner of OAuth applications created through the Developer Portal.
+
+**When to enable:** Enable this configuration when users who create applications in the API Manager Developer Portal (for example, through self-signup) do not exist as users in the Identity Server. This ensures that OAuth applications can be created successfully even when the application owner user does not exist in the Key Manager.
+
+**How to enable:** In the Admin Portal, navigate to the Key Manager configuration page and enable the **Enable admin user as the owner of created OAuth applications** toggle option in the Advanced Configurations section.
+
+### Enable application scopes for OAuth applications
+
+Application scopes allow you to configure allowed scopes at the application level. When enabled, these scopes can be requested during token generation using the client credentials grant type.
+
+**When to enable:** Enable this configuration if you need to support application-level scopes for your OAuth applications. This is useful when you want to control which scopes are available for specific applications independently of the API subscriptions.
+
+**How to enable:** In the Admin Portal, navigate to the Key Manager configuration page and enable the **Enable application scopes for Oauth applications** toggle option in the Advanced Configurations section.
+
+!!! note
+    Application scopes feature is only supported for Key Managers of type `default` and `WSO2-IS`. For more information about application scopes, see [Application Scopes]({{base_path}}/learn/api-security/oauth2/oauth2-scopes/application-scopes).
+
+---
+
 You can also configure the WSO2 Identity Server as the identity provider. For more information on how to do this, see [Configuring WSO2 Identity Server as an Identity Provider]({{base_path}}/reference/customize-product/extending-api-manager/saml2-sso/configuring-identity-server-as-idp-for-sso/#configuring-wso2-identity-server-as-a-saml-20-sso-identity-provider).
 
 !!! note
