@@ -113,6 +113,11 @@ jobs:
             --allowedTools "Bash(git:*),Bash(mkdir:*),WebFetch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
             --model claude-sonnet-4-5-20250929
 
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.8.0'
+
       - name: Validate MkDocs Build
         id: validate_build
         continue-on-error: true
