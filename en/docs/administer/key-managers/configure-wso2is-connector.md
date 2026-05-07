@@ -92,6 +92,30 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component
     custom_webapps = ["/keymanager-operations/"]
     ```
 
+    !!! note "Additional OAuth application configurations"
+        You can configure the following optional OAuth application settings in the `<IS_HOME>/repository/conf/deployment.toml` file based on your requirements:
+
+        **Enable admin user as the owner of created OAuth applications**
+
+        Add this configuration if application owner users are not created in the Identity Server. When enabled, the admin user becomes the owner of OAuth applications created through the Developer Portal.
+
+        ```toml
+        [oauth.extensions]
+        token_persistence_processor = "org.wso2.carbon.identity.oauth.tokenprocessor.PlainTextPersistenceProcessor"
+        
+        [oauth]
+        enable_admin_as_owner = true
+        ```
+
+        **Enable application scopes for OAuth applications**
+
+        Add this configuration to enable scope management for OAuth applications. This allows fine-grained access control for applications created in the Developer Portal.
+
+        ```toml
+        [oauth]
+        enable_application_scopes = true
+        ```
+
 3. Download the [WSO2 IS Connector]({{base_path}}/assets/attachments/administer/wso2is-extensions-1.7.11.zip).
 
 4. Extract the distribution and copy the following JAR files to the `<IS_HOME>/repository/components/dropins` directory.
