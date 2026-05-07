@@ -108,10 +108,64 @@ jobs:
           anthropic_api_key: ${{ secrets.DOC_FIXING_AGENT_ANTHROPIC_API_KEY }}
           github_token: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
           prompt: ${{ env.SYSTEM_PROMPT }}
-          trigger_phrase: "@wso2-engineering-bot" 
+          trigger_phrase: "@wso2-engineering-bot"
           claude_args: |
-            --allowedTools "Bash(git:*),Bash(pip3 install*),Bash(mkdocs serve*),Bash(mkdocs build*),WebFetch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
+            --allowedTools "Bash(git:*),Bash(mkdir:*),WebFetch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
             --model claude-sonnet-4-5-20250929
+
+      - name: Validate MkDocs Build
+        id: validate_build
+        continue-on-error: true
+        run: |
+          # This step validates Claude's changes by building the docs
+          # The working directory contains all edits made by Claude in the previous step
+
+          # Debug: Show current directory and structure
+          echo "📍 Current directory: $(pwd)"
+          echo "📂 Directory contents:"
+          ls -la
+
+          # Show git status to see Claude's changes
+          echo "📝 Git status (Claude's changes):"
+          git status --short
+
+          # Install Python dependencies from requirements.txt
+          python3 -m pip install --upgrade pip
+
+          # Navigate to en directory where mkdocs.yml is located
+          cd en
+          echo "📍 After cd en: $(pwd)"
+          echo "📂 Contents of en/:"
+          ls -la | head -20
+
+          pip3 install -r requirements.txt
+
+          # Try to build the documentation
+          echo "Building MkDocs documentation..."
+          if python3 -m mkdocs build --strict; then
+            echo "build_status=success" >> $GITHUB_OUTPUT
+            echo "✅ MkDocs build successful"
+          else
+            echo "build_status=failed" >> $GITHUB_OUTPUT
+            echo "❌ MkDocs build failed"
+            exit 1
+          fi
+
+      - name: Comment on build failure
+        if: steps.validate_build.outputs.build_status == 'failed'
+        env:
+          GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "⚠️ **MkDocs Build Failed**
+
+          The documentation changes could not be built successfully. Please check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+
+          Common issues:
+          - Broken markdown syntax
+          - Invalid links
+          - Missing required front matter
+
+          The PR may have been created, but the documentation will not render correctly."
 
       - name: Get next queued issue
         id: get_next_queued
