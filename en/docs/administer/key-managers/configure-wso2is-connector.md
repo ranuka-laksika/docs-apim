@@ -81,7 +81,18 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component:
 
     [tenant_context.rewrite]
     custom_webapps = ["/keymanager-operations/"]
+
+    [oauth.applications]
+    enable_application_owner_validation = false
+    enable_application_scopes = true
     ```
+
+    !!! note
+        The following OAuth application configurations are important when using WSO2 IS as a Key Manager:
+        
+        - **enable_application_owner_validation** - When set to `false`, this configuration allows the admin user to become the owner of OAuth applications created through the Developer Portal. This is necessary when application owner users (created through self-signup in the Developer Portal) do not exist in the Identity Server's user store. By default, WSO2 IS validates whether the application owner exists before creating OAuth applications. Disabling this validation allows OAuth application creation to proceed with the admin user as the owner.
+        
+        - **enable_application_scopes** - When set to `true`, this configuration enables application-level scope management for OAuth applications. This allows applications to define and request specific scopes during OAuth token generation.
 
 3. Download the [WSO2 IS Connector]({{base_path}}/assets/attachments/administer/wso2is-extensions-1.4.2.zip).
 
