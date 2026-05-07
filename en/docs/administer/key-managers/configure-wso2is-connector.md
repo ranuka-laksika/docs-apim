@@ -92,6 +92,25 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component
     custom_webapps = ["/keymanager-operations/"]
     ```
 
+    !!! note
+        **Additional OAuth configurations**
+        
+        If you are using self-signup users from the Developer Portal to generate OAuth keys, you need to enable the following configurations in the `<IS_HOME>/repository/conf/deployment.toml` file:
+        
+        - **Enable admin user as the owner of created OAuth applications** - This configuration is required when the application owner users are not created in the Identity Server side. When enabled, the admin user becomes the owner of OAuth applications created through dynamic client registration.
+        
+        ```toml
+        [oauth.app_owner]
+        enable_admin_user_as_owner = true
+        ```
+        
+        - **Enable application scopes for OAuth applications** - This configuration enables the use of application-specific scopes for OAuth applications.
+        
+        ```toml
+        [oauth]
+        enable_application_scopes = true
+        ```
+
 3. Download the [WSO2 IS Connector]({{base_path}}/assets/attachments/administer/wso2is-extensions-1.7.8.zip).
 
 4. Extract the distribution and copy the following JAR files to the `<IS_HOME>/repository/components/dropins` directory.
