@@ -337,3 +337,22 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component:
       </table>
 
 You can also configure the WSO2 Identity Server as the identity provider. For more information on how to do this, see [Configuring WSO2 Identity Server as an Identity Provider]({{base_path}}/reference/customize-product/extending-api-manager/saml2-sso/configuring-identity-server-as-idp-for-sso/#configuring-wso2-identity-server-as-a-saml-20-sso-identity-provider).
+
+## Identity provider cache configuration
+
+When you deploy WSO2 API Manager with WSO2 Identity Server using shared databases, changes made to Identity Provider (IDP) configurations in one system might take time to reflect in the other system. This delay occurs due to the IDP cache configuration in WSO2 Identity Server.
+
+For example, if you add a new role mapping in the IDP configuration through the API Manager Management Console, the same configuration appears in the Identity Server Management Console after the cache timeout period (default is 15 minutes). Similarly, changes made in the Identity Server Management Console take the same amount of time to reflect in API Manager.
+
+This cache behavior is controlled by the following configuration in the WSO2 Identity Server `deployment.toml` file:
+
+```toml
+[cache.idp_cache_by_name]
+enable = true
+timeout = "900"
+capacity = "5000"
+```
+
+The `timeout` value is specified in seconds. The default value of `900` seconds equals 15 minutes.
+
+For detailed information about cache layer configurations in WSO2 Identity Server, including the Identity Application Management cache layer, see the [WSO2 Identity Server documentation on cache configuration](https://is.docs.wso2.com/en/6.1.0/deploy/performance/configure-cache-layers/#identity-application-management-cache-layer).
