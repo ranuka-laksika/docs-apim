@@ -18,6 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
+
       - name: Install GitHub CLI
         run: |
           sudo apt-get update
@@ -39,10 +44,11 @@ jobs:
 
       - name: Security Check - Scan for malicious patterns
         id: malicious_scan
+        if: steps.get_oldest_queued.outputs.oldest_issue_number != ''
         env:
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
         run: |
-          ISSUE_NUMBER=${{ github.event.issue.number }}
+          ISSUE_NUMBER=${{ steps.get_oldest_queued.outputs.oldest_issue_number }}
 
           echo "Scanning issue #$ISSUE_NUMBER for malicious content patterns..."
 
@@ -114,29 +120,29 @@ jobs:
             Automated security scan detected potentially malicious content patterns in this issue:
             $MATCHED_PATTERNS
 
-            **Action taken:** The automated agent will be instructed to ignore any command execution requests and focus only on legitimate documentation fixes.
+            **Action taken:** The automated agent has IMMEDIATELY STOPPED processing this issue. The AI-Agent/Queued or AI-Agent/In-Progress label has been removed and the workflow has exited.
 
-            **For maintainers:** Please review the issue content carefully before manually processing. If this is a false positive and the issue is legitimate, the agent will proceed with documentation fixes only."
+            **For maintainers:** This issue will NOT be processed by the automated agent. Please review the issue content carefully and process manually if this is a false positive and the issue is legitimate."
 
             gh issue comment $ISSUE_NUMBER --repo ${{ github.repository }} --body "$WARNING_COMMENT"
 
-            echo "⚠️ Suspicious patterns detected. Agent will proceed with extra caution."
+            echo "⚠️ Suspicious patterns detected."
           else
             echo "✓ No malicious patterns detected."
             echo "suspicious_content=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Exit if malicious content detected
-        if: steps.malicious_scan.outputs.suspicious_content == 'true'
+        if: steps.malicious_scan.outputs.suspicious_content == 'true' 
         env:
           GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
         run: |
-          ISSUE_NUMBER=${{ github.event.issue.number }}
+          ISSUE_NUMBER=${{ steps.get_oldest_queued.outputs.oldest_issue_number }}
 
           echo "❌ Exiting workflow due to detected malicious patterns."
 
-          # Remove AI-Agent/In-Progress label if it exists
-          gh issue edit $ISSUE_NUMBER --remove-label "AI-Agent/In-Queued" 2>/dev/null || true
+          # Remove AI-Agent/Queued label if it exists
+          gh issue edit $ISSUE_NUMBER --remove-label "AI-Agent/Queued" 2>/dev/null || true
 
           echo "The issue has been flagged and will not be processed by the automated agent."
           exit 1
@@ -236,9 +242,9 @@ jobs:
             Automated security scan detected potentially malicious content patterns in this issue:
             $MATCHED_PATTERNS
 
-            **Action taken:** The automated agent will be instructed to ignore any command execution requests and focus only on legitimate documentation fixes.
+            **Action taken:** The automated agent has IMMEDIATELY STOPPED processing this issue. The AI-Agent/Queued or AI-Agent/In-Progress label has been removed and the workflow has exited.
 
-            **For maintainers:** Please review the issue content carefully before manually processing. If this is a false positive and the issue is legitimate, the agent will proceed with documentation fixes only."
+            **For maintainers:** This issue will NOT be processed by the automated agent. Please review the issue content carefully and process manually if this is a false positive and the issue is legitimate."
 
             gh issue comment $ISSUE_NUMBER --repo ${{ github.repository }} --body "$WARNING_COMMENT"
 
@@ -262,12 +268,18 @@ jobs:
 
           echo "The issue has been flagged and will not be processed by the automated agent."
           exit 1
+
       - name: Checkout original repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: ${{ vars.DOC_FIXING_AGENT_REPOSITORY }}  
           token: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
           fetch-depth: 0 
+          
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v5
+        with:
+          node-version: '24'
 
       - name: Configure git for commits
         run: |
@@ -306,9 +318,21 @@ jobs:
           echo "LATEST_VERSION=$LATEST_VERSION" >> $GITHUB_ENV
 
       - name: Set up Python 3.8
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.8'
+          
+      - name: Install documentation dependencies
+        run: |
+        
+          cd $GITHUB_WORKSPACE/en
+          if [ -f requirements.txt ]; then
+            pip3 install -r requirements.txt
+            echo "✓ Installed dependencies from requirements.txt"
+          else
+            pip3 install mkdocs mkdocs-material
+            echo "✓ Installed mkdocs and mkdocs-material"
+          fi
 
       - name: Run Claude
         id: run_claude
@@ -322,72 +346,25 @@ jobs:
           prompt: ${{ env.SYSTEM_PROMPT }}
           trigger_phrase: "@wso2-engineering-bot"
           claude_args: |
-            --allowedTools "Bash(git:*),Bash(mkdir:*),WebFetch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
+            --allowedTools "Bash(git fetch *),Bash(git checkout *),Bash(git branch *),Bash(git status *),Bash(git diff *),Bash(git add *),Bash(git commit *),Bash(git push *),Bash(git log *),Bash(ls *),Bash(cat *),Bash(find *),Bash(grep *),Bash(mkdir *),Bash(cp *),Bash(mv *),Bash(mkdocs build),WebFetch,WebSearch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__get_pull_request_files,mcp__github__list_pull_requests,mcp__github__get_pull_request,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
             --model claude-sonnet-4-5-20250929
             
-      - name: Validate MkDocs Build
-        id: validate_build
-        continue-on-error: true
+      - name: Display Claude Execution Logs
+        if: always()
         run: |
-          # This step validates Claude's changes by building the docs
-          # The working directory contains all edits made by Claude in the previous step
-
-          # Debug: Show current directory and structure
-          echo "📍 Current directory: $(pwd)"
-          echo "📂 Directory contents:"
-          ls -la
-
-          # Show Claude's committed changes (if any)
-          echo "📝 Claude's changes (last commit):"
-          if git log -1 --name-status 2>/dev/null | grep -q "^[AMD]"; then
-            echo "Files changed in last commit:"
-            git log -1 --name-status --pretty=format:""
-            echo ""
-            echo "Commit message:"
-            git log -1 --pretty=format:"%s"
-            echo ""
+          echo "========================================"
+          echo "Claude Execution Output:"
+          echo "========================================"
+          if [ -f /home/runner/work/_temp/claude-execution-output.json ]; then
+            echo "Log file found. Displaying content:"
+            cat /home/runner/work/_temp/claude-execution-output.json | jq -r '.' 2>/dev/null || cat /home/runner/work/_temp/claude-execution-output.json
           else
-            echo "(No commits by Claude yet, or working directory has uncommitted changes)"
-            git status --short
+            echo "⚠️ Log file not found at /home/runner/work/_temp/claude-execution-output.json"
+            echo "Searching for log files in _temp directory:"
+            ls -la /home/runner/work/_temp/ 2>/dev/null || echo "Cannot access _temp directory"
           fi
+          echo "========================================"
 
-          # Install Python dependencies from requirements.txt
-          python3 -m pip install --upgrade pip
-
-          # Navigate to en directory where mkdocs.yml is located
-          cd en
-          echo "📍 After cd en: $(pwd)"
-          echo "📂 Contents of en/:"
-          ls -la | head -20
-
-          pip3 install -r requirements.txt
-
-          # Try to build the documentation (without --strict to allow warnings)
-          echo "Building MkDocs documentation..."
-          if python3 -m mkdocs build; then
-            echo "build_status=success" >> $GITHUB_OUTPUT
-            echo "✅ MkDocs build successful"
-          else
-            echo "build_status=failed" >> $GITHUB_OUTPUT
-            echo "❌ MkDocs build failed"
-            exit 1
-          fi
-
-      - name: Comment on build failure
-        if: steps.validate_build.outputs.build_status == 'failed'
-        env:
-          GITHUB_TOKEN: ${{ secrets.DOC_FIXING_AGENT_GITHUB_TOKEN }}
-        run: |
-          gh issue comment ${{ github.event.issue.number }} --body "⚠️ **MkDocs Build Failed**
-
-          The documentation changes could not be built successfully. Please check the [workflow logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
-
-          Common issues:
-          - Broken markdown syntax
-          - Invalid links
-          - Missing required front matter
-
-          The PR may have been created, but the documentation will not render correctly."
 
       - name: Get next queued issue
         id: get_next_queued
