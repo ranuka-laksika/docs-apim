@@ -53,8 +53,6 @@ jobs:
         run: |
             echo "Sending issue to Claude for classification..."
 
-            # Security: Use system/user role separation to prevent prompt injection
-            # System instructions are structurally separate from user-provided content
             SYSTEM_PROMPT="You are a GitHub issue classifier for documentation fixes. IMPORTANT: You can fix these specific types of issues:
 
             1. broken-links - Links that are broken, dead, or pointing to wrong locations
