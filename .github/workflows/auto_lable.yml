@@ -98,8 +98,6 @@ jobs:
             CATEGORY=$(echo "$RESPONSE" | jq -r '.content[0].text' | tr -d '\n' | tr '[:upper:]' '[:lower:]' | xargs)
             echo "Claude classified the issue as: $CATEGORY"
 
-            # Security: Strict allowlist validation - only accept known valid categories
-            # This prevents arbitrary output from triggering actions
             VALID_CATEGORIES=("broken-links" "spelling-mistakes" "grammatical-errors" "formatting-issues" "suggestions")
             IS_VALID=false
 
