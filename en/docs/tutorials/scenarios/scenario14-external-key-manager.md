@@ -18,7 +18,7 @@ For this scenario, we assume Railco has Keycloak IDP as their internal identity 
 
 Detailed steps on how to configure Keycloak can be found in [WSO2 Documentation]({{base_path}}/administer/key-managers/configure-keycloak-connector/). Additionally, you could refer to the screencast done on this in [here](https://www.youtube.com/watch?v=xuZ6DPhXNX8). Following are the simplified steps for this setup.
 
-1. Download Keycloak Server from [https://www.keycloak.org/downloads](https://www.keycloak.org/downloads). At the time of writing this tutorial, keycloak 12.0.4 was used for this.
+1. Download Keycloak Server from [https://www.keycloak.org/downloads](https://www.keycloak.org/downloads). Use a current stable version (Keycloak 24.x or later is recommended).
 2. Extract it to your local setup and navigate to `<keycloak>/bin` and run `./standalone.sh` to start the server.
 3. Go To `http://localhost:8080/`. If this is the first time, create an initial admin user from the form given in this page.
 4. Run the following command. Replace admin username and password. This will run a script on keycloak to generate application on keycloak.
