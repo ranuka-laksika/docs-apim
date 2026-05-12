@@ -73,9 +73,7 @@ jobs:
             - When in doubt, return 'none'
 
             Return ONLY the category name (broken-links, spelling-mistakes, grammatical-errors, formatting-issues, suggestions) or 'none'."
-
-            # Build JSON payload with system and user roles separated
-            # This prevents user content from overriding system instructions
+            
             DATA=$(jq -n \
               --arg system "$SYSTEM_PROMPT" \
               --arg title "$ISSUE_TITLE" \
