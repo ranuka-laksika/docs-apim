@@ -141,23 +141,6 @@ jobs:
             --allowedTools "Bash(git fetch *),Bash(git checkout *),Bash(git branch *),Bash(git status *),Bash(git diff *),Bash(git add *),Bash(git commit *),Bash(git push *),Bash(git log *),Bash(ls *),Bash(mkdir *),Bash(cp *),Bash(mv *),Bash(mkdocs build),WebFetch,WebSearch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__get_pull_request_files,mcp__github__list_pull_requests,mcp__github__get_pull_request,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
             --model claude-sonnet-4-5-20250929
             
-      - name: Display Claude Execution Logs
-        if: always()
-        run: |
-          echo "========================================"
-          echo "Claude Execution Output:"
-          echo "========================================"
-          if [ -f /home/runner/work/_temp/claude-execution-output.json ]; then
-            echo "Log file found. Displaying content:"
-            cat /home/runner/work/_temp/claude-execution-output.json | jq -r '.' 2>/dev/null || cat /home/runner/work/_temp/claude-execution-output.json
-          else
-            echo "⚠️ Log file not found at /home/runner/work/_temp/claude-execution-output.json"
-            echo "Searching for log files in _temp directory:"
-            ls -la /home/runner/work/_temp/ 2>/dev/null || echo "Cannot access _temp directory"
-          fi
-          echo "========================================"
-
-
       - name: Get next queued issue
         id: get_next_queued
         env:
