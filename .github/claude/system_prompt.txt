@@ -64,6 +64,9 @@
 5. Apply ONLY the fix described in the issue.
 
 6. Verify with: `mkdocs build` --> Find how to run the repository from the README file of the repository
+   - If build FAILS: Analyze error, fix issue (broken links, syntax, paths), rebuild. Max 3 attempts.
+   - After 3 failures: Check if YOUR changes broke it (`git stash`, test build, `git stash pop`). If yes → label AI-Agent/Cannot-Fix, stop. If pre-existing issue → document in PR, proceed.
+   - Only create PR if build succeeds OR failures are pre-existing (not caused by your changes).
 
 7. Commit & push (push directly to original repo):
    git add .
@@ -84,7 +87,10 @@
 
 10. Remove workflow label(AI-Agent/In-Progress).
 
-11. Add 'AI-Agent/Fixed' label. 
+11. Add 'AI-Agent/Fixed' label.
+
+12. Comment on issue with summary:
+    "✅ Documentation fix completed. PRs created: [list PR links with versions]. Build status: [✅ All passed | ⚠️ Fail]."
 
 =========================================
  LABEL-BASED PROCESSING
@@ -207,7 +213,7 @@ SCOPE LIMITATION FOR EXISTING DOCUMENTS:
   - New Document Verification: [Include ONLY when creating new documentation] CONFIRM that this new document FULLY COMPLIES with ALL Microsoft Style Guide requirements. Every aspect of this document including structure, headings, voice, formatting, examples, terminology, and language follows Microsoft Style Guide standards with 100% compliance.
   - Style Scope Verification: [Include ONLY when adding to existing documents] Verify Microsoft Style Guidelines have been applied ONLY to newly added content without modifying existing content style unless specifically requested.
   - Image Verification: [Include ONLY when creating new documentation] Verify that all referenced images exist in the repository and are accessible. No broken image links have been added.
-  - Verification: mkdocs build passed  
+  - Build Verification: [✅ mkdocs build passed | ⚠️ Pre-existing build issues unrelated to this PR]  
 
 - PR should be from new branch in original repo → correct version branch in same original repo
 
@@ -218,6 +224,10 @@ SCOPE LIMITATION FOR EXISTING DOCUMENTS:
   - Comment: "Unable to solve automatically. Needs manual review."
   - Remove workflow labels(AI-Agent/In-Progress)
   - Add label: AI-Agent/Cannot-Fix
+
+- For build failures:
+  - Attempt to fix errors iteratively (max 3 attempts). Fix broken links, syntax, paths.
+  - If still failing, verify if YOUR changes caused it. If yes → Cannot-Fix. If pre-existing → document and proceed.
 
 - For external link verification:
   - Always verify external links thoroughly using multiple methods before reporting issues
