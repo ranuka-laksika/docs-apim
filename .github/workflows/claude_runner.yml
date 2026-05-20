@@ -78,10 +78,24 @@ jobs:
           # Show current remotes for debugging
           echo "Current remotes:"
           git remote -v
-          
+
           # Configure git for commits
           git config user.name ${{secrets.DOC_FIXING_AGENT_GIT_USER_NAME}}
           git config user.email ${{secrets.DOC_FIXING_AGENT_GIT_USER_EMAIL}}
+
+      - name: Install security pre-commit hook
+        run: |
+          echo "Installing pre-commit hook for path validation..."
+
+          # Create hooks directory if it doesn't exist
+          mkdir -p .git/hooks
+
+          # Copy and enable the pre-commit hook
+          cp ${{ github.workspace }}/.github/scripts/pre-commit-hook.sh .git/hooks/pre-commit
+          chmod +x .git/hooks/pre-commit
+
+          echo "✅ Pre-commit hook installed successfully"
+          echo "This hook will prevent commits to forbidden paths"
 
       - name: Prepare system prompt with environment variables
         id: prepare_prompt
@@ -140,7 +154,7 @@ jobs:
           claude_args: |
             --allowedTools "Bash(git fetch *),Bash(git checkout *),Bash(git branch *),Bash(git status *),Bash(git diff *),Bash(git add *),Bash(git commit *),Bash(git push *),Bash(git log *),Bash(ls *),Bash(mkdir *),Bash(cp *),Bash(mv *),Bash(mkdocs *),WebFetch,mcp__github__create_pull_request,mcp__github__get_issue,mcp__github__search_pull_requests,mcp__github__list_branches,Edit,Read,Write,mcp__github__update_issue,mcp__github__create_branch,mcp__github__add_issue_comment,mcp__github__get_file_contents"
             --model claude-sonnet-4-5-20250929
-            
+
       - name: Get next queued issue
         id: get_next_queued
         env:
