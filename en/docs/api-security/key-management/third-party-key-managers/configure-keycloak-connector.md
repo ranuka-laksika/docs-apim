@@ -117,7 +117,7 @@ Follow the instructions given below to configure Keycloak as a third-party Key M
             <td>Issuer</td>
             <td>The issuer that consumes or validates the access tokens
             </br> e.g., https://localhost:8443/realms/master</br>
-               http://localhost:8080/realm</td>
+               http://localhost:8080/realms/master</td>
           <td>Mandatory</td>
           </tr>
           <tr class="odd">
