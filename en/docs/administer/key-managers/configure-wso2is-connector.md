@@ -19,6 +19,9 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component:
 2. Add following configurations in the `<IS_HOME>/repository/conf/deployment.toml` file.
 
     ```toml
+    [oauth]
+    authorize_all_scopes = true
+
     [[event_listener]]
     id = "token_revocation"
     type = "org.wso2.carbon.identity.core.handler.AbstractIdentityHandler"
@@ -82,6 +85,11 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component:
     [tenant_context.rewrite]
     custom_webapps = ["/keymanager-operations/"]
     ```
+
+    !!! note "Important OAuth configurations"
+        The `authorize_all_scopes = true` configuration enables application scopes for OAuth applications. This setting allows OAuth applications to request and use scopes for fine-grained access control.
+
+        **For self-signup users:** If your application users are created through self-signup in API Manager and do not exist in Identity Server, you need to enable the admin user as the owner of created OAuth applications. This ensures that OAuth application creation succeeds even when the application owner user does not exist in the Identity Server user store. This configuration should be added in the `[oauth]` or `[oauth.dcr]` section of the deployment.toml file.
 
 3. Download the [WSO2 IS Connector]({{base_path}}/assets/attachments/administer/wso2is-extensions-1.4.2.zip).
 
