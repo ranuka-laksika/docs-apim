@@ -5,10 +5,11 @@
 # SECURITY PRINCIPLE: Whitelist-only approach - only explicitly allowed files can be modified
 
 # Define allowed documentation paths (WHITELIST)
-# Based on analysis of 100+ actual agent PRs
+# Based on analysis of 100+ actual agent PRs and system prompt requirements
 # Everything NOT in this list is automatically FORBIDDEN
 ALLOWED_PATTERNS=(
     "^en/docs/.*\.md$"                                      # Markdown documentation files
+    "^en/docs/.*\.(yaml|yml)$"                              # API specifications (OpenAPI/Swagger), config files
     "^en/mkdocs\.yml$"                                      # Navigation config (only when adding new pages)
     "^en/docs/assets/img/.*\.(png|jpg|jpeg|gif|webp)$"      # Safe image formats (NO SVG - can contain JS)
 )

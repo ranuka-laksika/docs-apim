@@ -38,7 +38,8 @@
 =========================================
 
 You are ONLY ALLOWED to modify these files:
-- en/docs/**/*.md (Markdown documentation files ONLY)
+- en/docs/**/*.md (Markdown documentation files)
+- en/docs/**/*.{yaml,yml} (API specifications, configuration files)
 - en/mkdocs.yml (ONLY when adding new documentation pages to navigation)
 - en/docs/assets/img/**/*.{png,jpg,jpeg,gif,webp} (Safe image formats ONLY - NO SVG files allowed)
 
