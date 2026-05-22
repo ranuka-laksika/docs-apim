@@ -354,3 +354,26 @@ Follow the steps given below to configure WSO2 IS as a Key Manager component
       </table>
 
 You can also configure the WSO2 Identity Server as the identity provider. For more information on how to do this, see [Configuring WSO2 Identity Server as an Identity Provider]({{base_path}}/reference/customize-product/extending-api-manager/saml2-sso/configuring-identity-server-as-idp-for-sso/#configuring-wso2-identity-server-as-a-saml-20-sso-identity-provider).
+
+## Identity Provider cache configurations
+
+When you deploy WSO2 API Manager with WSO2 Identity Server as the Key Manager using shared databases, Identity Provider (IDP) configuration changes made in one server are reflected in the other server after the cache timeout period. This behavior is controlled by the IDP cache layer configurations in WSO2 Identity Server.
+
+The IDP cache by name configuration controls how long IDP configurations are cached before being refreshed from the database. The default configuration is as follows:
+
+```toml
+[cache.idp_cache_by_name]
+enable = true
+timeout = "900"
+capacity = "5000"
+```
+
+**Configuration parameters:**
+
+- **enable** - Set to `true` to enable IDP caching.
+- **timeout** - Cache timeout period in seconds. The default value is `900` seconds (15 minutes).
+- **capacity** - Maximum number of cache entries. The default value is `5000`.
+
+When you make changes to IDP configurations (such as role mappings) in the APIM carbon portal, the changes are reflected in the IS carbon portal after the cache timeout period expires, and vice versa. To adjust this synchronization delay, modify the `timeout` value in the `<IS_HOME>/repository/conf/deployment.toml` file.
+
+For more information about configuring cache layers in WSO2 Identity Server, see [Configure cache layers](https://is.docs.wso2.com/en/6.1.0/deploy/performance/configure-cache-layers/#identity-application-management-cache-layer) in the WSO2 Identity Server documentation.
