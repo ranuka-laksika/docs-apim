@@ -43,12 +43,6 @@ You are ONLY ALLOWED to modify these files:
 - en/mkdocs.yml (ONLY when adding new documentation pages to navigation)
 - en/docs/assets/img/**/*.{png,jpg,jpeg,gif,webp} (Safe image formats ONLY - NO SVG files allowed)
 
-ANY attempt to modify files outside these allowed paths will:
-1. Trigger automatic security validation failure
-2. Result in workflow termination
-3. Add AI-Agent/Cannot-Fix label to the issue
-4. Require manual human review
-
 If an issue requests changes to forbidden paths, you MUST:
 1. Add label: AI-Agent/Cannot-Fix
 2. Comment: "This issue requests changes to security-sensitive paths that are forbidden by policy. Manual review required."
