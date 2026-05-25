@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Pre-commit hook to enforce file modification whitelist
-# This runs BEFORE git commit completes, blocking commits with unauthorized files
-# SECURITY PRINCIPLE: Whitelist-only approach - only explicitly allowed files can be modified
-
-# Define allowed documentation paths (WHITELIST)
-# Based on analysis of 100+ actual agent PRs and system prompt requirements
-# Everything NOT in this list is automatically FORBIDDEN
 ALLOWED_PATTERNS=(
     "^en/docs/.*\.md$"                                      # Markdown documentation files
     "^en/docs/.*\.(yaml|yml)$"                              # API specifications (OpenAPI/Swagger), config files
