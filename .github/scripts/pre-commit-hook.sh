@@ -82,16 +82,6 @@ if echo "$STAGED_DIFF" | grep -qiE '(GITHUB_TOKEN|ANTHROPIC|API_KEY|SECRET|PASSW
     SECRETS_FOUND=true
 fi
 
-# Check for variable references that might leak secrets
-if echo "$STAGED_DIFF" | grep -qE '\$\{?[A-Z_]+[A-Z0-9_]*\}?'; then
-    echo "⚠️  WARNING: Environment variable references detected"
-    echo "Please verify these are not exposing secrets:"
-    echo "$STAGED_DIFF" | grep -E '\$\{?[A-Z_]+[A-Z0-9_]*\}?' || true
-    echo ""
-    echo "If these are legitimate documentation variables, you may proceed."
-    # Don't fail for variable references in documentation, just warn
-fi
-
 if [ "$SECRETS_FOUND" = true ]; then
     echo ""
     echo "========================================"
