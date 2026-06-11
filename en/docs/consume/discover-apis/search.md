@@ -26,6 +26,7 @@ of the API and search.</p>
 <tr class="odd">
 <td>By the API's name</td>
 <td><p><strong>name:xxxx</strong> . For example, name:PizzaShackAPI</p>
+<p>For API names with hyphens or spaces, enclose the name in double quotes. For example, name:"Pizza-Shack-API" or name:"Pizza Shack API".</p>
 <p>Name is the API name.</p></td>
 </tr>
 <tr class="even">
