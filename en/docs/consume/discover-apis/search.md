@@ -27,7 +27,8 @@ You can search for APIs in the API Publisher or Developer Portal in the followin
 <tr class="odd">
 <td>By the API's name</td>
 <td><p><strong>name:xxxx</strong> . For example, name:PizzaShackAPI</p>
-<p>Name is the API name.</p></td>
+<p>Name is the API name.</p>
+<p><strong>Note:</strong> Use double quotes to search for API names that contain hyphens or spaces. For example, <code>name:"Pizza-Shack API"</code>.</p></td>
 </tr>
 <tr class="even">
 <td>By the API provider</td>
