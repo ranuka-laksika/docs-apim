@@ -274,7 +274,7 @@ To set up this implementation, do the following.
             <repository>
                 <id>wso2-nexus</id>
                 <name>WSO2 internal Repository</name>
-                <url>http://maven.wso2.org/nexus/content/groups/wso2-public/</url>
+                <url>https://maven.wso2.org/nexus/content/groups/wso2-public/</url>
                 <releases>
                     <enabled>true</enabled>
                     <updatePolicy>daily</updatePolicy>
