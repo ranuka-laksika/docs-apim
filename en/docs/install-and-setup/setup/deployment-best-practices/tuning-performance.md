@@ -420,6 +420,38 @@ The registry indexing process, which indexes the APIs in the Registry, is only r
 enable = false
 ```
 
+### Cache configurations for Identity Provider (IDP)
+
+When you use WSO2 API Manager with WSO2 Identity Server in a shared database configuration, changes to Identity Provider (IDP) configurations can take time to reflect across different carbon portals. This delay occurs due to the IDP cache configuration.
+
+The IDP cache stores IDP configurations by name and uses a timeout period before refreshing the cached data. During this timeout period, any changes made to IDP configurations in one carbon portal (for example, APIM) will only be reflected in another portal (for example, IS Key Manager) after the cache timeout expires.
+
+**Configuration**
+
+The IDP cache is configured in the `<APIM_HOME>/repository/conf/deployment.toml` file (or `<IS_HOME>/repository/conf/deployment.toml` if you use WSO2 IS as the Key Manager) with the following parameters:
+
+```toml
+[cache.idp_cache_by_name]
+enable = true
+timeout = "900"
+capacity = "5000"
+```
+
+**Parameters**
+
+- `enable`: Set to `true` to enable the IDP cache or `false` to disable it.
+- `timeout`: The cache timeout period in seconds. The default value is 900 seconds (15 minutes). After this period, the cache refreshes and reflects the configuration changes.
+- `capacity`: The maximum number of IDP configurations that can be cached. The default value is 5000.
+
+**Impact**
+
+With the default timeout of 900 seconds, when you add or modify IDP configurations (such as role mappings) in one carbon portal, the changes will be reflected in other portals after 15 minutes. If you need faster synchronization, you can reduce the timeout value. However, note that a lower timeout value may impact performance due to more frequent cache refreshes.
+
+For more information about cache layer configurations, see the [WSO2 Identity Server documentation](https://is.docs.wso2.com/en/latest/deploy/performance/configure-cache-layers/#identity-application-management-cache-layer).
+
+!!! note
+    This cache configuration applies when you use shared databases between WSO2 API Manager and WSO2 Identity Server. For information about configuring WSO2 IS as a Key Manager, see [Configure WSO2 IS as a Key Manager]({{base_path}}/administer/key-managers/configure-wso2is-connector/).
+
 ### Optimizing database indexing for case-sensitive and case-insensitive user stores
 
 One key aspect of performance optimization is database indexing. While API Manager includes essential database indexes in its default database scripts, certain scenarios may require additional indexing. Database Administrators (DBAs) are responsible for implementing these additional indexes to ensure optimal performance.
