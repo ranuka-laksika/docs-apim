@@ -1,8 +1,8 @@
 name: Claude Code • Auto Label Issues
 
-on:
-  issues:
-    types: [opened, edited]
+# on:
+#   issues:
+#     types: [opened, edited]
 
 jobs:
   auto-label:
